@@ -1,0 +1,11 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto+Condensed&subset=cyrillic';
+
+*{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+body .MainMenu > li > a{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
