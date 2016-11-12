@@ -20,7 +20,7 @@
 
         $DB = db_connect();
         if($_GET['page'] == "my"){
-
+            echo "";
         }
         elseif($_GET['page'] == "group"){
             echo"<script type='text/javascript'>
