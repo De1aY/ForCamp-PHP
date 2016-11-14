@@ -1,9 +1,10 @@
 <?php
+    header("Content-Type: text/html; charset=utf-8");
     require_once 'database.php';
     
     session_start();
     $DB = db_connect();
-    $Data=$_GET;
+    $Data=$_POST;
     $Login =$Data['login'];
     $Password =md5($Data['password']);
     if(mysqli_fetch_assoc($DB->query("SELECT COUNT('Name') FROM `tutor` WHERE `Login`='".$DB->real_escape_string($Login)."' AND `Password`='".$DB->real_escape_string($Password)."'"))["COUNT('Name')"] == 1){
@@ -12,7 +13,7 @@
         echo $Token;
     }
     else{
-        echo "error";
+        echo "ERROR";
     }
     $DB->close();
 ?>
