@@ -4,7 +4,7 @@
     $DB = db_connect();
     $Names = array("Никита", "Андрей", "Саша", "Женя", "Тимур", "Алексей", "Тихон", "Булат", "Анатолий", "Эмиль", "Ренат", "Ринат");
     $Surnames = array("Иванов", "Романов", "Румянцев", "Хусаинов", "Юсупов", "Журавлёв", "Хайруллин", "Якупов", "Габдрахманов", "Гиматов", "Шакиров", "Ибрагимов");
-    $ThirdNames = array("Егорович", "Анатольевич", "Чингизович", "Сергеевич", "Андреевич", "Гергиевич", "Тагирович", "Дмитриевич", "Александрович", "Николаевич", "Айратович", "Валерьевич");
+    $ThirdNames = array("Егорович", "Анатольевич", "Чингизович", "Сергеевич", "Андреевич", "Георгиевич", "Тагирович", "Дмитриевич", "Александрович", "Николаевич", "Айратович", "Валерьевич");
     $Squad = rand(1,10);
     $Art = rand(1,10);
     $Sport = rand(1,10);
@@ -18,4 +18,6 @@
     $ID = mysqli_fetch_assoc($DB->query("SELECT `ID` FROM `children` WHERE `Name`='$Name' AND `Surname`='$Surname' AND `ThirdName`='$ThirdName' AND `Study`='$Study' AND `Squad`='$Squad'"))["ID"];
     $User = "user_".$ID;
     $DB->query("UPDATE `children` SET `Login`='$User' WHERE `Name`='$Name' AND `Surname`='$Surname' AND `ThirdName`='$ThirdName' AND `Study`='$Study' AND `Squad`='$Squad'");
+    $DB->close();
+    echo "Вы успешно добавили человека в лагерь!";
 ?>

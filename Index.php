@@ -29,7 +29,7 @@
                 function drawSeriesChart() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Статус', 'Общий балл', 'Средний балл', 'Цвет',     'Population'],
+                    ['Статус', 'Общий балл', 'Средний балл', 'Цвет',     ' '],
                     ['Иванов Иван Иванович',    80.66,              1.67,      '1',    1],
                     ['Иванов Иван Иванович',    79.84,              1.36,      '2',    1],
                     ['Иванов Иван Иванович',    78.6,               1.84,      '3',    1],
@@ -210,7 +210,7 @@
                 function drawSeriesChart() {
 
                 var data = google.visualization.arrayToDataTable([
-                    ['Название отряда', 'Общий балл', 'Средний балл', 'Цвет',     'Population'],
+                    ['Название отряда', 'Общий балл', 'Средний балл', 'Цвет',     'Кол-во человек'],
                     ['Отряд 1',    $Results[0],              $Middle[0],      '1',    $Counts[0]],
                     ['Отряд 2',    $Results[1],              $Middle[1],      '2',    $Counts[1]],
                     ['Отряд 3',    $Results[2],              $Middle[2],      '3',    $Counts[2]],
