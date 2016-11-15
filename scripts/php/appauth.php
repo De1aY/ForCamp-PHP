@@ -9,11 +9,11 @@
     if(mysqli_fetch_assoc($DB->query("SELECT COUNT('Name') FROM `tutor` WHERE `Login`='".$DB->real_escape_string($Login)."' AND `Password`='".$DB->real_escape_string($Password)."'"))["COUNT('Name')"] == 1){
         $Token = session_id();
         $DB->query("UPDATE `tutor` SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($Login)."'");
-        $Output = array("Token" => $Token);
+        $Output = array("status" => "OK","token" => $Token);
         echo json_encode($Output);
     }
     else{
-        $Output = array("ERROR" => 401);  //401 - Login or Password is wrong
+        $Output = array("status" => "ERROR","error" => 401);  //401 - Login or Password is wrong
         echo json_encode($Output);
     }
     $DB->close();
