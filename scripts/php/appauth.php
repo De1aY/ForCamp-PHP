@@ -1,5 +1,4 @@
 <?php
-    header("Content-Type: text/html; charset=utf-8");
     require_once 'database.php';
     
     session_start();
@@ -13,7 +12,7 @@
         echo $Token;
     }
     else{
-        echo "ERROR";
+        echo "401";  //401 - Login or Password is wrong
     }
     $DB->close();
 ?>
