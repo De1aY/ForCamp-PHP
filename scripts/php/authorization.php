@@ -3,13 +3,20 @@
 
     session_start();
     $Authorization = new Authorization();
-    $Authorization->Init($_POST['login'], $_POST['password']);
-    $Validation = $Authorization->UserCheckValidation();
-    if($Validation){
-        $Token = session_id();
-        $Authorization->Success($Token);
+    $Login = $_POST['login'];
+    $Password = $_POST['password']
+    $Init = $Authorization->Init($Login, $Password);
+    if($Init){
+        $Validation = $Authorization->UserCheckValidation();
+        if($Validation){
+            $Token = session_id();
+            $Authorization->Success($Token);
+        }
+        else{
+            $Authorization->Error($Validation);
+        }
     }
     else{
-        $Authorization->Error($Validation);
+        $Authorization->Error($Init);
     }
 ?>

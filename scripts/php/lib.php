@@ -17,9 +17,20 @@
         var $DB;
 
         function Init($UserLogin, $UserPassword){
-            $this->$UserLogin = $UserLogin;
-            $this->$UserPassword = md5($UserPassword);
-            $this->$DB = db_connect();
+            try{
+                $this->$DB = db_connect();
+            }
+            catch(Exception $e){
+                return 500;
+            }
+            try{
+                $this->$UserLogin = $UserLogin;
+                $this->$UserPassword = md5($UserPassword);
+            }
+            catch(Exception $e){
+                return 401;
+            }
+            return TRUE;
         }
 
         function UserCheck(){  // Return 501 if connection failed
@@ -55,7 +66,7 @@
 
         function Success($Token){
             if(UserToken($Token) != 501){
-                $this->$DB->Close();
+                Close();
                 $Array = array("status" => "OK", "token" => $Token);
                 EchoJSON($Array);
             }
@@ -65,9 +76,18 @@
         }
 
         function Error($ErrorCode){
-            $this->$DB->Close();
+            Close();
             $Array = array("status" => "ERROR", "code" => $ErrorCode);
             EchoJSON($Array);
+        }
+
+        function Close(){
+            try{
+                $this->$DB->Close();
+            }
+            catch(Exception $e){
+                return 500;
+            }
         }
     }
 ?>
