@@ -6,7 +6,7 @@
     $Login = $_POST['login'];
     $Password = $_POST['password'];
     $Init = $Authorization->Init($Login, $Password);
-    if($Init){
+    if($Init != 401 or $Init != 500){
         $Validation = $Authorization->UserCheckValidation();
         if($Validation){
             $Token = session_id();
