@@ -45,16 +45,21 @@
 
         function UserToken($Token){
             try{
-                $DB->query("UPDATE ".DB_TUTORS." SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($this->$UserLogin)."'");
+                $DB->query("UPDATE `".DB_TUTORS."` SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($this->$UserLogin)."'");
             }catch{
-                return 501;
+                return 501;  // 501 - Database connection error
             }
         }
 
         function Success($Token){
-            $this->$DB->Close();
-            $Array = array("status" => "OK", "token" => $Token);
-            EchoJSON($Array);
+            if(UserToken($Token) != 501){
+                $this->$DB->Close();
+                $Array = array("status" => "OK", "token" => $Token);
+                EchoJSON($Array);
+            }
+            else{
+                Error(501);
+            }
         }
 
         function Error($ErrorCode){
