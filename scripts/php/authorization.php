@@ -4,8 +4,7 @@
     session_start();
     $Authorization = new Authorization();
     $Authorization->Init($_POST['login'], $_POST['password']);
-    $Validation = $Authorization->UserCheck();
-    echo $Validation;
+    $Validation = $Authorization->UserCheckValidation();
     if($Validation){
         $Token = session_id();
         $Authorization->Success($Token);
