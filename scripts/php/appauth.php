@@ -1,20 +1,15 @@
 <?php
-    require_once 'database.php';
-    
+    require_once 'lib.php';
+
     session_start();
-    $DB = db_connect();
-    $Data=$_POST;
-    $Login =$Data['login'];
-    $Password =md5($Data['password']);
-    if(mysqli_fetch_assoc($DB->query("SELECT COUNT('Name') FROM `tutor` WHERE `Login`='".$DB->real_escape_string($Login)."' AND `Password`='".$DB->real_escape_string($Password)."'"))["COUNT('Name')"] == 1){
+    $Authorization = new Authorization();
+    $Authorization->Init($_POST['login'], $_POST['password']);
+    $Validation = $Authorization->UserCheck();
+    if($Validation){
         $Token = session_id();
-        $DB->query("UPDATE `tutor` SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($Login)."'");
-        $Output = array("status" => "OK","token" => $Token);
-        echo json_encode($Output);
+        $Authorization->Success($Token);
     }
     else{
-        $Output = array("status" => "ERROR","error" => 401);  //401 - Login or Password is wrong
-        echo json_encode($Output);
+        $Authorization->Error($Validation);
     }
-    $DB->close();
 ?>
