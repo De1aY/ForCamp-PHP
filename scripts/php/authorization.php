@@ -4,7 +4,7 @@
     session_start();
     $Authorization = new Authorization();
     $Login = $_POST['login'];
-    $Password = $_POST['password']
+    $Password = $_POST['password'];
     $Init = $Authorization->Init($Login, $Password);
     if($Init){
         $Validation = $Authorization->UserCheckValidation();
