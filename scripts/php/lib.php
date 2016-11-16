@@ -30,7 +30,8 @@
                 .$this->$DB->real_escape_string($this->$UserPassword).
                 "'"))["COUNT('Name')"];
                 return $UserCount;
-            }catch{
+            }
+            catch(Exception $e){
                 return 501;  // 501 - Database connection error
             }
         }
@@ -46,7 +47,8 @@
         function UserToken($Token){
             try{
                 $DB->query("UPDATE `".DB_TUTORS."` SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($this->$UserLogin)."'");
-            }catch{
+            }
+            catch(Exception $e){
                 return 501;  // 501 - Database connection error
             }
         }
