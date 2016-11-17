@@ -35,6 +35,7 @@
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
+        error_log($Result);
         while($Array = mysqli_fetch_array($Result)){
             $ResultArray[] = $Array;
         }
@@ -189,7 +190,7 @@
 
         function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
             $UserGroup = $this->GetUserGroup();
-            if($UserGroup != 600 and $Result != 502){
+            if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
                     case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
                     case 2: $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
@@ -252,6 +253,7 @@
                 }
             }
             catch(Exception $e){
+                error_log("UserToken() 502 error");
                 return 502;  // 502 - Ошибка подключения к базе данных
             }
         }
