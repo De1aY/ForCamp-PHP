@@ -38,7 +38,7 @@
         while($Array = mysqli_fetch_assoc($Result)){
             array_push($ResultArray, $Array);
         }
-        error_log($ResultArray[0]["ID"]);
+        error_log($ResultArray[1]["ID"]);
         return $ResultArray;
     }
 
