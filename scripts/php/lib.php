@@ -35,9 +35,7 @@
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
-        error_log(gettype($Result));
         while($Array = mysqli_fetch_assoc($Result)){
-            error_log($Array["Group"]);
             $ResultArray[] = $Array;
         }
         return $ResultArray;
@@ -194,6 +192,7 @@
 
         function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
             $UserGroup = $this->GetUserGroup();
+            error_log($UserGroup);
             if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
                     case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
