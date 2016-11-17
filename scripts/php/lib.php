@@ -208,7 +208,9 @@
                             return $Result;
                         }
                     }
-                    else: return 401;  // 401 - Неверный логин или пароль
+                    else{
+                        return 401;  // 401 - Неверный логин или пароль
+                    } 
                 }
                 else{
                     return $Result;
