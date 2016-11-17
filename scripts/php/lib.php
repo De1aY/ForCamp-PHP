@@ -166,7 +166,7 @@
                 }
             }
             else{
-                Error($Resp);
+                $this->Error($Resp);
             }
         }
 
@@ -181,7 +181,7 @@
         }
 
         function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
-            $UserGroup = GetUserGroup();
+            $UserGroup = $this->GetUserGroup();
             if($UserGroup != 600 and $Result != 502){
                 switch($UserGroup){
                     case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
@@ -196,9 +196,9 @@
                     if($Result == $this->UserPassword){
                         session_start();
                         $ID = session_id();
-                        $Result = UserToken($UserGroup, $ID);
+                        $Result = $this->UserToken($UserGroup, $ID);
                         if($Result == 200){
-                            Success($ID);
+                            $this->Success($ID);
                             return 200;
                         }
                         else{
@@ -219,16 +219,16 @@
         }
 
         function UserCheckValidation(){
-            switch(UserCheck()){
+            switch($this->UserCheck()){
                 case 200: return 200;  // 200 - OK
                 case 502:
-                    Error(502); 
+                    $this->Error(502); 
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 case 600:
-                    Error(600); 
+                    $this->Error(600); 
                     return 600;  // 600 - Строка пуста
                 default:
-                    Error(401); 
+                    $this->Error(401); 
                     return 401;  // 401 - Неверный логин или пароль
             }
         }
@@ -255,7 +255,7 @@
                 return 200;  // 200 - OK
             }
             else{
-                Error(502);
+                $this->Error(502);
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
             }
         }
