@@ -17,12 +17,12 @@
     function ArrayToString($Array){  // Преобразование массива в строку
         if(isset($Array)){
             if(count($Array) == 1){
-                return $Array[0];
+                return "`".$Array[0]"`";
             }
             else{
                 $Result = "";
                 for($i = 0; $i < count($Array); $i++){
-                    $Result += "`".$Result."`,";    
+                    $Result += "`".$Array[$i]."`,";    
                 }
                 $Result =  substr($Result, 0, strlen($Result)-1);
                 return $Result;
