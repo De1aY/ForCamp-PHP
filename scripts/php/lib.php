@@ -22,7 +22,7 @@
             else{
                 $Result = "";
                 for($i = 0; $i < count($Array); $i++){
-                    $Result += $Result.",";    
+                    $Result += "`".$Result."`,";    
                 }
                 $Result =  substr($Result, 0, strlen($Result)-1);
                 return $Result;
