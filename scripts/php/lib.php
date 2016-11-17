@@ -24,7 +24,7 @@
                 for($i = 0; $i < count($Array); $i++){
                     $Result += $Result.",";    
                 }
-                $Result =  substr($Result, 0, strlen($Result)-2);
+                $Result =  substr($Result, 0, strlen($Result)-1);
                 return $Result;
             }
         }
@@ -122,7 +122,7 @@
         function Update($Table, $SetName, $SetVal, $Where, $Val){
             if(isset($SetVal) and isset($SetName)){
                 try{
-                    $this->DB->query("UPDATE $Table SET $SetName=$SetVal WHERE $Where='".$this->DB->real_escape_string($Val)."'");
+                    $this->DB->query("UPDATE $Table SET $SetName='".$this->DB->real_escape_string($SetVal)."' WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return 200;  // 200 - OK
                 }catch(Exception $e){
                     error_log("Update() 502 error");
