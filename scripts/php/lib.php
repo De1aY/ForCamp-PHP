@@ -191,7 +191,8 @@
                     case 5: $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
                     default: return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
-                $Result = $this->DB->SelectWhere($UserGroup, "Password", "Login", $this->UserLogin);
+                $Array = array("Password");
+                $Result = $this->DB->SelectWhere($UserGroup, $Array, "Login", $this->UserLogin);
                 if($Result != 600 and $Result != 502){
                     if($Result == $this->UserPassword){
                         session_start();
