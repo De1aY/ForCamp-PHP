@@ -67,6 +67,7 @@
                 $Result = mysqli_fetch_assoc($this->DB->query("SELECT COUNT($Count) FROM $Table"))["COUNT($Count)"];
                 return $Result;
             }catch(Exception $e){
+                error_log("Count() 502 error");
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
             }
         }
@@ -76,6 +77,7 @@
                 $Result = mysqli_fetch_assoc($this->DB->query("SELECT COUNT($Count) FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'"))["COUNT($Count)"];
                 return $Result;
             }catch(Exception $e){
+                error_log("CountWhere() 502 error");
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
             }
         }
@@ -87,6 +89,7 @@
                     $Result = $this->DB->query("SELECT $String FROM $Table");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
+                    error_log("Select() 502 error");
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
             }
@@ -102,6 +105,7 @@
                     $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
+                    error_log("SelectWhere() 502 error");
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
             }
@@ -116,6 +120,7 @@
                     $this->DB->query("UPDATE $Table SET $SetName=$SetVal WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return 200;  // 200 - OK
                 }catch(Exception $e){
+                    error_log("Update() 502 error");
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
             }
@@ -131,6 +136,7 @@
                     return $Result;
                 }
             }catch(Exception $e){
+                error_log("Execute() 502 error");
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
             }
         }
