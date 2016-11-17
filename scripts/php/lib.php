@@ -99,7 +99,6 @@
         }
 
         function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
-            error_log($Select);
             error_log($Table);
             $String = ArrayToString($Select);
             error_log($String);
@@ -180,7 +179,7 @@
         }
 
         function GetUserGroup(){  // Получение уровня прав пользователя
-            $Array = array("Password");
+            $Array = array("Group");
             $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, "Login", $this->UserLogin);
             if($Result != 600 and $Result != 502){
                 return $Result[0]["Group"];
