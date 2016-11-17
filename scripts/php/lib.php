@@ -171,7 +171,8 @@
         }
 
         function GetUserGroup(){  // Получение уровня прав пользователя
-            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, "Group", "Login", $this->UserLogin);
+            $Array = array("Password");
+            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, "Login", $this->UserLogin);
             if($Result != 600 and $Result != 502){
                 return $Result[0]["Group"];
             }
