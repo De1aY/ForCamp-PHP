@@ -20,11 +20,11 @@
                 return $Array[0];
             }
             else{
-                $Result = "";
+                $Result = "`";
                 for($i = 0; $i < count($Array); $i++){
-                    $Result += $Result.",";    
+                    $Result += $Result."`,`";    
                 }
-                $Result =  substr($Result, 0, strlen($Result)-1);
+                $Result =  substr($Result, 0, strlen($Result)-2);
                 return $Result;
             }
         }
@@ -87,7 +87,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT `$String` FROM $Table");
+                    $Result = $this->DB->query("SELECT $String FROM $Table");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("Select() 502 error");
@@ -103,7 +103,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'") or die(mysqli_error());
+                    $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("SelectWhere() 502 error");
