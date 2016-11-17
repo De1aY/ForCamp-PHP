@@ -20,9 +20,9 @@
                 return $Array[0];
             }
             else{
-                $Result = "`";
+                $Result = "";
                 for($i = 0; $i < count($Array); $i++){
-                    $Result += $Result."`,`";    
+                    $Result += $Result.",";    
                 }
                 $Result =  substr($Result, 0, strlen($Result)-2);
                 return $Result;
@@ -104,7 +104,7 @@
             error_log($String);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
+                    $Result = $this->DB->query("SELECT ($String) FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("SelectWhere() 502 error");
@@ -180,7 +180,7 @@
 
         function GetUserGroup(){  // Получение уровня прав пользователя
             $Array = array("Group");
-            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, "Login", $this->UserLogin);
+            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, 'Login', $this->UserLogin);
             if($Result != 600 and $Result != 502){
                 return $Result[0][0];
             }
@@ -201,7 +201,7 @@
                     default: return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
                 $Array = array("Password");
-                $Result = $this->DB->SelectWhere($UserGroup, $Array, "Login", $this->UserLogin);
+                $Result = $this->DB->SelectWhere($UserGroup, $Array, 'Login', $this->UserLogin);
                 if($Result != 600 and $Result != 502){
                     if($Result[0][0] == $this->UserPassword){
                         session_start();
