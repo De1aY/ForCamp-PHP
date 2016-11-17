@@ -200,9 +200,10 @@
                         session_start();
                         $ID = session_id();
                         $Result = UserToken($UserGroup, $ID);
-                        if($Result == 200)
+                        if($Result == 200){
                             Success($ID);
                             return 200;
+                        }
                         else{
                             return $Result;
                         }
