@@ -137,7 +137,7 @@
 
         function Close(){
             try{
-                $this->DB->$Close();
+                $this->DB->Close();
                 return 200;  // 200 - OK
             }catch(Exception $e){
                 return 501;  // 501 - Ошибка при закрытии соединения с базой данных
@@ -193,7 +193,7 @@
                 }
                 $Result = $this->DB->SelectWhere($UserGroup, "Password", "Login", $this->UserLogin);
                 if($Result != 600 and $Result != 502){
-                    if($Result == $UserPassword){
+                    if($Result == $this->UserPassword){
                         session_start();
                         $ID = session_id();
                         $Result = UserToken($UserGroup, $ID);
