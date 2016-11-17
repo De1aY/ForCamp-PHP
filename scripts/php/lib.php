@@ -34,7 +34,12 @@
     }
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
-        return mysqli_fetch_all($Result, MYSQLI_ASSOC);
+        $ResultArray = array();
+        while($Array = mysqli_fetch_array($Result)){
+            error_log(ArrayToString($Array));
+            array_push($ResultArray, $Array);
+        }
+        return $ResultArray;
     }
 
     class DataBase{  // Класс для работы с базой данных
@@ -176,7 +181,7 @@
             $Array = array("Group");
             $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, "Login", $this->UserLogin);
             if($Result != 600 and $Result != 502){
-                return $Result[0]["Group"];
+                return $Result[0][0];
             }
             else{
                 return $Result;
@@ -197,7 +202,7 @@
                 $Array = array("Password");
                 $Result = $this->DB->SelectWhere($UserGroup, $Array, "Login", $this->UserLogin);
                 if($Result != 600 and $Result != 502){
-                    if($Result == $this->UserPassword){
+                    if($Result[0][0] == $this->UserPassword){
                         session_start();
                         $ID = session_id();
                         $Result = $this->UserToken($UserGroup, $ID);
