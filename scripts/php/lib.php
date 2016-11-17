@@ -185,7 +185,7 @@
 
         function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
             $UserGroup = GetUserGroup();
-            if($UserGroup != 600 and $Result != 502)
+            if($UserGroup != 600 and $Result != 502){
                 switch($UserGroup){
                     case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
                     case 2: $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
@@ -215,6 +215,7 @@
                 else{
                     return $Result;
                 }
+            }
             else{
                 return $UserGroup;
             }
