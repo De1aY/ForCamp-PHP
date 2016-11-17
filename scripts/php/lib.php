@@ -105,7 +105,7 @@
             error_log($String);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
+                    $Result = $this->DB->query("SELECT `$String` FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("SelectWhere() 502 error");
