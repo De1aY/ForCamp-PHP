@@ -38,6 +38,7 @@
         while($Array = mysqli_fetch_array($Result)){
             $ResultArray[] = $Array;
         }
+        error_log(ArrayToString($ResultArray));
         return $ResultArray;
     }
 
@@ -86,7 +87,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT $String FROM $Table");
+                    $Result = $this->DB->query("SELECT `$String` FROM $Table");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("Select() 502 error");
