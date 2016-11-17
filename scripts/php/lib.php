@@ -35,7 +35,8 @@
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
-        while($Array = $Result->fetch_assoc){
+        error_log(gettype($Result));
+        while($Array = mysqli_fetch_assoc($Result)){
             error_log($Array["Group"]);
             $ResultArray[] = $Array;
         }
