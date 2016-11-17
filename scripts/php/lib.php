@@ -36,9 +36,9 @@
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
         while($Array = mysqli_fetch_assoc($Result)){
+            error_log(ArrayToString($Array));
             array_push($ResultArray, $Array);
         }
-        error_log($ResultArray["ID"]);
         return $ResultArray;
     }
 
@@ -87,7 +87,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT `$String` FROM $Table");
+                    $Result = $this->DB->query("SELECT ".$String." FROM $Table");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("Select() 502 error");
@@ -100,13 +100,10 @@
         }
 
         function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
-            error_log($Table);
-            error_log($Val);
             $String = ArrayToString($Select);
-            error_log($String);
             if($String != 600){
                 try{
-                    $Result = $this->DB->query("SELECT `$String` FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
+                    $Result = $this->DB->query("SELECT ".$String." FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     error_log("SelectWhere() 502 error");
