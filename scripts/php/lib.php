@@ -46,7 +46,7 @@
 
         function BaseInit(){  // Создание подключения к базе данных со стандартными параметрами
             try{
-                $this->$DB = new mysqli(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, MYSQL_DB);
+                $this->DB = new mysqli(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, MYSQL_DB);
                 return 200;  // 200 - OK
             }catch(Exception $e){
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
@@ -55,7 +55,7 @@
 
         function AdvancedInit($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB){  // Создания подключения к базе данных с заданными параметрами
             try{
-                $this->$DB = new mysqli($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB);
+                $this->DB = new mysqli($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB);
                 return 200;  // 200 - OK
             }catch(Exception $e){
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
@@ -64,7 +64,7 @@
 
         function Count($Table, $Count){  // Подсчёт количества элементов в таблице
             try{
-                $Result = mysqli_fetch_assoc($this->$DB->query("SELECT COUNT($Count) FROM $Table"))["COUNT($Count)"];
+                $Result = mysqli_fetch_assoc($this->DB->query("SELECT COUNT($Count) FROM $Table"))["COUNT($Count)"];
                 return $Result;
             }catch(Exception $e){
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
@@ -73,7 +73,7 @@
 
         function CountWhere($Table, $Count, $Where, $Val){  // Подсчёт количества элементов в таблице с условием
             try{
-                $Result = mysqli_fetch_assoc($this->$DB->query("SELECT COUNT($Count) FROM $Table WHERE $Where='".$this->$DB->real_escape_string($Val)."'"))["COUNT($Count)"];
+                $Result = mysqli_fetch_assoc($this->DB->query("SELECT COUNT($Count) FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'"))["COUNT($Count)"];
                 return $Result;
             }catch(Exception $e){
                 return 502;  // 502 - Ошибка при выполнении запроса к базе данных
@@ -84,7 +84,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->$DB->query("SELECT $String FROM $Table");
+                    $Result = $this->DB->query("SELECT $String FROM $Table");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
@@ -99,7 +99,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Result = $this->$DB->query("SELECT $String FROM $Table WHERE $Where='".$this->$DB->real_escape_string($Val)."'");
+                    $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
@@ -113,7 +113,7 @@
         function Update($Table, $SetName, $SetVal, $Where, $Val){
             if(isset($SetVal) and isset($SetName)){
                 try{
-                    $this->$DB->query("UPDATE $Table SET $SetName=$SetVal WHERE $Where='".$this->$DB->real_escape_string($Val)."'");
+                    $this->DB->query("UPDATE $Table SET $SetName=$SetVal WHERE $Where='".$this->DB->real_escape_string($Val)."'");
                     return 200;  // 200 - OK
                 }catch(Exception $e){
                     return 502;  // 502 - Ошибка при выполнении запроса к базе данных
@@ -126,7 +126,7 @@
 
         function Execute($String){
             try{
-                $Result = $this->$DB->query($String);
+                $Result = $this->DB->query($String);
                 if(isset($Result)){
                     return $Result;
                 }
@@ -137,7 +137,7 @@
 
         function Close(){
             try{
-                $this->$DB->$Close();
+                $this->DB->$Close();
                 return 200;  // 200 - OK
             }catch(Exception $e){
                 return 501;  // 501 - Ошибка при закрытии соединения с базой данных
@@ -152,20 +152,17 @@
         var $DB;  // Класс `DataBase`
 
         function Authorization($UserLogin, $UserPassword, $Token){
-            $this->$DB = new DataBase();
-            $Resp = $this->$DB->BaseInit();
+            $this->DB = new DataBase();
+            $Resp = $this->DB->BaseInit();
             if($Resp == 200){  // Если подключение создалось
                 if(isset($UserLogin) and isset($UserPassword)){
-                    $this->$UserLogin = $UserLogin;
-                    $this->$UserPassword = md5($UserPassword);
+                    $this->UserLogin = $UserLogin;
+                    $this->UserPassword = md5($UserPassword);
                     return 200;  // 200 - OK
                 }
                 elseif(isset($Token)){
-                    $this->$Token = $Token;
+                    $this->Token = $Token;
                     return 200;  // 200 - OK
-                }
-                else{
-                    Error(600);  // 600 - Строка пуста
                 }
             }
             else{
@@ -174,7 +171,7 @@
         }
 
         function GetUserGroup(){  // Получение уровня прав пользователя
-            $Result = $this->$DB->SelectWhere(DB_EMPLOYEES, "Group", "Login", $this->$UserLogin);
+            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, "Group", "Login", $this->UserLogin);
             if($Result != 600 and $Result != 502){
                 return $Result[0]["Group"];
             }
@@ -194,7 +191,7 @@
                     case 5: $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
                     default: return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
-                $Result = $this->$DB->SelectWhere($UserGroup, "Password", "Login", $this->$UserLogin);
+                $Result = $this->DB->SelectWhere($UserGroup, "Password", "Login", $this->UserLogin);
                 if($Result != 600 and $Result != 502){
                     if($Result == $UserPassword){
                         session_start();
@@ -238,7 +235,7 @@
 
         function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
             try{
-                $Result = $this->$DB->Update($DBName, "Token", "Login", $UserLogin);
+                $Result = $this->DB->Update($DBName, "Token", "Login", $this->UserLogin);
                 if($Result == 200){
                     return 200;  // 200 - OK
                 }
@@ -271,7 +268,7 @@
 
         function Close(){
             try{
-                $this->$DB->Close();
+                $this->DB->Close();
                 return 200;  // 200 - OK
             }
             catch(Exception $e){
