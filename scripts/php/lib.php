@@ -261,7 +261,7 @@
         }
 
         function Error($ErrorCode){
-            $Array = array("status" => "ERROR", "code" => $ErrorCode);
+            $Array = array("status" => "ERROR", "token" => "", "code" => $ErrorCode);
             EchoJSON($Array);
             return 200;  // 200 - OK
         }
