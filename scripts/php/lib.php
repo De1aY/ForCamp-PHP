@@ -35,9 +35,9 @@
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
-        while($Array = mysqli_fetch_array($Result)){
-            error_log(ArrayToString($Array));
-            array_push($ResultArray, $Array);
+        while($Array = $Result->fetch_assoc){
+            error_log($Array["Group"]);
+            $ResultArray[] = $Array;
         }
         return $ResultArray;
     }
@@ -87,7 +87,7 @@
             $String = ArrayToString($Select);
             if($String != 600){
                 try{
-                    $Str = "SELECT ".$String." FROM ".$Table." WHERE";
+                    $Str = "SELECT ".$String." FROM `".$Table."` WHERE";
                     $Result = $this->DB->query($Str);
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
@@ -106,7 +106,6 @@
             if($String != 600){
                 try{
                     $Str = "SELECT ".$String." FROM `".$Table."` WHERE ".$Where."='".$this->DB->real_escape_string($Val)."'";
-                    error_log($Str);
                     $Result = $this->DB->query($Str);
                     return MySQLResultToArray($Result);
                 }catch(Exception $e){
@@ -185,7 +184,7 @@
             $Array = array("Group");
             $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, 'Login', $this->UserLogin);
             if($Result != 600 and $Result != 502){
-                return $Result[0][0];
+                return $Result[0]["Group"];
             }
             else{
                 return $Result;
