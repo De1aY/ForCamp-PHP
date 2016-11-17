@@ -1,92 +1,277 @@
 <?php
-    define("DB_TUTORS", "tutors");  // Воспитатели (Дисциплина)
-    define("DB_STUDENTS", "students");  // Ученики 
-    define("DB_TEACHERS", "teachers");  // Учителя (Учёба, Дисциплина)
-    define("DB_ORGANIZERS", "organizers"); // Педагоги-Организаторы (Культура, Спорт, Дисциплина)
-    define("DB_ADMINISTRATORS", "administrators");  // Администраторы сайта 
-
-    require_once 'database.php';  // Класс для подключения к базе данных
+	define("MYSQL_SERVER", "52.169.122.82");  // IP сервера MySQL
+	define("MYSQL_LOGIN", "root");  // Логин сервера MySQL
+	define("MYSQL_PASSWORD", "5zaU2x8A");  // Пароль сервера MySQL
+	define("MYSQL_DB", "camp");  // Название таблицы на сервере MySQL
+    define("DB_TUTORS", "tutors");  // Воспитатели (Дисциплина)|Уровень - 2
+    define("DB_STUDENTS", "students");  // Ученики|Уровень - 5
+    define("DB_TEACHERS", "teachers");  // Учителя (Учёба, Дисциплина)|Уровень - 3
+    define("DB_ORGANIZERS", "organizers");  // Педагоги-Организаторы (Культура, Спорт, Дисциплина)|Уровень - 4
+    define("DB_ADMINISTRATORS", "administrators");  // Администраторы сайта|Уровень - 1
+    define("DB_EMPLOYEES", "employees");  // Таблица с уровнем разрешений
 
     function EchoJSON($Array){  // Вывод в формате JSON, на вход массив (Ключ => Значение)
         echo json_encode($Array);
     }
 
-    class Authorization{  // Класс для авторизации
-        var $UserLogin;
-        var $UserPassword;
-        var $DB;
+    function ArrayToString($Array){  // Преобразование массива в строку
+        if(isset($Array)){
+            if(count($Array) == 1){
+                return $Array[0];
+            }
+            else{
+                $Result = "";
+                for($i = 0; $i < count($Array); $i++){
+                    $Result += $Result.",";    
+                }
+                $Result =  substr($Result, 0, strlen($Result)-1);
+                return $Result;
+            }
+        }
+        else{
+            return 600;  // 600 - Строка пуста
+        }
+    }
 
-        function Init($UserLogin, $UserPassword){
+    function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
+        $ResultArray = array();
+        while($Array = mysqli_fetch_array($Result)){
+            $ResultArray[] = $Array;
+        }
+        return $ResultArray;
+    }
+
+    class DataBase{  // Класс для работы с базой данных
+        var $DB;  // Соединение с базой данных
+
+        function BaseInit(){  // Создание подключения к базе данных со стандартными параметрами
             try{
-                $this->$DB = db_connect();
+                $this->$DB = new mysqli(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, MYSQL_DB);
+                return 200;  // 200 - OK
+            }catch(Exception $e){
+                return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
-            catch(Exception $e){
-                return 500;
-            }
-            try{
-                $this->$UserLogin = $UserLogin;
-                $this->$UserPassword = md5($UserPassword);
-            }
-            catch(Exception $e){
-                return 401;
-            }
-            return TRUE;
         }
 
-        function UserCheck(){  // Return 501 if connection failed
+        function AdvancedInit($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB){  // Создания подключения к базе данных с заданными параметрами
             try{
-                $UserCount = mysqli_fetch_assoc($DB->query("SELECT COUNT('Name') FROM `tutor` WHERE `Login`='"
-                .$this->$DB->real_escape_string($this->$UserLogin).
-                "' AND `Password`='"
-                .$this->$DB->real_escape_string($this->$UserPassword).
-                "'"))["COUNT('Name')"];
-                return $UserCount;
+                $this->$DB = new mysqli($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB);
+                return 200;  // 200 - OK
+            }catch(Exception $e){
+                return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
-            catch(Exception $e){
-                return 501;  // 501 - Database connection error
+        }
+
+        function Count($Table, $Count){  // Подсчёт количества элементов в таблице
+            try{
+                $Result = mysqli_fetch_assoc($this->$DB->query("SELECT COUNT($Count) FROM $Table"))["COUNT($Count)"];
+                return $Result;
+            }catch(Exception $e){
+                return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+            }
+        }
+
+        function CountWhere($Table, $Count, $Where, $Val){  // Подсчёт количества элементов в таблице с условием
+            try{
+                $Result = mysqli_fetch_assoc($this->$DB->query("SELECT COUNT($Count) FROM $Table WHERE $Where='".$this->$DB->real_escape_string($Val)."'"))["COUNT($Count)"];
+                return $Result;
+            }catch(Exception $e){
+                return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+            }
+        }
+
+        function Select($Table, $Select){  // Выборка значений из базы данных $Select - массив
+            $String = ArrayToString($Select);
+            if($String != 600){
+                try{
+                    $Result = $this->$DB->query("SELECT $String FROM $Table");
+                    return MySQLResultToArray($Result);
+                }catch(Exception $e){
+                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                }
+            }
+            else{
+                return 600; // 600 - Строка пуста
+            }
+        }
+
+        function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
+            $String = ArrayToString($Select);
+            if($String != 600){
+                try{
+                    $Result = $this->$DB->query("SELECT $String FROM $Table WHERE $Where='".$this->$DB->real_escape_string($Val)."'");
+                    return MySQLResultToArray($Result);
+                }catch(Exception $e){
+                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                }
+            }
+            else{
+                return 600; // 600 - Строка пуста
+            }
+        }
+
+        function Update($Table, $SetName, $SetVal, $Where, $Val){
+            if(isset($SetVal) and isset($SetName)){
+                try{
+                    $this->$DB->query("UPDATE $Table SET $SetName=$SetVal WHERE $Where='".$this->$DB->real_escape_string($Val)."'");
+                    return 200;  // 200 - OK
+                }catch(Exception $e){
+                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                }
+            }
+            else{
+                return 600;  // 600 - Строка пуста
+            }
+        }
+
+        function Execute($String){
+            try{
+                $Result = $this->$DB->query($String);
+                if(isset($Result)){
+                    return $Result;
+                }
+            }catch(Exception $e){
+                return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+            }
+        }
+
+        function Close(){
+            try{
+                $this->$DB->$Close();
+                return 200;  // 200 - OK
+            }catch(Exception $e){
+                return 501;  // 501 - Ошибка при закрытии соединения с базой данных
+            }
+        }
+    }
+
+    class Authorization{  // Класс для авторизации
+        var $UserLogin;  // Логин
+        var $UserPassword;  // Пароль
+        var $Token;  // Токен
+        var $DB;  // Класс `DataBase`
+
+        function Authorization($UserLogin, $UserPassword, $Token){
+            $this->$DB = new DataBase();
+            $Resp = $this->$DB->BaseInit();
+            if($Resp == 200){  // Если подключение создалось
+                if(isset($UserLogin) and isset($UserPassword)){
+                    $this->$UserLogin = $UserLogin;
+                    $this->$UserPassword = md5($UserPassword);
+                    return 200;  // 200 - OK
+                }
+                elseif(isset($Token)){
+                    $this->$Token = $Token;
+                    return 200;  // 200 - OK
+                }
+                else{
+                    Error(600);  // 600 - Строка пуста
+                }
+            }
+            else{
+                Error($Resp);
+            }
+        }
+
+        function GetUserGroup(){  // Получение уровня прав пользователя
+            $Result = $this->$DB->SelectWhere(DB_EMPLOYEES, "Group", "Login", $this->$UserLogin);
+            if($Result != 600 and $Result != 502){
+                return $Result[0]["Group"];
+            }
+            else{
+                return $Result;
+            }
+        }
+
+        function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
+            $UserGroup = GetUserGroup();
+            if($UserGroup != 600 and $Result != 502)
+                switch($UserGroup){
+                    case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
+                    case 2: $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
+                    case 3: $UserGroup = DB_TEACHERS;  // Уровень 3 - Учителя
+                    case 4: $UserGroup = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
+                    case 5: $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
+                    default: return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                }
+                $Result = $this->$DB->SelectWhere($UserGroup, "Password", "Login", $this->$UserLogin);
+                if($Result != 600 and $Result != 502){
+                    if($Result == $UserPassword){
+                        session_start();
+                        $ID = session_id();
+                        $Result = UserToken($UserGroup, $ID);
+                        if($Result == 200)
+                            Success($ID);
+                            return 200;
+                        else{
+                            return $Result;
+                        }
+                    }
+                    else: return 401;  // 401 - Неверный логин или пароль
+                }
+                else{
+                    return $Result;
+                }
+            else{
+                return $UserGroup;
             }
         }
 
         function UserCheckValidation(){
             switch(UserCheck()){
-                case 1: return TRUE;
-                case 501: return 501;  // 501 - Database connection error
-                default: return 401;  // 401 - Login or Password is wrong
+                case 200: return 200;  // 200 - OK
+                case 502:
+                    Error(502); 
+                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                case 600:
+                    Error(600); 
+                    return 600;  // 600 - Строка пуста
+                default:
+                    Error(401); 
+                    return 401;  // 401 - Неверный логин или пароль
             }
         }
 
-        function UserToken($Token){
+        function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
             try{
-                $DB->query("UPDATE `".DB_TUTORS."` SET `Token`='$Token' WHERE `Login`='".$DB->real_escape_string($this->$UserLogin)."'");
+                $Result = $this->$DB->Update($DBName, "Token", "Login", $UserLogin);
+                if($Result == 200){
+                    return 200;  // 200 - OK
+                }
+                else{
+                    return $Result;
+                }
             }
             catch(Exception $e){
-                return 501;  // 501 - Database connection error
+                return 502;  // 502 - Ошибка подключения к базе данных
             }
         }
 
         function Success($Token){
-            if(UserToken($Token) != 501){
-                Close();
-                $Array = array("status" => "OK", "token" => $Token);
+            if(UserToken($Token) != 502){
+                $Array = array("status" => "OK", "token" => $Token, "code" => 200);
                 EchoJSON($Array);
+                return 200;  // 200 - OK
             }
             else{
-                Error(501);
+                Error(502);
+                return 502;  // 502 - Ошибка при выполнении запроса к базе данных
             }
         }
 
         function Error($ErrorCode){
-            Close();
             $Array = array("status" => "ERROR", "code" => $ErrorCode);
             EchoJSON($Array);
+            return 200;  // 200 - OK
         }
 
         function Close(){
             try{
                 $this->$DB->Close();
+                return 200;  // 200 - OK
             }
             catch(Exception $e){
-                return 500;
+                return 501;  // 501 - Ошибка закрытия подключения к базе данных
             }
         }
     }
