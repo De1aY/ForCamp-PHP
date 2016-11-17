@@ -34,12 +34,7 @@
     }
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
-        $ResultArray = array();
-        while($Array = mysqli_fetch_assoc($Result)){
-            error_log(ArrayToString($Array));
-            array_push($ResultArray, $Array);
-        }
-        return $ResultArray;
+        return mysqli_fetch_all($Result, MYSQLI_ASSOC);
     }
 
     class DataBase{  // Класс для работы с базой данных
