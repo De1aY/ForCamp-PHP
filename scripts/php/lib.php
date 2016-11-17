@@ -35,7 +35,6 @@
 
     function MySQLResultToArray($Result){  // Преобразование результата запроса в массив
         $ResultArray = array();
-        error_log($Result);
         while($Array = mysqli_fetch_array($Result)){
             $ResultArray[] = $Array;
         }
@@ -100,7 +99,10 @@
         }
 
         function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
+            error_log($Select);
+            error_log($Table);
             $String = ArrayToString($Select);
+            error_log($String);
             if($String != 600){
                 try{
                     $Result = $this->DB->query("SELECT $String FROM $Table WHERE $Where='".$this->DB->real_escape_string($Val)."'");
