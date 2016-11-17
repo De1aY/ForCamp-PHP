@@ -100,6 +100,7 @@
 
         function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
             error_log($Table);
+            error_log($Val);
             $String = ArrayToString($Select);
             error_log($String);
             if($String != 600){
