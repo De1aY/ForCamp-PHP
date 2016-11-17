@@ -17,7 +17,7 @@
     function ArrayToString($Array){  // Преобразование массива в строку
         if(isset($Array)){
             if(count($Array) == 1){
-                return "`".$Array[0]"`";
+                return "`".$Array[0]."`";
             }
             else{
                 $Result = "";
