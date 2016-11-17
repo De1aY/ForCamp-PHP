@@ -38,7 +38,7 @@
         while($Array = mysqli_fetch_array($Result)){
             $ResultArray[] = $Array;
         }
-        error_log(ArrayToString($ResultArray));
+        error_log($ResultArray[0]["ID"]);
         return $ResultArray;
     }
 
