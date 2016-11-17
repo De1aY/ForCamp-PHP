@@ -105,7 +105,7 @@
             error_log($String);
             if($String != 600){
                 try{
-                    $Str = "SELECT ".$String." FROM ".$Table." WHERE ".$Where."='".$this->DB->real_escape_string($Val)."'";
+                    $Str = "SELECT ".$String." FROM `".$Table."` WHERE ".$Where."='".$this->DB->real_escape_string($Val)."'";
                     error_log($Str);
                     $Result = $this->DB->query($Str);
                     return MySQLResultToArray($Result);
