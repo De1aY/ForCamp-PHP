@@ -4,7 +4,7 @@
     $Login = $_POST['login'];
     $Password = $_POST['password'];
     $Authorization = new Authorization($Login, $Password, NULL);
-    if($Authorization == 200){
+    if($Authorization){
         $Authorization->UserCheckValidation();
         $Authorization->Close();
     }
