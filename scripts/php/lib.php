@@ -193,16 +193,21 @@
             $UserGroup = $this->GetUserGroup();
             if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
-                    case '1': 
-                        $UserGroupT = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
-                    case '2': 
-                        $UserGroupT = DB_TUTORS;  // Уровень 2 - Воспитатели
-                    case '3': 
-                        $UserGroupT = DB_TEACHERS;  // Уровень 3 - Учителя
-                    case '4': 
-                        $UserGroupT = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
-                    case '5': 
-                        $UserGroupT = DB_STUDENTS;  // Уровень 5 - Ученики
+                    case 1: 
+                        $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
+                        break;
+                    case 2: 
+                        $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
+                        break;
+                    case 3: 
+                        $UserGroup = DB_TEACHERS;  // Уровень 3 - Учителя
+                        break;
+                    case 4: 
+                        $UserGroup = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
+                        break;
+                    case 5: 
+                        $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
+                        break;
                     default: 
                         error_log("UserCheck(switch) error 502");
                         return 502;  // 502 - Ошибка при выполнении запроса к базе данных
