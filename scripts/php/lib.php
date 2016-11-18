@@ -191,15 +191,21 @@
 
         function UserCheck(){  //  Функция выводит ошибку 502 если не удасться подключится к базе данных
             $UserGroup = $this->GetUserGroup();
-            error_log($UserGroup);
             if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
-                    case 1: $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
-                    case 2: $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
-                    case 3: $UserGroup = DB_TEACHERS;  // Уровень 3 - Учителя
-                    case 4: $UserGroup = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
-                    case 5: $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
-                    default: return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                    case 1: 
+                        $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
+                    case 2: 
+                        $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
+                    case 3: 
+                        $UserGroup = DB_TEACHERS;  // Уровень 3 - Учителя
+                    case 4: 
+                        $UserGroup = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
+                    case 5: 
+                        $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
+                    default: 
+                        error_log("UserCheck() error 502");
+                        return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
                 $Array = array("Password");
                 $Result = $this->DB->SelectWhere($UserGroup, $Array, 'Login', $this->UserLogin);
@@ -213,18 +219,22 @@
                             return 200;
                         }
                         else{
+                            error_log("UserCheck() error ".$Result);
                             return $Result;
                         }
                     }
                     else{
+                        error_log("UserCheck() error 401");
                         return 401;  // 401 - Неверный логин или пароль
                     } 
                 }
                 else{
+                    error_log("UserCheck() error ".$Result);
                     return $Result;
                 }
             }
             else{
+                error_log("UserCheck() error ".$UserGroup);
                 return $UserGroup;
             }
         }
