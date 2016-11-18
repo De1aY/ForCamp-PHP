@@ -178,6 +178,22 @@
             }
         }
 
+        function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
+            try{
+                $Result = $this->DB->Update($DBName, "Token", "Login", $this->UserLogin);
+                if($Result == 200){
+                    return 200;  // 200 - OK
+                }
+                else{
+                    return $Result;
+                }
+            }
+            catch(Exception $e){
+                error_log("UserToken() 502 error");
+                return 502;  // 502 - Ошибка подключения к базе данных
+            }
+        }
+
         function GetUserGroup(){  // Получение уровня прав пользователя
             $Array = array("Group");
             $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, 'Login', $this->UserLogin);
@@ -256,22 +272,6 @@
                 default:
                     $this->Error(401); 
                     return 401;  // 401 - Неверный логин или пароль
-            }
-        }
-
-        function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
-            try{
-                $Result = $this->DB->Update($DBName, "Token", "Login", $this->UserLogin);
-                if($Result == 200){
-                    return 200;  // 200 - OK
-                }
-                else{
-                    return $Result;
-                }
-            }
-            catch(Exception $e){
-                error_log("UserToken() 502 error");
-                return 502;  // 502 - Ошибка подключения к базе данных
             }
         }
 
