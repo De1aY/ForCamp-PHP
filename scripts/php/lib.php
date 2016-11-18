@@ -194,26 +194,26 @@
             if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
                     case 1: 
-                        $UserGroup = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
+                        $UserGroupT = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
                     case 2: 
-                        $UserGroup = DB_TUTORS;  // Уровень 2 - Воспитатели
+                        $UserGroupT = DB_TUTORS;  // Уровень 2 - Воспитатели
                     case 3: 
-                        $UserGroup = DB_TEACHERS;  // Уровень 3 - Учителя
+                        $UserGroupT = DB_TEACHERS;  // Уровень 3 - Учителя
                     case 4: 
-                        $UserGroup = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
+                        $UserGroupT = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
                     case 5: 
-                        $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
+                        $UserGroupT = DB_STUDENTS;  // Уровень 5 - Ученики
                     default: 
                         error_log("UserCheck(switch) error 502");
                         return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
                 $Array = array("Password");
-                $Result = $this->DB->SelectWhere($UserGroup, $Array, 'Login', $this->UserLogin);
+                $Result = $this->DB->SelectWhere($UserGroupT, $Array, 'Login', $this->UserLogin);
                 if($Result != 600 and $Result != 502){
                     if($Result[0][0] == $this->UserPassword){
                         session_start();
                         $ID = session_id();
-                        $Result = $this->UserToken($UserGroup, $ID);
+                        $Result = $this->UserToken($UserGroupT, $ID);
                         if($Result == 200){
                             $this->Success($ID);
                             return 200;
