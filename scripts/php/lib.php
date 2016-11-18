@@ -193,15 +193,15 @@
             $UserGroup = $this->GetUserGroup();
             if($UserGroup != 600 and $UserGroup != 502){
                 switch($UserGroup){
-                    case 1: 
+                    case '1': 
                         $UserGroupT = DB_ADMINISTRATORS;  // Уровень 1 - Администрация
-                    case 2: 
+                    case '2': 
                         $UserGroupT = DB_TUTORS;  // Уровень 2 - Воспитатели
-                    case 3: 
+                    case '3': 
                         $UserGroupT = DB_TEACHERS;  // Уровень 3 - Учителя
-                    case 4: 
+                    case '4': 
                         $UserGroupT = DB_ORGANIZERS;  // Уровень 4 - Педагоги-Организаторы
-                    case 5: 
+                    case '5': 
                         $UserGroupT = DB_STUDENTS;  // Уровень 5 - Ученики
                     default: 
                         error_log("UserCheck(switch) error 502");
