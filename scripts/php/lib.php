@@ -234,15 +234,8 @@
                     if($Result[0]["Password"] == $this->UserPassword){
                         session_start();
                         $ID = session_id();
-                        $Result = $this->UserToken($UserGroup, $ID);
-                        if($Result == 200){
-                            $this->Success($ID);
-                            return 200;
-                        }
-                        else{
-                            error_log("UserCheck(Result) error ".$Result);
-                            return $Result;
-                        }
+                        $this->Success($ID);
+                        return 200;
                     }
                     else{
                         error_log("UserCheck() error 401");
@@ -276,7 +269,7 @@
         }
 
         function Success($Token){
-            if(UserToken($Token) != 502){
+            if($this->UserToken($Token) != 502){
                 $Array = array("status" => "OK", "token" => $Token, "code" => 200);
                 EchoJSON($Array);
                 return 200;  // 200 - OK
