@@ -215,7 +215,7 @@
                 $Array = array("Password");
                 $Result = $this->DB->SelectWhere($UserGroup, $Array, 'Login', $this->UserLogin);
                 if($Result != 600 and $Result != 502){
-                    if($Result[0][0] == $this->UserPassword){
+                    if($Result[0]["Password"] == $this->UserPassword){
                         session_start();
                         $ID = session_id();
                         $Result = $this->UserToken($UserGroup, $ID);
