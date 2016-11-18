@@ -204,7 +204,7 @@
                     case 5: 
                         $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
                     default: 
-                        error_log("UserCheck() error 502");
+                        error_log("UserCheck(switch) error 502");
                         return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
                 $Array = array("Password");
@@ -219,7 +219,7 @@
                             return 200;
                         }
                         else{
-                            error_log("UserCheck() error ".$Result);
+                            error_log("UserCheck(Result) error ".$Result);
                             return $Result;
                         }
                     }
@@ -229,12 +229,12 @@
                     } 
                 }
                 else{
-                    error_log("UserCheck() error ".$Result);
+                    error_log("UserCheck(Result) error ".$Result);
                     return $Result;
                 }
             }
             else{
-                error_log("UserCheck() error ".$UserGroup);
+                error_log("UserCheck(UserGroup) error ".$UserGroup);
                 return $UserGroup;
             }
         }
