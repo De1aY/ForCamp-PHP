@@ -180,7 +180,7 @@
 
         function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
             try{
-                $Result = $this->DB->Update($DBName, "Token", "Login", $this->UserLogin);
+                $Result = $this->DB->Update($DBName, "Token", $Token, "Login", $this->UserLogin);
                 if($Result == 200){
                     return 200;  // 200 - OK
                 }
@@ -234,7 +234,7 @@
                     if($Result[0]["Password"] == $this->UserPassword){
                         session_start();
                         $ID = session_id();
-                        $this->Success($ID);
+                        $this->Success($UserGroup, $ID);
                         return 200;
                     }
                     else{
@@ -268,8 +268,8 @@
             }
         }
 
-        function Success($Token){
-            if($this->UserToken($Token) != 502){
+        function Success($UserGroup, $Token){
+            if($this->UserToken($UserGroup, $Token) != 502){
                 $Array = array("status" => "OK", "token" => $Token, "code" => 200);
                 EchoJSON($Array);
                 return 200;  // 200 - OK
