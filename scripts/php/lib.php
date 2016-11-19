@@ -82,33 +82,28 @@
             }
         }
 
-        function Select($Table, $Select){  // Выборка значений из базы данных $Select - массив
+        function Select($Table, $Select, $Where = NULL, $Val = NULL){  // Выборка значений из базы данных с условием $Select - массив
             $String = ArrayToString($Select);
             if($String != 600){
-                try{
-                    $Str = "SELECT ".$String." FROM `".$Table."` WHERE";
-                    $Result = $this->DB->query($Str);
-                    return MySQLResultToArray($Result);
-                }catch(Exception $e){
-                    error_log("Select() 502 error");
-                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                if(isset($Where) and isset($Val)){
+                    try{
+                        $Str = "SELECT ".$String." FROM `".$Table."` WHERE ".$Where."='".$this->DB->real_escape_string($Val)."'";
+                        $Result = $this->DB->query($Str);
+                        return MySQLResultToArray($Result);
+                    }catch(Exception $e){
+                        error_log("Select() 502 error");
+                        return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                    }
                 }
-            }
-            else{
-                return 600; // 600 - Строка пуста
-            }
-        }
-
-        function SelectWhere($Table, $Select, $Where, $Val){  // Выборка значений из базы данных с условием $Select - массив
-            $String = ArrayToString($Select);
-            if($String != 600){
-                try{
-                    $Str = "SELECT ".$String." FROM `".$Table."` WHERE ".$Where."='".$this->DB->real_escape_string($Val)."'";
-                    $Result = $this->DB->query($Str);
-                    return MySQLResultToArray($Result);
-                }catch(Exception $e){
-                    error_log("SelectWhere() 502 error");
-                    return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                else{
+                    try{
+                        $Str = "SELECT ".$String." FROM `".$Table."` WHERE";
+                        $Result = $this->DB->query($Str);
+                        return MySQLResultToArray($Result);
+                    }catch(Exception $e){
+                        error_log("Select() 502 error");
+                        return 502;  // 502 - Ошибка при выполнении запроса к базе данных
+                    }
                 }
             }
             else{
@@ -153,54 +148,56 @@
         }
     }
 
-    class Authorization{  // Класс для авторизации
-        var $UserLogin;  // Логин
-        var $UserPassword;  // Пароль
-        var $Token;  // Токен
-        var $DB;  // Класс `DataBase`
+    class UserAuthorization extends Authorization{
+        var $DB;
+        var $Platform;
+        var $UserLogin;
+        var $UserPassword;
 
-        function Authorization($UserLogin, $UserPassword, $Token){
+        function UserAuthorization($Login = NULL, $Password = NULL, $Platform = NULL){
             $this->DB = new DataBase();
-            $Resp = $this->DB->BaseInit();
-            if($Resp == 200){  // Если подключение создалось
-                if(isset($UserLogin) and isset($UserPassword)){
-                    $this->UserLogin = $UserLogin;
-                    $this->UserPassword = md5($UserPassword);
+            $Response = $this->DB->BaseInit();
+            if($Response == 200){
+                if(isset($Login) and isset($Password) and isset($Platform)){
+                    $this->UserLogin = $Login;
+                    $this->UserPassword = $Password;
+                    $this->Platform = $Platform."Token";
                     return 200;  // 200 - OK
                 }
-                elseif(isset($Token)){
-                    $this->Token = $Token;
-                    return 200;  // 200 - OK
+                else{
+                    return 600;  // 600 - Строка пуста
                 }
             }
             else{
-                $this->Error($Resp);
+                return $Response;
             }
         }
 
         function UserToken($DBName, $Token){  // Функция заносит значение Token в базу данных
             try{
-                $Result = $this->DB->Update($DBName, "Token", $Token, "Login", $this->UserLogin);
+                $Result = $this->DB->Update($DBName, $this->Platform, $Token, "Login", $this->UserLogin);
                 if($Result == 200){
                     return 200;  // 200 - OK
                 }
                 else{
+                    error_log("UserAuthorization->UserToken(Result) error ".$Result);
                     return $Result;
                 }
             }
             catch(Exception $e){
-                error_log("UserToken() 502 error");
+                error_log("UserAuthorization->UserToken(Exception) error 502");
                 return 502;  // 502 - Ошибка подключения к базе данных
             }
         }
 
         function GetUserGroup(){  // Получение уровня прав пользователя
             $Array = array("Group");
-            $Result = $this->DB->SelectWhere(DB_EMPLOYEES, $Array, 'Login', $this->UserLogin);
+            $Result = $this->DB->Select(DB_EMPLOYEES, $Array, 'Login', $this->UserLogin);
             if($Result != 600 and $Result != 502){
                 return $Result[0]["Group"];
             }
             else{
+                error_log("UserAuthorization->GetUserGroup(Result) error ".$Result);
                 return $Result;
             }
         }
@@ -225,11 +222,11 @@
                         $UserGroup = DB_STUDENTS;  // Уровень 5 - Ученики
                         break;
                     default: 
-                        error_log("UserCheck(switch) error 502");
+                        error_log("UserAuthorization->UserCheck(switch) error 502");
                         return 502;  // 502 - Ошибка при выполнении запроса к базе данных
                 }
                 $Array = array("Password");
-                $Result = $this->DB->SelectWhere($UserGroup, $Array, 'Login', $this->UserLogin);
+                $Result = $this->DB->Select($UserGroup, $Array, 'Login', $this->UserLogin);
                 if($Result != 600 and $Result != 502){
                     if($Result[0]["Password"] == $this->UserPassword){
                         session_start();
@@ -238,23 +235,98 @@
                         return 200;
                     }
                     else{
-                        error_log("UserCheck() error 401");
+                        error_log("UserAuthorization->UserCheck() error 401");
                         return 401;  // 401 - Неверный логин или пароль
                     } 
                 }
                 else{
-                    error_log("UserCheck(Result) error ".$Result);
+                    error_log("UserAuthorization->UserCheck(Result) error ".$Result);
                     return $Result;
                 }
             }
             else{
-                error_log("UserCheck(UserGroup) error ".$UserGroup);
+                error_log("UserAuthorization->UserCheck(UserGroup) error ".$UserGroup);
                 return $UserGroup;
+            }
+        }
+    }
+
+    class TokenAuthorization extend Authorization{
+        var $DB;
+        var $Token;
+        var $Platform;
+        
+        function TokenAuthorization($Token, $Platform){
+            $this->DB = new DataBase;
+            $Response = $this->DB->BaseInit();
+            if($Response == 200){
+                if(isset($Token) and isset($Platform)){
+                    $this->Token = $Token;
+                    $this->Platform = $Platform."Token";
+                    return 200;  // 200 - OK
+                }
+                else{
+                    error_log("TokenAuthorization(Token) error ".$Response);
+                    return 600;  // 600 - Строка пуста
+                }
+            }
+            else{
+                error_log("TokenAuthorization(DB) error ".$Response);
+                return $Response;
+            }
+        }
+
+        function Check(){
+
+        }
+
+    }
+
+    class Authorization{  // Класс для авторизации
+        var $Method;
+        var $AuthProcess;
+        var $DB;  // Класс `DataBase`
+
+        function Authorization($UserLogin = NULL, $UserPassword = NULL, $Token = NULL, $Platform = NULL){
+            $this->DB = new DataBase();
+            $Resp = $this->DB->BaseInit();
+            if($Resp == 200){  // Если подключение создалось
+                if(isset($UserLogin) and isset($UserPassword)){
+                    $AuthProcess = new UserAuthorization($UserLogin, $UserPassword, $Platform);
+                    $this->Method = 1;
+                    return 200;  // 200 - OK
+                }
+                elseif(isset($Token)){
+                    $this->Token = new TokenAuthorization($Token, $Platform);
+                    $this->Method = 2;
+                    return 200;  // 200 - OK
+                }
+                else{
+                    error_log("Authorization error 600");
+                    $this->Error(600);
+                }
+            }
+            else{
+                error_log("Authorization(DB) error ".$Resp);
+                $this->Error($Resp);
+            }
+        }
+
+        function Start(){
+            if($this->Method == 1){
+                $this->UserCheckValidation();
+            }
+            elseif($this->Method == 2){
+                $this->TokenCheckValidation();
+            }
+            else{
+                error_log("Authorization->Start(Method) error 600");
+                return 600;  // 600 - Строка пуста
             }
         }
 
         function UserCheckValidation(){
-            switch($this->UserCheck()){
+            switch($this->AuthProcess->UserCheck()){
                 case 200: return 200;  // 200 - OK
                 case 502:
                     $this->Error(502); 
@@ -269,7 +341,7 @@
         }
 
         function Success($UserGroup, $Token){
-            if($this->UserToken($UserGroup, $Token) != 502){
+            if($this->AuthProcess->UserToken($UserGroup, $Token) != 502){
                 $Array = array("status" => "OK", "token" => $Token, "code" => 200);
                 EchoJSON($Array);
                 return 200;  // 200 - OK
@@ -288,7 +360,7 @@
 
         function Close(){
             try{
-                $this->DB->Close();
+                $this->AuthProcess->DB->Close();
                 return 200;  // 200 - OK
             }
             catch(Exception $e){
