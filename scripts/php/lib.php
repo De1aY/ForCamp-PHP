@@ -251,7 +251,7 @@
         }
     }
 
-    class TokenAuthorization extend Authorization{
+    class TokenAuthorization extends Authorization{
         var $DB;
         var $Token;
         var $Platform;
