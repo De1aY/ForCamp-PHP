@@ -5,7 +5,7 @@
     $Password = $_POST['password'];
     $Token = $_POST['token'];
     $Platform = $_POST['platform'];
-    $Platform = strtoupper(substr($Platform, 1)).substr($Platform, 1, strlen($Platform)-1);
+    $Platform = strtoupper($Platform);
     $Authorization = new Authorization($Login, $Password, $Token, $Platform);
     $Authorization->UserCheckValidation();
     $Authorization->Close();
