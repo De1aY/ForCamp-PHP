@@ -26,7 +26,7 @@
     }
 
     class DataBase{  // Класс для работы с базой данных
-        protected var $DataBase_Connection;
+        protected $DataBase_Connection;
 
         protected function BaseInit(){  // Создание подключения к базе данных со стандартными параметрами
             try{
@@ -48,11 +48,11 @@
     }
 
     class Authorization_Core extends DataBase{
-        protected var $User_Login = NULL;
-        protected var $User_Password = NULL;
-        protected var $User_Platform = NULL;
-        protected var $User_Token = NULL;
-        protected var $Status = 200;
+        protected $User_Login = NULL;
+        protected $User_Password = NULL;
+        protected $User_Platform = NULL;
+        protected $User_Token = NULL;
+        protected $Status = 200;
 
         protected function Authorize(){
             if(isset($this->User_Token)){
@@ -64,14 +64,74 @@
         }
 
         private function Authorize_WithToken(){
-            
+            $TokenCount = $this->CountToken();
+            if($TokenCount == 1){
+                return $this->Success();
+            }
+            else{
+                return $this->Error(602, "Authorize_WithToken");
+            }
         }
 
         private function Authorize_WithoutToken(){
 
         }
 
-        protected function PrintError($ErrorCode, $ErrorStage){
+        private function Success(){
+            session_start();
+            while(TRUE){
+                session_regenerate_id();
+                $Token = session_id();
+                $TokenCount = $this->CountToken($Token);
+                if($TokenCount == 0){
+                    try{
+                        $this->DataBase_Connection->query("UPDATE `".DB_EMPLOYEES."` SET (`".$this->User_Platform."`) VALUES ('$Token')");
+                    }
+                    catch{
+                        return $this->Error(501, "Success->Update");  // 501 - Ошибка при выполнении запроса к базе данных
+                    }
+                }
+            }
+            $this->DataBase_Connection->query("UPDATE `".DB_EMPLOYEES."` SET (`".$this->User_Platform."`) VALUES (");
+        }
+
+        private function SetToken(){
+
+        }
+
+        private function GetUserLogin($Token = NULL){
+            if(isset($Token)){
+                try{
+                    return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"];
+                }
+                catch{
+                    return $this->Error(501, "GetUserLogin");
+                }
+            }
+            else{
+                try{
+                    return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"];
+                }
+                catch{
+                    return $this->Error(501, "GetUserLogin");
+                }
+            }
+        }
+
+        private function GetUserAccessGroup(){
+            
+        }
+
+        protected function CountToken($Token = NULL){
+            if(isset($Token)){
+                return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["COUNT('ID')"];
+            }
+            else{
+                return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["COUNT('ID')"];
+            }
+        }
+
+        protected function Error($ErrorCode, $ErrorStage){
             error_log($ErrorStage." error ".$ErrorCode);
             $Array = array("status" => "ERROR", "token" => "", "code" => $ErrorCode);
             EchoJSON($Array);
@@ -82,7 +142,7 @@
         protected function SetDataBaseConnection(){
             $this->DataBase_Connection = $this->BaseInit();
             if($this->DataBase_Connection == 500){
-                return PrintError(500, "Authorize->SetDataBaseConnection");  // 500 - Ошибка при создании подключения к базе данных
+                return $this->Error(500, "Authorize->SetDataBaseConnection");  // 500 - Ошибка при создании подключения к базе данных
             }
         }
     }
@@ -102,7 +162,7 @@
                     $this->SetDataBaseConnection();
                 }
                 else{
-                    return PrintError(600, "Authorization_Web");  // 600 - Неверный формат входных данных
+                    return $this->Error(600, "Authorization_Web");  // 600 - Неверный формат входных данных
                 }
             }
         }
@@ -124,7 +184,7 @@
                     $this->SetDataBaseConnection();
                 }
                 else{
-                    return PrintError(600, "Authorization_Web");  // 600 - Неверный формат входных данных
+                    return $this->Error(600, "Authorization_Web");  // 600 - Неверный формат входных данных
                 }
             }
         }
