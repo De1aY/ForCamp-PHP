@@ -32,7 +32,7 @@
             try{
                 $Connection = new mysqli(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, MYSQL_DB);
                 return $Connection;
-            }catch (Exception $e)(Exception $e){
+            }catch (Exception $e){
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
         }
@@ -41,7 +41,7 @@
             try{
                 $Connection = new mysqli($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB);
                 return $Connection;
-            }catch (Exception $e)(Exception $e){
+            }catch (Exception $e)({
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
         }
