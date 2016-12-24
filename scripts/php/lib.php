@@ -32,7 +32,7 @@
             try{
                 $Connection = new mysqli(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, MYSQL_DB);
                 return $Connection;
-            }catch(Exception $e){
+            }catch (Exception $e)(Exception $e){
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
         }
@@ -41,7 +41,7 @@
             try{
                 $Connection = new mysqli($MySQL_Server, $MySQL_Login, $MySQL_Password, $MySQL_DB);
                 return $Connection;
-            }catch(Exception $e){
+            }catch (Exception $e)(Exception $e){
                 return 500;  // 500 - Ошибка при создании подключения к базе данных
             }
         }
@@ -87,7 +87,7 @@
                     try{
                         $this->DataBase_Connection->query("UPDATE `".DB_EMPLOYEES."` SET (`".$this->User_Platform."`) VALUES ('$Token')");
                     }
-                    catch{
+                    catch (Exception $e){
                         return $this->Error(501, "Success->Update");  // 501 - Ошибка при выполнении запроса к базе данных
                     }
                 }
@@ -104,7 +104,7 @@
                 try{
                     return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"];
                 }
-                catch{
+                catch (Exception $e){
                     return $this->Error(501, "GetUserLogin");
                 }
             }
@@ -112,7 +112,7 @@
                 try{
                     return mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_EMPLOYEES."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"];
                 }
-                catch{
+                catch (Exception $e){
                     return $this->Error(501, "GetUserLogin");
                 }
             }
