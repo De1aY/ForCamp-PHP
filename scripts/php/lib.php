@@ -26,8 +26,6 @@
     define("DB_ORGANIZERS", "organizers");  // Педагоги-Организаторы (Культура, Спорт, Дисциплина)|Уровень - 4
     define("DB_ADMINISTRATORS", "administrators");  // Администраторы сайта|Уровень - 1
 
-    #$this->DataBase_Connection->query("UPDATE `".DB_USERS."` SET `".$this->User_Platform."`='$Token' WHERE `Login`='".$this->DataBase_Connection->real_escape_string($Login)."'");
-
     function EchoJSON($Array){  // Вывод в формате JSON, на вход массив (Ключ => Значение)
         echo json_encode($Array);
     }
