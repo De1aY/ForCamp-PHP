@@ -18,6 +18,7 @@ body .container{
 
 body .container .input-group{
 	margin-bottom: 10px;
+	width: 100%;
 }
 
 body .container .input-group input{
@@ -44,13 +45,19 @@ body .container #submit{
 	font-weight: 900;
 	background-color: #3F51B5;
 	color: #fff;
+	text-transform: uppercase;
+	font-style: normal;
 }
 
-body .container #submit:hover{
+body .container .waves-effect{
 	font-weight: 900;
-	box-shadow: none;
-	border: 2px solid #3F51B5;
-	background-color: #fff;
-	color: #303F9F;
+	background-color: #3F51B5;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	margin: 0;
+	padding: 0;
 }
+
 

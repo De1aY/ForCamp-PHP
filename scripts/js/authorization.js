@@ -1,4 +1,16 @@
+var preloader = new $.materialPreloader({
+    position: 'top',
+    height: '5px',
+    col_1: '#159756',
+    col_2: '#da4733',
+    col_3: '#3b78e7',
+    col_4: '#fdba2c',
+    fadeIn: 200,
+    fadeOut: 200
+});
+
 function OnClickListener(){
+	preloader.on();
 	var Login = GetLogin();
 	var Password = GetPassword();
 	if(Login.length != 0 && Password.length !=0){
@@ -18,6 +30,7 @@ function CheckAuthInf(User_Login, User_Password){
 function ParseResponse(Response){
 	var Response = JSON.parse(Response);
 	if(Response["code"] == 200){
+		Success("Успешно");
 		window.location = "../index.php";
 	}
 	else{
@@ -25,7 +38,13 @@ function ParseResponse(Response){
 	}
 }
 
+function Success(Message){
+	preloader.off();
+	notie.alert(1, Message, 5);
+}
+
 function Error(Message){
+	preloader.off();
 	notie.alert(3, Message, 5);
 }
 
@@ -41,6 +60,12 @@ function SetOnClickListener(){
 	$('#submit').click(OnClickListener);
 }
 
-$(document).ready(function(){
+function ActivateWavesEffect(){
+	Waves.attach('#submit');
+	Waves.init();
+}
+
+$(document).ready(function($){
 	SetOnClickListener();
+	ActivateWavesEffect();
 });

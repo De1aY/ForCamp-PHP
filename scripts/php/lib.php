@@ -20,13 +20,9 @@
     define("MYSQL_PASSWORD", "5zaU2x8A");  // Пароль сервера MySQL
     define("MYSQL_DB", "camp");  // Название базы данных на сервере MySQL
     define("DB_USERS", "users");  // Таблица со всеми пользователями
-    define("DB_TUTORS", "tutors");  // Воспитатели (Дисциплина)|Уровень - 2
-    define("DB_STUDENTS", "students");  // Ученики|Уровень - 5
-    define("DB_TEACHERS", "teachers");  // Учителя (Учёба, Дисциплина)|Уровень - 3
-    define("DB_ORGANIZERS", "organizers");  // Педагоги-Организаторы (Культура, Спорт, Дисциплина)|Уровень - 4
-    define("DB_ADMINISTRATORS", "administrators");  // Администраторы сайта|Уровень - 1
+    define("DB_EMPLOYEES", "employees");  // Уровни доступа пользователей
 
-    function CheckToken($Token, $Platform){  // Проверка токена возвращает код
+    function CheckToken($Token, $Platform){  // Проверка токена, возвращает код(200/500/...)
         $postData = array("token" => $Token, "platform" => $Platform);
         $Curl = curl_init();
         curl_setopt_array($Curl, array(
@@ -39,6 +35,21 @@
         curl_close($Curl);
         $response = json_decode($response, TRUE);
         return $response['code'];
+    }
+
+    function GetUserData($Token, $Platform){
+        $postData = array("token" => $Token, "platform" => $Platform);
+        $Curl = curl_init();
+        curl_setopt_array($Curl, array(
+            CURLOPT_URL => 'http://forcamptest.azurewebsites.net/requests/getuserdata.php',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData
+        ));
+        $response = curl_exec($Curl);
+        curl_close($Curl);
+        $response = json_decode($response, TRUE);
+        return $response;
     }
 
     function EchoJSON($Array){  // Вывод в формате JSON, на вход массив (Ключ => Значение)
@@ -182,39 +193,29 @@
             }
         }
 
-        private function GetUserLogin($Token = NULL){
+        protected function GetUserLogin($Token = NULL){
             if(isset($Token)){
-                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));  // 501 - Ошибка при выполнении запроса к базе данных
+                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));
                 return $Login;
             }
             else{
-                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));  // 501 - Ошибка при выполнении запроса к базе данных
+                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));
                 return $Login;
-            }
-        }
-
-        private function GetUserOrganization(){  // Получение организации пользователя по ТОКЕНУ
-            if(isset($this->User_Token)){
-                $Organization = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Organization"] or die($this->Error(501, "GetUserLogin"));  // 501 - Ошибка при выполнении запроса к базе данных
-                return $Organization;
-            }
-            else{
-                return $this->Error(600, "GetUserOrganization");
             }
         }
 
         private function CheckAuthInf(){
-            $Check = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."' AND `Password`='".$this->DataBase_Connection->real_escape_string($this->User_Password)."'"))["COUNT('ID')"];  //501 - Ошибка при выполнении запроса к базе данных
+            $Check = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."' AND `Password`='".$this->DataBase_Connection->real_escape_string($this->User_Password)."'"))["COUNT('ID')"];
             return $Check;
         }
 
         protected function CountToken($Token = NULL){
             if(isset($Token)){
-                $Count = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["COUNT('ID')"];  // 501 - Ошибка при выполнении запроса к базе данных
+                $Count = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["COUNT('ID')"];
                 return $Count;
             }
             else{
-                $Count = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["COUNT('ID')"];  // 501 - Ошибка при выполнении запроса к базе данных
+                $Count = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["COUNT('ID')"];
                 return $Count;
             }
         }
@@ -284,4 +285,59 @@
             }
         }
     }
+
+    class Data_Core extends Authorization_Core{
+        var $User_Organization = NULL;
+
+        function Data_Core($Token, $Platform){
+            $this->SetDataBaseConnection();
+            $this->User_Platform = $Platform."Token";
+            if(isset($Token) and $this->CountToken($Token) == 1){
+                $this->User_Token = $Token;
+                if($this->SetUserOrganization() == 200){
+                    $this->User_Login = $this->GetUserLogin();
+                    $this->CloseDataBaseConnection();
+                    $this->SetDataBaseConnection_Advanced();
+                }
+            }
+            else{
+                return $this->Error(600, "Data_Core");  // 600 - Неверный формат входных данных
+            }
+        }
+
+        private function SetUserOrganization(){
+            $this->User_Organization = $this->GetUserOrganization();
+            if($this->Status == 200){
+                return 200;
+            }
+        }
+
+        private function GetUserOrganization(){  // Получение организации пользователя по ТОКЕНУ
+            if(isset($this->User_Token)){
+                $Organization = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Organization"] or die($this->Error(501, "GetUserLogin"));  // 501 - Ошибка при выполнении запроса к базе данных
+                return $Organization;
+            }
+            else{
+                return $this->Error(600, "GetUserOrganization");
+            }
+        }
+
+        private function SetDataBaseConnection_Advanced(){
+            $this->DataBase_Connection = $this->AdvancedInit(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, $this->User_Organization);
+            if($this->DataBase_Connection == 500){
+                return $this->Error(500, "SetDataBaseConnection_Advanced");  // 500 - Ошибка при создании подключения к базе данных
+            }
+        }
+
+        function GetUserData(){
+            EchoJSON(array_merge(mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Name`,`Surname`,`Middlename` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")), array("status" => "OK", "code" => 200)));
+            $this->CloseDataBaseConnection();
+        }
+
+        function GetUserAccess(){
+            EchoJSON(array_merge(mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `AccessLevel` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")), array("status" => "OK", "code" => 200)));
+            $this->CloseDataBaseConnection();
+        }
+    }
+
 ?>

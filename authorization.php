@@ -16,6 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>ForCamp | Authorization</title>
 	<link rel="stylesheet" href="css/authorization.css">
+	<!-- MaterialPreloader -->
+    <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
+	<!-- WaveEffect -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.css">
 	<!-- Notie.js -->
 	<link rel="stylesheet" href="css/notie.css">
 	<!-- Bootstrap -->
@@ -28,10 +32,10 @@
 </head>
 <body>
 	<div class="container col-lg-2 col-lg-offset-5 col-xs-5 col-xs-offset-4">
-		<div class="input-group col-lg-12">
+		<div class="input-group">
 		    <input id="login" type="text" class="form-control" id="inputEmail" placeholder="Введите логин" aria-describedby="sizing-addon1">
 		</div>
-		<div class="input-group col-lg-12">
+		<div class="input-group">
 			<input id="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" aria-describedby="sizing-addon1">
 		</div>
 		<input id="submit" type="submit" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" value="Войти">
@@ -41,6 +45,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Notie.js -->
     <script src="scripts/js/notie.js"></script>
+    <!-- WaveEffect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.js"></script>
+    <!-- MaterialPreloader -->
+    <script type="text/javascript" src="scripts/js/materialPreloader.min.js"></script>
     <!-- Other scrits -->
     <script src="scripts/js/authorization.js"></script>
 </body>
