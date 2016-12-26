@@ -20,6 +20,5 @@
             }
         default:
             $Authorization = new Authorization_Web();
-    }
-    
+    }  
 ?>

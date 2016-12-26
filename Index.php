@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿<?php
+    require_once "scripts/php/lib.php";
+
+    session_start();
+    if(isset($_SESSION['Token'])){
+        if(CheckToken($_SESSION['Token'], "web") != 200){
+            session_unset();
+            session_write_close();
+            header("Location: authorization.php");
+        }
+    }
+    else{
+        header("Location: authorization.php");
+    }
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">

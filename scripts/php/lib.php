@@ -15,16 +15,31 @@
     */
 
     define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl_encrypt
-	define("MYSQL_SERVER", "52.169.122.82");  // IP сервера MySQL
-	define("MYSQL_LOGIN", "root");  // Логин сервера MySQL
-	define("MYSQL_PASSWORD", "5zaU2x8A");  // Пароль сервера MySQL
-	define("MYSQL_DB", "camp");  // Название базы данных на сервере MySQL
+    define("MYSQL_SERVER", "52.169.122.82");  // IP сервера MySQL
+    define("MYSQL_LOGIN", "root");  // Логин сервера MySQL
+    define("MYSQL_PASSWORD", "5zaU2x8A");  // Пароль сервера MySQL
+    define("MYSQL_DB", "camp");  // Название базы данных на сервере MySQL
     define("DB_USERS", "users");  // Таблица со всеми пользователями
     define("DB_TUTORS", "tutors");  // Воспитатели (Дисциплина)|Уровень - 2
     define("DB_STUDENTS", "students");  // Ученики|Уровень - 5
     define("DB_TEACHERS", "teachers");  // Учителя (Учёба, Дисциплина)|Уровень - 3
     define("DB_ORGANIZERS", "organizers");  // Педагоги-Организаторы (Культура, Спорт, Дисциплина)|Уровень - 4
     define("DB_ADMINISTRATORS", "administrators");  // Администраторы сайта|Уровень - 1
+
+    function CheckToken($Token, $Platform){  // Проверка токена возвращает код
+        $postData = array("token" => $Token, "platform" => $Platform);
+        $Curl = curl_init();
+        curl_setopt_array($Curl, array(
+            CURLOPT_URL => 'http://forcamptest.azurewebsites.net/scripts/php/authorization.php',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postData
+        ));
+        $response = curl_exec($Curl);
+        curl_close($Curl);
+        $response = json_decode($response, TRUE);
+        return $response['code'];
+    }
 
     function EchoJSON($Array){  // Вывод в формате JSON, на вход массив (Ключ => Значение)
         echo json_encode($Array);
@@ -248,7 +263,6 @@
                 }
             }
         }
-
     }
 
     class Authorization_Mobile extends Authorization_Core{

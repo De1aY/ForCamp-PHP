@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext');
+
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+	background: #fff !important;
+}
+
+body .container{
+	background-color: #fff;
+	padding: 20px;
+	border: 2px solid #3F51B5;
+	margin-top: 35vh;
+	box-shadow: 0 0 10px;
+}
+
+body .container .input-group{
+	margin-bottom: 10px;
+}
+
+body .container .input-group input{
+	background-color: #fff;
+	border: none;
+	color: #212121;
+	box-shadow: none;
+	border-bottom: 1px solid #3F51B5;
+}
+
+body .container .input-group input:hover{
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #3F51B5;
+}
+
+body .container .input-group input:focus{
+	background-color: #fff;
+	border: none;
+	border-bottom: 2px solid #3F51B5;
+}
+
+body .container #submit{
+	font-weight: 900;
+	background-color: #3F51B5;
+	color: #fff;
+}
+
+body .container #submit:hover{
+	font-weight: 900;
+	box-shadow: none;
+	border: 2px solid #3F51B5;
+	background-color: #fff;
+	color: #303F9F;
+}
+
