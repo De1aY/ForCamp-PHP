@@ -205,7 +205,6 @@
         }
 
         protected function Error($ErrorCode, $ErrorStage){
-            error_log($ErrorStage." error ".$ErrorCode);
             $Array = array("status" => "ERROR", "token" => "", "code" => $ErrorCode);
             EchoJSON($Array);
             $this->Status = $ErrorCode;
