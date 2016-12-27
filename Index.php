@@ -8,11 +8,14 @@
             session_write_close();
             header("Location: authorization.php");
         }
+        else{
+            $Token = $_SESSION['Token'];
+            echo "<i id='token'>$Token</i>";
+        }
     }
     else{
         header("Location: authorization.php");
     }
-    $Name = GetUserData($_SESSION['Token'], "web")["Name"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +46,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="collapse-button" data-target="#collapse" aria-expanded="false">меню</button>
-                <?php
-                    echo "<a id='profile' href='profile.php' class='navbar-brand'>$Name</a>";
-                ?>
+                <a id='profile' href='profile.php' class='navbar-brand'>профиль</a>
             </div>
             <div class="collapse navbar-collapse" id="collapse">
                 <ul class="nav navbar-nav">

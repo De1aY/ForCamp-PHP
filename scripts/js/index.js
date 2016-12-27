@@ -20,7 +20,29 @@ function ActivateWavesEffect(){
 	Waves.init();
 }
 
+function GetLogin(){
+	preloader.on();
+	$.post('../requests/getuserlogin.php', {token: GetToken(), platform: "web"}, function(Resp) {
+		Resp = JSON.parse(Resp);
+		if(Resp["code"] == 200){
+			SetLogin(Resp);
+		}
+		else{
+			window.location = "../exit.php";
+		}
+	});
+}
+
+function SetLogin(Data){
+	$('#profile').attr('href', 'profile.php?login='+Data['login']);
+	preloader.off();
+}
+
+function GetToken(){
+	return $('#token').text();
+}
 
 jQuery(document).ready(function($){
+	GetLogin();
 	ActivateWavesEffect();
 });

@@ -12,6 +12,7 @@
     600 - Неверный формат входных данных
     601 - Неверный логин/пароль
     602 - Неверный токен
+    603 - Пользователя с таким логино не существует
     */
 
     define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl_encrypt
@@ -193,14 +194,24 @@
             }
         }
 
-        protected function GetUserLogin($Token = NULL){
+        function GetUserLogin($Token = NULL){
             if(isset($Token)){
-                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));
-                return $Login;
+                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($Token)."'"))["Login"];
+                if(isset($Login)){
+                    return $Login;
+                }
+                else{
+                    return $this->Error(501, "GetUserLogin");
+                }
             }
             else{
-                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"] or die($this->Error(501, "GetUserLogin"));
-                return $Login;
+                $Login = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Login` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Login"];
+                if(isset($Login)){
+                    return $Login;
+                }
+                else{
+                    return $this->Error(501, "GetUserLogin");
+                }
             }
         }
 
@@ -264,6 +275,14 @@
                 }
             }
         }
+
+        function GetUserID(){
+            $Login = DecodeAES($this->GetUserLogin());
+            if ($Login != 501){
+                EchoJSON(array("login" => $Login, "status" => "OK", "code" => 200));
+            }
+            $this->CloseDataBaseConnection();
+        }
     }
 
     class Authorization_Mobile extends Authorization_Core{
@@ -284,58 +303,90 @@
                 }
             }
         }
+
+        function GetUserID(){
+            $Login = DecodeAES($this->GetUserLogin());
+            if ($Login != 501){
+                EchoJSON(array("login" => $Login, "status" => "OK", "code" => 200));
+            }
+            $this->CloseDataBaseConnection();
+        }
     }
 
     class Data_Core extends Authorization_Core{
         var $User_Organization = NULL;
 
-        function Data_Core($Token, $Platform){
-            $this->SetDataBaseConnection();
-            $this->User_Platform = $Platform."Token";
-            if(isset($Token) and $this->CountToken($Token) == 1){
-                $this->User_Token = $Token;
-                if($this->SetUserOrganization() == 200){
-                    $this->User_Login = $this->GetUserLogin();
-                    $this->CloseDataBaseConnection();
-                    $this->SetDataBaseConnection_Advanced();
-                }
-            }
-            else{
-                return $this->Error(600, "Data_Core");  // 600 - Неверный формат входных данных
-            }
-        }
-
-        private function SetUserOrganization(){
+        protected function SetUserOrganization(){
             $this->User_Organization = $this->GetUserOrganization();
             if($this->Status == 200){
                 return 200;
             }
         }
 
-        private function GetUserOrganization(){  // Получение организации пользователя по ТОКЕНУ
+        private function GetUserOrganization(){  // Получение организации пользователя по логину
             if(isset($this->User_Token)){
-                $Organization = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE ".$this->User_Platform."='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Organization"] or die($this->Error(501, "GetUserLogin"));  // 501 - Ошибка при выполнении запроса к базе данных
-                return $Organization;
+                $Organization = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'"))["Organization"];
+                return DecodeAES($Organization);
             }
             else{
                 return $this->Error(600, "GetUserOrganization");
             }
         }
 
-        private function SetDataBaseConnection_Advanced(){
+        protected function SetDataBaseConnection_Advanced(){
             $this->DataBase_Connection = $this->AdvancedInit(MYSQL_SERVER, MYSQL_LOGIN, MYSQL_PASSWORD, $this->User_Organization);
             if($this->DataBase_Connection == 500){
                 return $this->Error(500, "SetDataBaseConnection_Advanced");  // 500 - Ошибка при создании подключения к базе данных
             }
         }
 
-        function GetUserData(){
-            EchoJSON(array_merge(mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Name`,`Surname`,`Middlename` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")), array("status" => "OK", "code" => 200)));
-            $this->CloseDataBaseConnection();
-        }
-
         function GetUserAccess(){
             EchoJSON(array_merge(mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `AccessLevel` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")), array("status" => "OK", "code" => 200)));
+            $this->CloseDataBaseConnection();
+        }
+    }
+
+    class Data_User extends Data_Core{
+        var $Owner = FALSE;
+
+        function Data_User($Token, $Platform, $Login = "admin_2"){
+            $this->SetDataBaseConnection();
+            if($this->Status == 200){
+                if(isset($Token) and isset($Platform) and isset($Login)){
+                    $this->User_Login = EncodeAES($Login);
+                    if($this->CheckLogin() == 200){
+                        $this->User_Token = $Token;
+                        $this->User_Platform = $Platform."Token";
+                        if($this->GetUserLogin() == $this->User_Login){
+                            $this->Owner = TRUE;
+                        }
+                        $this->SetUserOrganization();
+                        $this->CloseDataBaseConnection();
+                        $this->SetDataBaseConnection_Advanced();
+                    }
+                }
+                else{
+                    return $this->Error(600, "Data_User");
+                }
+            }
+            else{
+                return $this->Error(500, "Data_User");
+            }
+        }
+
+        private function CheckLogin(){
+            $Resp = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT COUNT('ID') FROM `".DB_USERS."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'"))["COUNT('ID')"];
+            if($Resp == 1){
+                return 200;
+            }
+            else{
+                return $this->Error(603, "CheckLogin");
+            }
+        }
+
+        function GetUserData(){
+            $Array = array_map("DecodeAES", mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Name`,`Surname`,`Middlename`,`Sex`,`Avatar` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")));
+            EchoJSON(array_merge($Array, array("status" => "OK", "code" => 200, "owner" => $this->Owner)));
             $this->CloseDataBaseConnection();
         }
     }

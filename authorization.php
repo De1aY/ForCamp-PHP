@@ -31,14 +31,14 @@
     <![endif]-->
 </head>
 <body>
-	<div class="container col-lg-2 col-lg-offset-5 col-xs-5 col-xs-offset-4">
+	<div class="container col-lg-2 col-lg-offset-5 col-xs-8 col-xs-offset-2 col-sm-3 col-sm-offset-5 ">
 		<div class="input-group">
-		    <input id="login" type="text" class="form-control" id="inputEmail" placeholder="Введите логин" aria-describedby="sizing-addon1">
+		    <input id="login" type="text" class="form-control" id="inputLogin" placeholder="Введите логин" aria-describedby="sizing-addon1">
 		</div>
 		<div class="input-group">
 			<input id="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" aria-describedby="sizing-addon1">
 		</div>
-		<input id="submit" type="submit" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" value="Войти">
+		<input id="submit" type="submit" class="form-control" aria-describedby="sizing-addon1" value="Войти">
 	<!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Bootstrap -->

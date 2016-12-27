@@ -8,6 +8,10 @@
             session_write_close();
             header("Location: authorization.php");
         }
+        else{
+        	$Token = $_SESSION['Token'];
+        	echo "<i id='token'>$Token</i>";
+        }
     }
     else{
         header("Location: authorization.php");
@@ -19,7 +23,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ForCamp | Main</title>
+    <title>ForCamp | Профиль</title>
     <link rel="stylesheet" href="css/profile.css">
     <!-- MaterialPreloader -->
     <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
@@ -42,7 +46,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="collapse-button" data-target="#collapse" aria-expanded="false">меню</button>
-                <a id="profile" href="profile.php" class="navbar-brand">имя</a>
+                <i id="profile" class="navbar-brand">профиль</i>
             </div>
             <div class="collapse navbar-collapse" id="collapse">
                 <ul class="nav navbar-nav">
@@ -56,7 +60,16 @@
             </div>
         </div>
     </nav>
-    <div id="Temp"></div>
+    <div class="content col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    	<div class="UserName col-lg-12"></div>
+    	<img src="media/images/innopolis_1.png" class="avatar col-lg-offset-2">
+		<div class="UserPanel col-lg-12">
+			<div class="Settings">отправить сообщение</div>
+			<div class="Name col-lg-offset-2">undefenited</div>
+			<div class="Achievements">достижения</div>
+		</div>
+		<div class="UserInf col-lg-12"></div>
+    </div>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Bootstrap -->

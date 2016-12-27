@@ -13,7 +13,7 @@ body .container{
 	padding: 20px;
 	border: 2px solid #3F51B5;
 	margin-top: 35vh;
-	box-shadow: 0 0 10px;
+	box-shadow: 0 5px 10px;
 }
 
 body .container .input-group{
@@ -25,7 +25,6 @@ body .container .input-group input{
 	background-color: #fff;
 	border: none;
 	color: #212121;
-	box-shadow: none;
 	border-bottom: 1px solid #3F51B5;
 }
 
@@ -47,12 +46,16 @@ body .container #submit{
 	color: #fff;
 	text-transform: uppercase;
 	font-style: normal;
+	width: 100%;
 }
 
 body .container .waves-effect{
+	border: none;
+	border-radius: 0;
 	font-weight: 900;
 	background-color: #3F51B5;
 	text-align: center;
+	box-shadow: 0 3px 5px #333;
 	height: 40px;
 	line-height: 40px;
 	color: #fff;

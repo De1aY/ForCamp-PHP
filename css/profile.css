@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext');
+
+*{
+    font-family: 'Roboto', sans-serif;
+}
+
+body #notie-alert-outer{
+	z-index: 998;
+}
+
+body .header{
+	background: #303F9F;
+	box-shadow: 0 2px 5px 0 #333;
+	border: none;
+	color: #fff;
+	z-index: 10;
+}
+
+body .header .container #profile{
+	color: #fff;
+	font-style: normal;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+	color: #fff;
+	background: #3F51B5;
+}
+
+body .header .container #profile:hover{
+	cursor: default;
+}
+
+body .header .container #all{
+	color: #fff;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #all:hover{
+	color: #fff;
+	background: #3F51B5;
+}
+
+body .header .container #group{
+	color: #fff;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #group:hover{
+	color: #fff;
+	background: #3F51B5;
+}
+
+body .header .container #main{
+	color: #fff;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #main:hover{
+	color: #fff;
+	background: #3F51B5;
+}
+
+body .header .container #collapse-button{
+	background-color: #303F9F;
+	color: #fff;
+	border: none;
+	margin: 0;
+	line-height: 33px;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #collapse{
+	border: none;
+}
+
+body .header .container #exit{
+	color: #fff;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #exit:hover{
+	color: #fff;
+	background: #3F51B5;
+}
+
+body .content{
+	padding: 0;
+	z-index: 1;
+}
+
+.avatar{
+	height: 26vh;
+	width: auto;
+	border-radius: 100vh;
+	box-shadow: 0 0 20px #333;
+	border: 2px solid #fff;
+	margin-top: -8vh;
+	float: left;
+	z-index: 2;
+}
+
+.UserName{
+	height: 20vh;
+	background: #3F51B5;
+	width: 100%;
+	z-index: -1;
+}
+
+body .header .container #achievements{
+	color: #fff;
+	text-decoration: none;
+	transition: all 0.5s;
+	font-size: 20px;
+	text-transform: uppercase;
+}
+
+body .header .container #achievements:hover{
+	color: #fff;
+	background: #3F51B5;
+}
+
+#token{
+	display: none;
+}
+
+.UserPanel{
+	z-index: -1;
+	height: 10vh;
+	margin-top: -18vh;
+	background-color: #fff;
+	box-shadow: 0 -2px 5px 0 #333;
+}
+
+.Settings{
+	height: 5vh;
+	background: #303F9F;
+	text-align: center;
+	line-height: 5vh;
+	margin-top: 2.5vh;
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: 900;
+	width: 15%;
+	padding: 0;
+	box-shadow: 0 3px 5px #333;
+	float: left;
+}
+
+.Settings:hover{
+	cursor: pointer;
+}
+
+.UserInf{
+	box-shadow: inset 0 2px 5px 0 #333;
+	z-index: -1;
+	height: 100vh;
+	margin-top: -8vh;
+	background: #3F51B5;
+}
+
+.Name{
+	z-index: 2;
+	line-height: 5vh;
+	color: #333;
+	font-size: 50px;
+	margin-top: 2.5vh;
+	font-style: normal;
+	text-transform: capitalize;
+	float: left;
+}
+
+.Achievements{
+	height: 5vh;
+	background: #303F9F;
+	text-align: center;
+	line-height: 5vh;
+	margin-top: 2.5vh;
+	text-transform: uppercase;
+	color: #fff;
+	font-weight: 900;
+	width: 10%;
+	padding: 0;
+	box-shadow: 0 3px 5px #333;
+	margin-left: auto;
+	margin-right: 0;
+	float: right;
+}
+
+.Achievements:hover{
+	cursor: pointer;
+}
+
+
+
+
+

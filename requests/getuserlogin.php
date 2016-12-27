@@ -1,18 +1,18 @@
 <?php
 	require_once "../scripts/php/lib.php";
 
-	function SwitchPlatform($Platform, $Login, $Token){
+	function SwitchPlatform($Platform, $Token){
 		switch($Platform){
 			case "WEB":
-				$Data = new Data_User($Token, $Platform, $Login);
+				$Data = new Authorization_Web(NULL, NULL, $Token);
 				if($Data->Status == 200){
-					$Data->GetUserData();
+					$Data->GetUserID();
 				}
 				break;
 			case "MOBILE":
-				$Data = new Data_User($Token, $Platform, $Login);
+				$Data = new Authorization_Mobile(NULL, NULL, $Token);
 				if($Data->Status == 200){
-					$Data->GetUserData();
+					$Data->GetUserID();
 				}
 				break;
 			default:
@@ -21,12 +21,12 @@
 		}
 	}
 
-	if(isset($_POST['token']) and isset($_POST['platform']) and isset($_POST['login'])){
+	if(isset($_POST['token']) and isset($_POST['platform'])){
 		$Platform = strtoupper(trim($_POST['platform']));
 		$Login = trim($_POST['login']);
 		$Token = $_POST['token'];
 		if(CheckToken($Token, $Platform) == 200){
-			SwitchPlatform($Platform, $Login, $Token);
+			SwitchPlatform($Platform, $Token);
 		}
 		else{
 			return EchoJSON(array("status" => "ERROR", "token" => "", "code" => 602));
