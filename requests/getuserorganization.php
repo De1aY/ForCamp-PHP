@@ -5,8 +5,8 @@
 		$Platform = strtoupper(trim($_POST['platform']));
 		$Login = trim($_POST['login']);
 		$Token = $_POST['token'];
-		$Req = new Requests();
-		$Req->GetUserData($Token, $Platform, $Login);
+        $Req = new Requests();
+        $Req->GetUserOrganization($Token, $Platform, $Login);
 	}
 	else{
 		$Data = new Data_User(NULL, NULL, NULL);

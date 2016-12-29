@@ -9,7 +9,6 @@ var preloader = new $.materialPreloader({
     fadeOut: 200
 });
 
-
 function ActivateWavesEffect(){
 	Waves.attach('#main');
 	Waves.attach('#all');
@@ -23,23 +22,18 @@ function ActivateWavesEffect(){
 
 function GetUserData(){
 	preloader.on();
-	$.post('../requests/getuserdata.php', {platform: 'web', token: GetToken(), login: GetLogin()}, function(Resp) {
-		Resp = ToJSON(Resp)
-		if(CheckResponse(Resp)){
-			SetData(Resp);
-			if(Resp["owner"] == true){
-				Owner();
-			}
+	$.post('../requests/getuserdata.php', {platform: 'web', token: GetToken(), login: GetLogin()}, function(Resp_Data) {
+		Resp_Data = ToJSON(Resp_Data)
+		if(CheckResponse(Resp_Data)){
+			SetData(Resp_Data);
 		}
 		else{
 			notie.alert(3, "Не удалось получить информацию о пользователе!");
-			preloader.off();
 		}
 	});
 }
 
-function GetRequestParams()
-{
+function GetRequestParams(){
     var vars = [], hash;
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for(var i = 0; i < hashes.length; i++)
@@ -67,10 +61,36 @@ function Owner(){
 	$('.settings').text("личный кабинет");
 }
 
+function Capitalize(str){
+	return str[0].toUpperCase()+str.substr(1);
+};
+
 function SetData(Data){
 	$(".Name").text(Data["Surname"]+" "+Data["Name"]+" "+Data["Middlename"]);
-	$("title").text("ForCamp | "+Data["Surname"]+" "+Data["Name"]+" "+Data["Middlename"]);
+	$("title").text(Capitalize(Data["Surname"])+" "+Capitalize(Data["Name"]));
 	$(".Avatar").attr("src", Data["Avatar"]);
+	if(Data["owner"] == true){
+		Owner();
+	}
+	preloader.off();
+}
+
+function GetUserOrganization(){
+	$.post('../requests/getuserorganization.php', {login: GetLogin(), platform: "web", token: GetToken()}, function(Resp_Org){
+		Resp_Org = ToJSON(Resp_Org);
+		if(CheckResponse(Resp_Org)){
+			SetOrganization(Resp_Org);
+		}
+		else{
+			notie.alert(3, "Не удалось получить информацию о пользователе!");
+			preloader.off();
+		}
+	});
+}
+
+function SetOrganization(Data){
+	Text = $('title').text()
+	$('title').text(Data["organization"]+Text);
 	preloader.off();
 }
 
@@ -79,9 +99,13 @@ function CheckResponse(Response){
 		return true;
 	}
 	else{
+		if(Response["code"] == 602){
+			window.location = "../exit.php";
+		}
 		return false;
 	}
 }
+
 
 jQuery(document).ready(function($){
 	GetUserData();

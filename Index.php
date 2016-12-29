@@ -3,15 +3,8 @@
 
     session_start();
     if(isset($_SESSION['Token'])){
-        if(CheckToken($_SESSION['Token'], "web") != 200){
-            session_unset();
-            session_write_close();
-            header("Location: authorization.php");
-        }
-        else{
             $Token = $_SESSION['Token'];
             echo "<i id='token'>$Token</i>";
-        }
     }
     else{
         header("Location: authorization.php");
