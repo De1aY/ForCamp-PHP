@@ -18,6 +18,7 @@
             if($Authorization->Status == 200){
                 $Authorization->Authorize();
             }
+            break;
         default:
             $Authorization = new Authorization_Web();
     }
