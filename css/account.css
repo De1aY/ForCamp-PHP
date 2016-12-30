@@ -1,0 +1,101 @@
+body .content .user-inf .avatar{
+    height: 200px;
+    width: 200px;
+    border-radius: 100vh;
+    border: 2px solid #fff;
+    box-shadow: 0 5px 20px 0 #333;
+    z-index: 2;
+    padding: 0;
+    margin: 0 auto;
+}
+
+body .content{
+    background: #3F51B5;
+    height: 100%;
+    text-align: center;
+}
+
+body .content .top{
+    top: 0;
+}
+
+body .content .margin-top{
+    height: 100px;
+}
+
+body .fullname{
+    background: #fff;
+    margin-top: -100px;
+    z-index: -1;
+    box-shadow: 0 2px 5px 0 #333;
+    height: 200px;
+}
+
+body .fullname_margin{
+    height: 110px;
+}
+
+body .fullname_text{
+    text-transform: capitalize;
+    color: #333;
+    font-size: 50px;
+}
+
+body .user-inf{
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+body .data{
+    display: inline-block;
+    max-width: 440px;
+    margin: 0 auto;
+    vertical-align: top;
+    text-align: left;
+}
+
+body .data:last-child{
+    margin-left: 20px;
+}
+
+body .data_box{
+    margin: 20px auto 0 auto;
+    height: 100px;
+    max-width: 440px;
+    background: #fff;
+    box-shadow: 0 2px 5px 0 #333;
+}
+
+body .data_box_header{
+    text-align: left;
+    margin: 0;
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+}
+
+body .data_box_header_text:first-letter{
+    text-transform: uppercase;
+}
+
+body .data_box_header_text{
+    margin-left: 10px;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 0 10px;
+    flex: 1;
+}
+
+body .data_box_header_pencil{
+    position: relative;
+    font-size: 30px;
+    font-weight: 500;
+    padding: 0 10px;
+    margin-right: 10px;
+}
+/* i{
+    font-size: 15px;
+    color: #fff;
+    background: #FF5252;
+    box-shadow: 0 2px 5px 0 #333;
+} */

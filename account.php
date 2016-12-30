@@ -1,10 +1,10 @@
-﻿<?php
-    require_once "scripts/php/lib.php";
+<?php
+	require_once "scripts/php/lib.php";
 
     session_start();
     if(isset($_SESSION['Token'])){
-            $Token = $_SESSION['Token'];
-            echo "<i id='token'>$Token</i>";
+        	$Token = $_SESSION['Token'];
+        	echo "<i id='token'>$Token</i>";
     }
     else{
         header("Location: authorization.php");
@@ -16,14 +16,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ForCamp | Main</title>
+    <title>ForCamp | Личный кабинет</title>
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/account.css">
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css">
     <!-- MaterialPreloader -->
     <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <!-- Notie.js -->
+     <!-- Notie.js -->
     <link rel="stylesheet" href="css/notie.css">
     <!-- WaveEffect -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.css">
@@ -40,13 +42,13 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="collapse-button" data-target="#collapse" aria-expanded="false">меню</button>
-                <a id='profile' href='profile.php' class='wave-effect navbar-brand menu_button'>профиль</a>
+                <a href="" id="profile" class="wave-effect navbar-brand menu_button">профиль</a>
             </div>
             <div class="collapse navbar-collapse" id="collapse">
                 <ul class="nav navbar-nav">
-                    <li><a id="main" href="index.php menu_button" class="wave-effect active">главная</a></li>
-                    <li><a class="wave-effect menu_button" id="all" href="all.php">общая статистика</a></li>
-                    <li><a class="wave-effect menu_button" id="group" href="group.php">класс</a></li>
+                    <li><a class="wave-effect menu_button" id="main" href="index.php">главная</a></li>
+                    <li><a class="wave-effect menu_button" id="all" href="index.php?page=all">сообщения</a></li>
+                    <li><a class="wave-effect menu_button active" id="group" href="index.php?page=group">настройки</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a class="wave-effect menu_button" id="exit" href="exit.php">выйти</a></li>
@@ -54,19 +56,47 @@
             </div>
         </div>
     </nav>
-    <div id="Temp"></div>
+    <div class="content">
+        <div class="margin-top"></div>
+        <div class="user-inf">
+            <img src="media/images/innopolis_1.png" class="avatar hvr-ripple-out">
+            <div class="fullname">
+                <div class="fullname_margin"></div>
+                <div class="fullname_text">undefenited</div>
+            </div>
+            <div class="data">
+                <div class="data_box" id="authorization_data">
+                    <h2 class="data_box_header">
+                        <div class="data_box_header_text">логин и пароль</div>
+                        <div class="data_box_header_pencil fa fa-pencil"></div>
+                    </h2>
+                </div>
+            </div>
+            <div class="data">
+                <div class="data_box" id="main_data">
+                    <div class="data_box_header">
+                        <div class="data_box_header_text"></div>
+                        <div class="data_box_header_pencil fa fa-pencil"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Админская часть -->
+            <?php
+
+            ?>
+    </div>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- WaveEffect -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.js"></script>
-    <!-- Notie.js -->
-    <script src="scripts/js/notie.js"></script>
     <!-- MaterialPreloader -->
     <script type="text/javascript" src="scripts/js/materialPreloader.min.js"></script>
+    <!-- Notie.js -->
+    <script src="scripts/js/notie.js"></script>
     <!-- Other scripts -->
     <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
-    <script type="text/javascript" src="scripts/js/index.js"></script>
+    <script type="text/javascript" src="scripts/js/account.js"></script>
 </body>
 </html>

@@ -60,12 +60,6 @@ function SetOnClickListener(){
 	$('#submit').click(OnClickListener);
 }
 
-function ActivateWavesEffect(){
-	Waves.attach('#submit');
-	Waves.init();
-}
-
 $(document).ready(function($){
 	SetOnClickListener();
-	ActivateWavesEffect();
 });

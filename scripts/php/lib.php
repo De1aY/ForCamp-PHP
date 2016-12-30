@@ -31,7 +31,7 @@
 
     class Requests{
 
-        private function CheckToken($Token, $Platform, $Return = TRUE){  // Проверка токена, возвращает код(200/500/...)
+        function CheckToken($Token, $Platform, $Return = TRUE){  // Проверка токена, возвращает код(200/500/...)
             switch ($Platform) {
                 case 'WEB':
                     $Auth = new Authorization_Web(NULL, NULL, $Token, $Return);
@@ -71,9 +71,6 @@
                         break;
                 }
             }
-            else{
-                return EchoJSON(array("status" => "ERROR", "token" => "", "code" => 602));
-            }
         }
 
         function GetUserOrganization($Token, $Platform, $Login){
@@ -96,9 +93,6 @@
                         break;
                 }
             }
-            else{
-                return EchoJSON(array("status" => "ERROR", "token" => "", "code" => 602));
-            }
         }
 
         function GetUserLogin($Token, $Platform){
@@ -120,9 +114,6 @@
                     $Data = new Data_User(NULL, NULL, NULL);
                     break;
                 }
-            }
-            else{
-                return EchoJSON(array("status" => "ERROR", "token" => "", "code" => 602));
             }
         }
     }
@@ -321,7 +312,12 @@
             EchoJSON($Array);
             $this->Status = $ErrorCode;
             $this->CloseDataBaseConnection();
-            return $ErrorCode;
+            if($this->Return){
+                return FALSE;
+            }
+            else{
+                return $ErrorCode;
+            }
         }
 
         protected function SetDataBaseConnection(){
@@ -448,13 +444,13 @@
             if($this->Status == 200){
                 if(isset($Token) and isset($Platform) and isset($Login)){
                     $this->User_Login = EncodeAES($Login);
-                    if($this->CheckLogin() == 200){  // 100ms
+                    if($this->CheckLogin() == 200){
                         $this->User_Token = $Token;
                         $this->User_Platform = $Platform."Token";
-                        if($this->GetUserLogin() == $this->User_Login){  // 100ms
+                        if($this->GetUserLogin() == $this->User_Login){
                             $this->Owner = TRUE;
                         }
-                        $this->SetUserOrganization();  // 100ms
+                        $this->SetUserOrganization();
                         $this->CloseDataBaseConnection();
                         $this->SetDataBaseConnection_Advanced();
                     }

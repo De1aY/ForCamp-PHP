@@ -13,10 +13,10 @@ function OnClick_Account(){
 	window.location = "account.php";
 }
 
-function GetUserData(){
+function SetFullName(Login){
 	preloader.on();
-	$.post('../requests/getuserdata.php', {platform: 'web', token: GetToken(), login: GetLogin()}, function(Resp_Data) {
-		Resp_Data = ToJSON(Resp_Data)
+	$.post('../requests/getuserdata.php', {platform: 'web', token: GetToken(), login: Login}, function(Resp_Data) {
+		Resp_Data = JSON.parse(Resp_Data)
 		if(CheckResponse(Resp_Data)){
 			SetData(Resp_Data);
 		}
@@ -46,32 +46,19 @@ function GetToken(){
 	return $('#token').text();
 }
 
-function ToJSON(data){
-	return JSON.parse(data);
-}
-
-function Owner(){
-	$('.Button_Left').text("личный кабинет");
-	$('.Button_Left').click(OnClick_Account);
-}
-
 function Capitalize(str){
 	return str[0].toUpperCase()+str.substr(1);
-};
+}
 
 function SetData(Data){
-	$(".Name").text(Data["Surname"]+" "+Data["Name"]+" "+Data["Middlename"]);
-	$("title").text(Capitalize(Data["Surname"])+" "+Capitalize(Data["Name"]));
-	$(".Avatar").attr("src", Data["Avatar"]);
-	if(Data["owner"] == true){
-		Owner();
-	}
+	$(".fullname_text").text(Data["Surname"]+" "+Data["Name"]+" "+Data["Middlename"]);
+	$(".avatar").attr("src", Data["Avatar"]);
 	preloader.off();
 }
 
 function GetUserOrganization(){
 	$.post('../requests/getuserorganization.php', {login: GetLogin(), platform: "web", token: GetToken()}, function(Resp_Org){
-		Resp_Org = ToJSON(Resp_Org);
+		Resp_Org = JSON.parse(Resp_Org);
 		if(CheckResponse(Resp_Org)){
 			SetOrganization(Resp_Org);
 		}
@@ -80,12 +67,6 @@ function GetUserOrganization(){
 			preloader.off();
 		}
 	});
-}
-
-function SetOrganization(Data){
-	Text = $('title').text()
-	$('title').text(Data["organization"]+Text);
-	preloader.off();
 }
 
 function CheckResponse(Response){
@@ -101,11 +82,11 @@ function CheckResponse(Response){
 }
 
 function SetLogin(){
-	preloader.on();
 	$.post('../requests/getuserlogin.php', {token: GetToken(), platform: "web"}, function(Resp) {
 		Resp = JSON.parse(Resp);
 		if(Resp["code"] == 200){
 			$('#profile').attr('href', 'profile.php?login='+Resp['login']);
+			SetFullName(Resp['login']);
 		}
 		else{
 			window.location = "../exit.php";
@@ -114,6 +95,6 @@ function SetLogin(){
 }
 
 jQuery(document).ready(function($){
-	GetUserData();
+	preloader.on();
 	SetLogin();
 });

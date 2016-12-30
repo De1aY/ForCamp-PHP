@@ -9,17 +9,6 @@ var preloader = new $.materialPreloader({
     fadeOut: 200
 });
 
-
-function ActivateWavesEffect(){
-	Waves.attach('#main');
-	Waves.attach('#profile');
-	Waves.attach('#all');
-	Waves.attach('#group');
-	Waves.attach('#collapse-button');
-	Waves.attach('#exit');
-	Waves.init();
-}
-
 function GetLogin(){
 	preloader.on();
 	$.post('../requests/getuserlogin.php', {token: GetToken(), platform: "web"}, function(Resp) {
@@ -44,5 +33,4 @@ function GetToken(){
 
 jQuery(document).ready(function($){
 	GetLogin();
-	ActivateWavesEffect();
 });

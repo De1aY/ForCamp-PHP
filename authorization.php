@@ -3,7 +3,8 @@
 
 	session_start();
     if(isset($_SESSION['Token'])){
-        if(CheckToken($_SESSION['Token'], "web") == 200){
+        $Req = new Requests();
+        if($Req->CheckToken($_SESSION['Token'], "WEB") == 200){
             header("Location: Index.php");
         }
     }
@@ -14,8 +15,11 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>ForCamp | Authorization</title>
+	<title>ForCamp | Авторизация</title>
+    <link rel="stylesheet" href="css/common.css">
 	<link rel="stylesheet" href="css/authorization.css">
+    <!-- Hover CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css">
 	<!-- MaterialPreloader -->
     <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
 	<!-- WaveEffect -->
@@ -38,7 +42,7 @@
 		<div class="input-group">
 			<input id="password" type="password" class="form-control" id="inputPassword" placeholder="Введите пароль" aria-describedby="sizing-addon1">
 		</div>
-		<input id="submit" type="submit" class="form-control" aria-describedby="sizing-addon1" value="Войти">
+		<input id="submit" type="submit" class="wave-effect form-control" aria-describedby="sizing-addon1" value="Войти">
 	<!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -50,6 +54,7 @@
     <!-- MaterialPreloader -->
     <script type="text/javascript" src="scripts/js/materialPreloader.min.js"></script>
     <!-- Other scrits -->
+    <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
     <script src="scripts/js/authorization.js"></script>
 </body>
 </html>

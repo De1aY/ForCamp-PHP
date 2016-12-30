@@ -17,6 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ForCamp | Профиль</title>
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/profile.css">
     <!-- MaterialPreloader -->
     <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
@@ -39,16 +40,16 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="collapse-button" data-target="#collapse" aria-expanded="false">меню</button>
-                <i id="profile" class="navbar-brand">профиль</i>
+                <a href="" id="profile" class="wave-effect active navbar-brand menu_button">профиль</a>
             </div>
             <div class="collapse navbar-collapse" id="collapse">
                 <ul class="nav navbar-nav">
-                    <li><a id="main" href="index.php">главная</a></li>
-                    <li><a id="all" href="index.php?page=all">общая статистика</a></li>
-                    <li><a id="group" href="index.php?page=group">класс</a></li>
+                    <li><a class="wave-effect menu_button" id="main" href="index.php">главная</a></li>
+                    <li><a class="wave-effect menu_button" id="all" href="index.php?page=all">общая статистика</a></li>
+                    <li><a class="wave-effect menu_button" id="group" href="index.php?page=group">класс</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a id="exit" href="exit.php">выйти</a></li>
+                    <li><a class="wave-effect menu_button" id="exit" href="exit.php">выйти</a></li>
                 </ul>
             </div>
         </div>
@@ -57,9 +58,9 @@
     	<div class="UserName col-lg-12"></div>
     	<img src="media/images/innopolis_1.png" class="avatar col-lg-offset-2">
 		<div class="UserPanel col-lg-12">
-			<div class="Settings">отправить сообщение</div>
+			<div class="wave-effect Button_Left">отправить сообщение</div>
 			<div class="Name col-lg-offset-2">undefenited</div>
-			<div class="Achievements">достижения</div>
+			<div class="wave-effect Button_Right">достижения</div>
 		</div>
 		<div class="UserInf col-lg-12"></div>
     </div>
@@ -74,6 +75,7 @@
     <!-- Notie.js -->
     <script src="scripts/js/notie.js"></script>
     <!-- Other scripts -->
+    <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
     <script type="text/javascript" src="scripts/js/profile.js"></script>
 </body>
 </html>
