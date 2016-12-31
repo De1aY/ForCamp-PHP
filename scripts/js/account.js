@@ -18,7 +18,7 @@ function SetFullName(Login){
 	$.post('../requests/getuserdata.php', {platform: 'web', token: GetToken(), login: Login}, function(Resp_Data) {
 		Resp_Data = JSON.parse(Resp_Data)
 		if(CheckResponse(Resp_Data)){
-			SetData(Resp_Data);
+			SetUserData(Resp_Data);
 		}
 		else{
 			notie.alert(3, "Не удалось получить информацию о пользователе!");
@@ -50,23 +50,25 @@ function Capitalize(str){
 	return str[0].toUpperCase()+str.substr(1);
 }
 
-function SetData(Data){
+function SetUserData(Data){
 	$(".fullname_text").text(Data["Surname"]+" "+Data["Name"]+" "+Data["Middlename"]);
+	$("#user_post").text(Data["Post"]);
+	$('#user_team').text(Data["Team"]);
 	$(".avatar").attr("src", Data["Avatar"]);
 	preloader.off();
 }
 
-function GetUserOrganization(){
-	$.post('../requests/getuserorganization.php', {login: GetLogin(), platform: "web", token: GetToken()}, function(Resp_Org){
+function GetUserOrganization(Login){
+	$.post('../requests/getuserorganization.php', {login: Login, platform: "web", token: GetToken()}, function(Resp_Org){
 		Resp_Org = JSON.parse(Resp_Org);
 		if(CheckResponse(Resp_Org)){
-			SetOrganization(Resp_Org);
-		}
-		else{
-			notie.alert(3, "Не удалось получить информацию о пользователе!");
-			preloader.off();
+			SetUserOrganization(Resp_Org);
 		}
 	});
+}
+
+function SetUserOrganization(Data) {
+	$("#user_organization").text(Data["organization"]);
 }
 
 function CheckResponse(Response){
@@ -81,11 +83,23 @@ function CheckResponse(Response){
 	}
 }
 
-function SetLogin(){
+function GetTeamValue(Login){
+	$.post('../requests/getteamvalue.php', {platform: 'web', token: GetToken(), login: Login}, function(Resp) {
+		Resp = JSON.parse(Resp)
+		if(CheckResponse(Resp)){
+			$("#team_value").text(Resp["team_value"]);
+		}
+	});
+}
+
+function SetData(){
 	$.post('../requests/getuserlogin.php', {token: GetToken(), platform: "web"}, function(Resp) {
 		Resp = JSON.parse(Resp);
 		if(Resp["code"] == 200){
 			$('#profile').attr('href', 'profile.php?login='+Resp['login']);
+			$('#user_login').text(Resp['login']);
+			GetTeamValue(Resp['login']);
+			GetUserOrganization(Resp['login']);
 			SetFullName(Resp['login']);
 		}
 		else{
@@ -94,7 +108,42 @@ function SetLogin(){
 	});
 }
 
+function EditLoginInf(){
+	$('#user_login').css('border-bottom',"2px solid #000");
+	$('#edit_login_inf').addClass("animated fadeOut");
+	$('#edit_login_inf').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$('#edit_login_inf').hide();
+		$('#accept_login_inf').show();
+		$('#accept_login_inf').addClass("animated fadeIn");
+		$('#cancel_login_inf').show();
+		$('#cancel_login_inf').addClass("animated fadeIn");
+		$('#cancel_login_inf').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('#accept_login_inf').removeClass("animated fadeIn");
+			$('#cancel_login_inf').removeClass("animated fadeIn");
+			$('#edit_login_inf').removeClass("animated fadeOut");
+		});
+	});
+}
+
+function CancelLoginInf(){
+	$('#accept_login_inf').addClass("animated fadeOut");
+	$('#cancel_login_inf').addClass("animated fadeOut");
+	$('#cancel_login_inf').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$('#accept_login_inf').hide();
+		$('#cancel_login_inf').hide();
+		$('#edit_login_inf').show();
+		$('#edit_login_inf').addClass("animated fadeIn");
+		$('#edit_login_inf').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('#accept_login_inf').removeClass("animated fadeOut");
+			$('#cancel_login_inf').removeClass("animated fadeOut");
+			$('#edit_login_inf').removeClass("animated fadeIn");
+		});
+	});
+}
+
 jQuery(document).ready(function($){
 	preloader.on();
-	SetLogin();
+	SetData();
+	$('#edit_login_inf').click(EditLoginInf);
+	$('#cancel_login_inf').click(CancelLoginInf);
 });

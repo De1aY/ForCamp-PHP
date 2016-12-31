@@ -19,6 +19,8 @@
     <title>ForCamp | Личный кабинет</title>
     <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/account.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- Hover CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.0/css/hover-min.css">
     <!-- MaterialPreloader -->
@@ -65,18 +67,70 @@
                 <div class="fullname_text">undefenited</div>
             </div>
             <div class="data">
-                <div class="data_box" id="authorization_data">
-                    <h2 class="data_box_header">
-                        <div class="data_box_header_text">логин и пароль</div>
-                        <div class="data_box_header_pencil fa fa-pencil"></div>
-                    </h2>
+                <div class="data_box">
+                    <div class="data_box_header">
+                        <div class="data_box_header_text">логин</div>
+                        <div class="data_box_header_pencil fa fa-pencil wave-effect-circle" id="edit_login_inf"></div>
+                        <div class="data_box_header_accept fa fa-check wave-effect-circle" id="accept_login_inf"></div>
+                        <div class="data_box_header_cancel fa fa-times wave-effect-circle" id="cancel_login_inf"></div>
+                    </div>
+                    <div class="data_box_body">
+                        <div class="data_field">
+                            <i class="fa fa-user"></i>
+                            <div class="data_field_text" id="user_login">undefenited</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="data_box">
+                    <div class="data_box_header">
+                        <div class="data_box_header_text">пароль</div>
+                        <div class="data_box_header_pencil fa fa-pencil wave-effect-circle" id="edit_auth_inf"></div>
+                        <div class="data_box_header_accept fa fa-check wave-effect-circle" id="accept_auth_inf"></div>
+                        <div class="data_box_header_cancel fa fa-times wave-effect-circle" id="cancel_auth_inf"></div>
+                    </div>
+                    <div class="data_box_body">
+                        <div class="data_field">
+                            <i class="fa fa-key"></i>
+                            <div class="data_field_text" id="user_password">XXXXXX</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="data">
-                <div class="data_box" id="main_data">
+                <div class="data_box">
                     <div class="data_box_header">
-                        <div class="data_box_header_text"></div>
-                        <div class="data_box_header_pencil fa fa-pencil"></div>
+                        <div class="data_box_header_text">организация</div>
+                        <div class="data_box_header_pencil fa fa-pencil wave-effect-circle none"></div>
+                    </div>
+                    <div class="data_box_body">
+                        <div class="data_field">
+                            <i class="fa fa-university"></i>
+                            <div class="data_field_text capital" id="user_organization">undefenited</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="data_box">
+                    <div class="data_box_header">
+                        <div class="data_box_header_text">должность</div>
+                        <div class="data_box_header_pencil fa fa-pencil wave-effect-circle none"></div>
+                    </div>
+                    <div class="data_box_body">
+                        <div class="data_field">
+                            <i class="fa fa-id-card-o"></i>
+                            <div class="data_field_text capital" id="user_post">undefenited</div>    
+                        </div>
+                    </div>
+                </div>
+                <div class="data_box">
+                    <div class="data_box_header">
+                        <div class="data_box_header_text" id="team_value">undefenited</div>
+                        <div class="data_box_header_pencil fa fa-pencil wave-effect-circle none"></div>
+                    </div>
+                    <div class="data_box_body">
+                        <div class="data_field">
+                            <i class="fa fa-users"></i>
+                            <div class="data_field_text capital" id="user_team">undefenited</div>    
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,6 +138,8 @@
             <?php
 
             ?>
+        </div>
+        <div class="margin-top"></div>
     </div>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

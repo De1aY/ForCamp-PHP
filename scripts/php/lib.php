@@ -6,6 +6,7 @@
     400 - Ошибка при создании сессии
     401 - Ошибка при генерации id сессии
     402 - Ошибка при сохранении сессии
+    403 - Запрашиваемый пользователь состоит в другой организации
     500 - Ошибка при создании подключения к базе данных
     501 - Ошибка при выполнении запроса к базе данных
     502 - Ошибка при закрытии соединения с базой данных
@@ -23,13 +24,35 @@
     define("DB_USERS", "users");  // Таблица со всеми пользователями
     define("DB_EMPLOYEES", "employees");  // Уровни доступа пользователей
     define("DB_DICTIONARY", "dictionary");  // Таблица с названиями для вывода 
-    define("FUNCTION_OTHER", "vd42FKsq9IA=");
-    define("FUNCTION_POST", "vKpdAZUzgIA=");
-    define("FUNCTION_TEAM", "u6oyE5MjgIA=");
-    define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");
-    define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");
+    define("FUNCTION_OTHER", "vd42FKsq9IA=");  // Другие названия
+    define("FUNCTION_POST", "vKpdAZUzgIA=");  // Названия должностей
+    define("FUNCTION_TEAM", "u6oyE5MjgIA=");  // Название команд/групп/классов и.т.д.
+    define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");  // Названия категорий
+    define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");  // Названия участников
 
     class Requests{
+        
+        function GetTeamValue($Token, $Platform, $Login){
+            if($this->CheckToken($Token, $Platform)){
+                switch($Platform){
+                    case "WEB":
+                        $Data = new Data_User($Token, $Platform, $Login);
+                        if($Data->Status == 200){
+                            $Data->GetTeamValue();
+                        }
+                        break;
+                    case "MOBILE":
+                        $Data = new Data_User($Token, $Platform, $Login);
+                        if($Data->Status == 200){
+                            $Data->GetTeamValue();
+                        }
+                        break;
+                    default:
+                        $Data = new Data_User(NULL, NULL, NULL);
+                        break;
+                }
+            }
+        }
 
         function CheckToken($Token, $Platform, $Return = TRUE){  // Проверка токена, возвращает код(200/500/...)
             switch ($Platform) {
@@ -409,7 +432,13 @@
         private function GetUserOrganization(){  // Получение организации пользователя по логину
             if(isset($this->User_Token)){
                 $Organization = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'"))["Organization"];
-                return DecodeAES($Organization);
+                $Organization_Token = mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Organization` FROM `".DB_USERS."` WHERE `".$this->User_Platform."`='".$this->DataBase_Connection->real_escape_string($this->User_Token)."'"))["Organization"];
+                if($Organization == $Organization_Token){
+                    return DecodeAES($Organization);
+                }
+                else{
+                    $this->Error(403, "GetUserOrganization");
+                }
             }
             else{
                 return $this->Error(600, "GetUserOrganization");
@@ -452,7 +481,9 @@
                         }
                         $this->SetUserOrganization();
                         $this->CloseDataBaseConnection();
-                        $this->SetDataBaseConnection_Advanced();
+                        if($this->Status == 200){
+                            $this->SetDataBaseConnection_Advanced();
+                        }
                     }
                 }
                 else{
@@ -475,7 +506,11 @@
         }
 
         function GetUserData(){
-            $Array = array_map("DecodeAES", mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Name`,`Surname`,`Middlename`,`Sex`,`Avatar` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")));
+            $Array = array_map("DecodeAES", mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Name`,`Surname`,`Middlename`,`Sex`,`Avatar`,`Post`,`Team` FROM `".DB_EMPLOYEES."` WHERE `Login`='".$this->DataBase_Connection->real_escape_string($this->User_Login)."'")));
+            $Array["Post"] = $this->GetValueForView(EncodeAES($Array["Post"]));
+            if(strlen($Array["Team"])<1){
+                $Array["Team"] = "undefenited";
+            }
             EchoJSON(array_merge($Array, array("status" => "OK", "code" => 200, "owner" => $this->Owner)));
             $this->CloseDataBaseConnection();
         }
@@ -483,6 +518,14 @@
         function GetUserOrg(){
             if($this->Status == 200){
                 EchoJSON(array("organization" => $this->GetValueForView($this->User_Organization), "status" => "OK", "code" => 200));
+                $this->CloseDataBaseConnection();
+            }
+        }
+
+        function GetTeamValue(){
+            if($this->Status == 200){
+                $Value = DecodeAES(mysqli_fetch_assoc($this->DataBase_Connection->query("SELECT `Value` FROM `".DB_DICTIONARY."` WHERE `Function`='".FUNCTION_TEAM."'"))["Value"]);
+                EchoJSON(array("team_value" => $Value, "status" => "OK", "code" => 200));
                 $this->CloseDataBaseConnection();
             }
         }

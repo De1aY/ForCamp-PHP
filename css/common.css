@@ -41,7 +41,7 @@ body .header .container .active:hover{
 
 body .header{
 	background: #303F9F;
-	box-shadow: 0 2px 5px 0 #333;
+	box-shadow: 0 2px 5px 0 #000;
 	border: none;
 	color: #fff;
 	z-index: 10;
