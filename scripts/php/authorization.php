@@ -1,7 +1,6 @@
 <?php
 
 require_once "database.php";
-require_once "lib.php";
 
 class Authorization extends DataBase
 {
@@ -29,7 +28,7 @@ class Authorization extends DataBase
         } elseif (isset($Token)) {
             $this->User_Token = $Token;
         } else {
-            exit(json_encode(["status" => "ERROR", "code" => 600]));
+            $this->Error(600);
         }
     }
 
@@ -38,41 +37,39 @@ class Authorization extends DataBase
      */
     public function Authorize()
     {
-        if(isset($this->User_Token)){
+        if (isset($this->User_Token)) {
             return $this->CheckToken();
-        }
-        else{
+        } else {
             return $this->CheckUserInf();
         }
     }
 
-    private function CheckToken(){
-        $Count = $this->Connection->query("SELECT COUNT(`login`) FROM `sessions` WHERE `token`='".$this->Connection->real_escape_string($this->User_Token)."'");
-        if(!is_bool($Count)){
+    private function CheckToken()
+    {
+        $Count = $this->Connection->query("SELECT COUNT('login') FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($this->User_Token) . "'");
+        if (!is_bool($Count)) {
             $Count = mysqli_fetch_assoc($Count)["COUNT('login')"];
-            if($Count > 0){
+            if ($Count > 0) {
                 return $this->Success();
-            }else{
+            } else {
                 return $this->Error(602);
             }
-        }
-        else{
+        } else {
             return $this->Error(501);
         }
     }
 
-    private function CheckUserInf(){
-        $PasswordHash =  $this->Connection->query("SELECT `password` FROM `users` WHERE `login`='".$this->Connection->real_escape_string($this->User_Login)."'");
-        if(!is_bool($PasswordHash)){
+    private function CheckUserInf()
+    {
+        $PasswordHash = $this->Connection->query("SELECT `password` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->User_Login) . "'");
+        if (!is_bool($PasswordHash)) {
             $PasswordHash = mysqli_fetch_assoc($PasswordHash)["password"];
-            if(password_verify($this->User_Password, $PasswordHash)){
+            if (password_verify($this->User_Password, $PasswordHash)) {
                 return $this->SetToken();
-            }
-            else{
+            } else {
                 $this->Error(601);
             }
-        }
-        else{
+        } else {
             return $this->Error(501);
         }
     }
@@ -81,79 +78,82 @@ class Authorization extends DataBase
      * @param $Token
      * @return bool
      */
-    private function CheckForMatches($Token){
-        $Count = $this->Connection->query("SELECT COUNT(`login`) FROM `sessions` WHERE `token`='".$this->Connection->real_escape_string($Token)."'");
-        if(!is_bool($Count)){
+    protected function CheckForMatches($Token)
+    {
+        $Count = $this->Connection->query("SELECT COUNT('login') FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($Token) . "'");
+        if (!is_bool($Count)) {
             $Count = mysqli_fetch_assoc($Count)["COUNT('login')"];
-            if($Count == 0){
+            if ($Count == 0) {
                 return TRUE;
-            }
-            else{
+            } else {
                 return FALSE;
             }
-        }
-        else{
+        } else {
             return $this->Error(501);
         }
     }
 
-    private function GenerateToken(){
-        while (TRUE){
-            $Token = md5(md5(time().$this->User_Login.$this->Salt).md5(time().$this->Salt).$this->Salt);
-            if($this->CheckForMatches($Token)){
+    private function GenerateToken()
+    {
+        while (TRUE) {
+            $Token = md5(md5(time() . $this->User_Login . $this->Salt) . md5(time() . $this->Salt) . $this->Salt);
+            if ($this->CheckForMatches($Token)) {
                 return $Token;
-            }
-            else{
+            } else {
                 continue;
             }
         }
     }
 
-    private function CheckSessions(){
-        $Count = $this->Connection->query("SELECT COUNT(`token`) FROM `sessions` WHERE `login`='".$this->Connection->real_escape_string($this->User_Login)."'");
-        if(!is_bool($Count)){
+    private function CheckSessions()
+    {
+        $Count = $this->Connection->query("SELECT COUNT('token') FROM `sessions` WHERE `login`='" . $this->Connection->real_escape_string($this->User_Login) . "'");
+        if (!is_bool($Count)) {
             $Count = mysqli_fetch_assoc($Count)["COUNT('token')"];
-            if($Count > 4){
-                $Delete = $this->Connection->query("DELETE FROM `sessions` WHERE `login`='".$this->Connection->real_escape_string($this->User_Login)."' LIMIT 1");
-                if($Delete){
+            if ($Count > 4) {
+                $Delete = $this->Connection->query("DELETE FROM `sessions` WHERE `login`='" . $this->Connection->real_escape_string($this->User_Login) . "' LIMIT 1");
+                if ($Delete === TRUE) {
                     return TRUE;
-                }
-                else{
+                } else {
                     return $this->Error(501);
                 }
-            }
-            else{
+            } else {
                 return TRUE;
             }
-        }
-        else{
+        } else {
             return $this->Error(501);
         }
     }
 
-    private function SetSession(){
+    private function SetSession()
+    {
         $Insert = $this->Connection->query("INSERT INTO `sessions` (`login`,`token`) VALUES ('$this->User_Login','$this->User_Token')");
-        if($Insert){
+        if ($Insert) {
             return TRUE;
-        }
-        else{
+        } else {
             return $this->Error(501);
         }
     }
 
-    private function SetToken(){
+    private function SetToken()
+    {
         $this->CheckSessions();
         $this->User_Token = $this->GenerateToken();
         $this->SetSession();
-        setcookie("sid", $this->User_Token, time()+1209600, "/");
+        setcookie("sid", $this->User_Token, time() + 1209600, "/");
         return $this->Success();
     }
 
-    protected function Success(){
-        if($this->Return === TRUE){
+    protected function Success()
+    {
+        if ($this->Return === TRUE) {
             return TRUE;
-        }
-        else{
+        } else {
+            $Dump = $this->Connection->query('show profiles');
+            while($rd = mysqli_fetch_object($Dump))
+            {
+                echo $rd->Query_ID.' - '.round($rd->Duration,4) * 1000 .' ms - '.$rd->Query.'<br />';
+            }
             $this->Close();
             exit(json_encode(["status" => "OK", "code" => 200, "token" => $this->User_Token]));
         }
@@ -163,11 +163,11 @@ class Authorization extends DataBase
      * @param int $ErrorCode
      * @return bool
      */
-    protected function Error($ErrorCode){
-        if($this->Return === TRUE){
+    protected function Error($ErrorCode)
+    {
+        if ($this->Return === TRUE) {
             return FALSE;
-        }
-        else{
+        } else {
             $this->Close();
             exit(json_encode(["status" => "ERROR", "code" => $ErrorCode]));
         }

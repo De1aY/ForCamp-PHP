@@ -26,6 +26,8 @@ function Authorize() {
             }
             else {
                 preloader.off();
+                $('#input_login').addClass("is-invalid");
+                $('#input_password').addClass("is-invalid");
                 notie.alert(3, "Неверный логин или пароль!");
             }
         });

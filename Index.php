@@ -1,8 +1,13 @@
 ﻿<?php
+    require_once "scripts/php/userdata.php";
+
     $sid = filter_input(INPUT_COOKIE, 'sid');
     if(!isset($sid)){
         header("Location: auth.php");
     }
+    $Data = new UserData($sid, NULL, TRUE);
+    $Login = $Data->GetUserLogin();
+    $UserData = $Data->GetUserData();
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -17,6 +22,7 @@
     <![endif]-->
 </head>
 <body>
+    <?php echo $Login?>
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </body>

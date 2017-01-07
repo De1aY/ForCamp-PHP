@@ -2,9 +2,12 @@
 
 require_once 'lib.php';
 
-define("MYSQL_SERVER", "52.169.122.82");  // IP сервера MySQL
+define("MYSQL_SERVER_REMOTE", "52.169.122.82");  // IP сервера MySQL
+define("MYSQL_LOGIN_REMOTE", "root");  // Логин сервера MySQL
+define("MYSQL_PASSWORD_REMOTE", "5zaU2x8A");  // Пароль сервера MySQL
+define("MYSQL_SERVER", "127.0.0.1");  // IP сервера MySQL
 define("MYSQL_LOGIN", "root");  // Логин сервера MySQL
-define("MYSQL_PASSWORD", "5zaU2x8A");  // Пароль сервера MySQL
+define("MYSQL_PASSWORD", "");  // Пароль сервера MySQL
 define("MYSQL_DB", "camp");  // Название базы данных на сервере MySQL
 define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
 define("FUNCTION_OTHER", "vd42FKsq9IA=");  // Другие названия

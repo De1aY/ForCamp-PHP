@@ -6,7 +6,6 @@
 400 - Ошибка при создании сессии
 401 - Ошибка при генерации id сессии
 402 - Ошибка при сохранении сессии
-403 - Запрашиваемый пользователь состоит в другой организации
 500 - Ошибка при создании подключения к базе данных
 501 - Ошибка при выполнении запроса к базе данных
 502 - Ошибка при закрытии соединения с базой данных
@@ -17,6 +16,9 @@
 603 - Пользователя с таким логином не существует
 */
 
+/**
+ * @param array $Array
+ */
 function EchoJSON($Array)
 {
     try {
@@ -26,6 +28,10 @@ function EchoJSON($Array)
     }
 }
 
+/**
+ * @param string $str
+ * @return string
+ */
 function EncodeAES($str)
 {
     $SecretKey = "bb62afd41e03935f138221d05aeca1a4847c0c154fad323b3a09c8128054a4d7";
@@ -35,6 +41,10 @@ function EncodeAES($str)
     return $EncStr;
 }
 
+/**
+ * @param string $str
+ * @return string
+ */
 function DecodeAES($str)
 {
     $SecretKey = "bb62afd41e03935f138221d05aeca1a4847c0c154fad323b3a09c8128054a4d7";
