@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext');
+
+$default-primary-color: #3F51B5;
+$dark-primary-color: #303F9F;
+$accent-color: #FF5252;
+$primary-text-color: #000000;
+$secondary-text-color: #FFFFFF;
+$divider-color: #BDBDBD;
+
+@mixin user-select($param) {
+  user-select: $param;
+  -ms-user-select: $param;
+  -moz-user-select: $param;
+  -webkit-user-select: $param;
+}
+
+@mixin box-shadow($x, $y, $blur, $extension, $color){
+  box-shadow: $x $y $blur $extension $color;
+  -moz-box-shadow: $x $y $blur $extension $color;
+  -o-box-shadow: $x $y $blur $extension $color;
+  -webkit-box-shadow: $x $y $blur $extension $color;
+}
+
+*{
+  font-family: 'Roboto', sans-serif;
+}

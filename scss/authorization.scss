@@ -1,0 +1,22 @@
+@import "main";
+
+.container{
+  height: 100vh;
+
+  .login_form{
+    border: 2px solid $default-primary-color;
+    text-align: center;
+
+    .mdl-textfield{
+      width: 80%;
+    }
+
+    .mdl-textfield:first-child{
+      margin-bottom: -10px;
+    }
+
+    #submit{
+      width: 80%;
+    }
+  }
+}

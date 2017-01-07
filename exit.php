@@ -1,7 +1,4 @@
 <?php
-	session_start();
 
-	session_unset();
-	session_write_close();
-	header("Location: authorization.php");
-?>
+setcookie("sid", "");
+header("location: auth.php");

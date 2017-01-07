@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext");
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    height: 100vh;
+}
+
+.container .login_form {
+    border: 2px solid #3F51B5;
+    text-align: center;
+}
+
+.container .login_form .mdl-textfield {
+    width: 80%;
+}
+
+.container .login_form .mdl-textfield:first-child {
+    margin-bottom: -10px;
+}
+
+.container .login_form #submit {
+    width: 80%;
+}
+
+/*# sourceMappingURL=authorization.css.map */
