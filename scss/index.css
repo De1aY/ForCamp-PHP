@@ -1,0 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext");
+* {
+  font-family: 'Roboto', sans-serif; }
+
+.mdl-layout-title, .mdl-layout-title, .mdl-navigation__link {
+  text-transform: capitalize; }
+
+/*# sourceMappingURL=index.css.map */

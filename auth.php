@@ -19,6 +19,8 @@ if (isset($sid)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/notie/3.9.5/notie.min.css">
     <!-- MaterialPreloader -->
     <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
+    <!-- WaveEffect -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.css">
     <!--[if IE]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.2.0/es5-shim.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
@@ -37,7 +39,7 @@ if (isset($sid)) {
                 <input class="mdl-textfield__input" type="password" id="password">
                 <label class="mdl-textfield__label" for="password">Пароль</label>
             </div>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary" id="submit">войти</button>
+            <button class="mdl-button mdl-js-button mdl-button--raised wave-effect mdl-button--primary" id="submit">войти</button>
         </div>
         <div class="mdl-card__actions"></div>
     </div>
@@ -50,7 +52,10 @@ if (isset($sid)) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notie/3.9.5/notie.min.js"></script>
 <!-- MaterialPreloader -->
 <script type="text/javascript" src="scripts/js/materialPreloader.min.js"></script>
+<!-- WaveEffect -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.js"></script>
 <!-- Other scripts -->
 <script src="scripts/js/auth.js"></script>
+<script type="text/javascript" src="scripts/js/waveeffect.js"></script>
 </body>
 </html>
