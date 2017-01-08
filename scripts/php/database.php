@@ -27,7 +27,7 @@ class DataBase
      * @param string $Password
      * @param string $Database
      */
-    protected function Connect($Server = MYSQL_SERVER, $Login = MYSQL_LOGIN, $Password = MYSQL_PASSWORD, $Database = MYSQL_DB)
+    protected function Connect($Server = MYSQL_SERVER_REMOTE, $Login = MYSQL_LOGIN_REMOTE, $Password = MYSQL_PASSWORD_REMOTE, $Database = MYSQL_DB)
     {
         $Connection = new mysqli($Server, $Login, $Password, $Database);
         if ($Connection->connect_error) {

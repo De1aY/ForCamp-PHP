@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ad51f807-beb7-47a1-8d06-5b5eb39e796e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Index.php" afterPath="$PROJECT_DIR$/Index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/exit.php" afterPath="$PROJECT_DIR$/exit.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/database.php" afterPath="$PROJECT_DIR$/scripts/php/database.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/userdata.php" afterPath="$PROJECT_DIR$/scripts/php/userdata.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/_main.scss" afterPath="$PROJECT_DIR$/scss/_main.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/authorization.css" afterPath="$PROJECT_DIR$/scss/authorization.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/authorization.css.map" afterPath="$PROJECT_DIR$/scss/authorization.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/index.css" afterPath="$PROJECT_DIR$/scss/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/index.css.map" afterPath="$PROJECT_DIR$/scss/index.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/index.scss" afterPath="$PROJECT_DIR$/scss/index.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,7 +26,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="lib.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/php/lib.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -101,14 +91,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="database.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="database.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/php/database.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            <state relative-caret-position="335">
+              <caret line="29" column="124" lean-forward="false" selection-start-line="29" selection-start-column="124" selection-end-line="29" selection-end-column="124" />
               <folding>
                 <element signature="e#961#1091#0#PHP" expanded="false" />
-                <element signature="e#1492#1528#0#PHP" expanded="false" />
+                <element signature="e#1513#1549#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -208,7 +198,6 @@
         <option value="$PROJECT_DIR$/scripts/js/index.js" />
         <option value="$PROJECT_DIR$/scripts/js/waveeffect.js" />
         <option value="$PROJECT_DIR$/auth.php" />
-        <option value="$PROJECT_DIR$/scripts/php/database.php" />
         <option value="$PROJECT_DIR$/exit.php" />
         <option value="$PROJECT_DIR$/scripts/php/userdata.php" />
         <option value="$PROJECT_DIR$/scss/index.scss" />
@@ -217,6 +206,7 @@
         <option value="$PROJECT_DIR$/scss/_main.scss" />
         <option value="$PROJECT_DIR$/scss/profile.scss" />
         <option value="$PROJECT_DIR$/profile.php" />
+        <option value="$PROJECT_DIR$/scripts/php/database.php" />
       </list>
     </option>
   </component>
@@ -675,12 +665,12 @@
       <option name="presentableId" value="Default" />
       <updated>1483724134183</updated>
       <workItem from="1483724136255" duration="215000" />
-      <workItem from="1483724380046" duration="55363000" />
+      <workItem from="1483724380046" duration="55439000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55578000" />
+    <option name="totallyTimeSpent" value="55654000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -962,17 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/php/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="e#961#1091#0#PHP" expanded="false" />
-            <element signature="e#1492#1528#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/js/profile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1036,6 +1015,17 @@
             <element signature="n#EncodeAES#0;n#!!top" expanded="false" />
             <element signature="e#1005#1052#0#PHP" expanded="false" />
             <element signature="n#DecodeAES#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/php/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="29" column="124" lean-forward="false" selection-start-line="29" selection-start-column="124" selection-end-line="29" selection-end-column="124" />
+          <folding>
+            <element signature="e#961#1091#0#PHP" expanded="false" />
+            <element signature="e#1513#1549#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
