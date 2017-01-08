@@ -74,6 +74,47 @@ class UserData extends Authorization
         }
     }
 
+    public function GetUserData()
+    {
+        if (isset($this->User_Organization)) {
+            $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`post`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
+            if (!is_bool($Data)) {
+                $Data = mysqli_fetch_assoc($Data);
+                $Post = $this->ReturnValueForViewByKey($Data["post"]);
+                $Data = array_map("DecodeAES", $Data);
+                $Data["post"] = $Post;
+                $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization)), "owner" => $this->Owner]);
+                if (is_array($Data)) {
+                    if ($this->Return === TRUE) {
+                        return $Data;
+                    } else {
+                        $this->Close();
+                        exit(json_encode(array_merge($Data, ["status" => "OK", "code" => 200])));
+                    }
+                } else {
+                    $this->Error(501);
+                }
+            } else {
+                $this->Error(501);
+            }
+        } else {
+            $this->Error(600);
+        }
+    }
+
+    public function CloseSession(){
+        $this->Select("camp");
+        $Close = $this->Connection->query("DELETE FROM `sessions` WHERE `token`='".$this->Connection->real_escape_string($this->User_Token)."'");
+        if($Close === TRUE){
+            setcookie("sid", "");
+            $this->Close();
+            header("location: auth.php");
+        }
+        else{
+            $this->Error(501);
+        }
+    }
+
     protected function SetUserLogin()
     {
         $Login = $this->Connection->query("SELECT `login` FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($this->User_Token) . "'");
@@ -120,34 +161,6 @@ class UserData extends Authorization
             if (is_string($Value)) {
                 return DecodeAES($Value);
             }
-        }
-    }
-
-    public function GetUserData()
-    {
-        if (isset($this->User_Organization)) {
-            $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`post`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
-            if (!is_bool($Data)) {
-                $Data = mysqli_fetch_assoc($Data);
-                $Post = $this->ReturnValueForViewByKey($Data["post"]);
-                $Data = array_map("DecodeAES", $Data);
-                $Data["post"] = $Post;
-                $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization)), "owner" => $this->Owner]);
-                if (is_array($Data)) {
-                    if ($this->Return === TRUE) {
-                        return $Data;
-                    } else {
-                        $this->Close();
-                        exit(json_encode(array_merge($Data, ["status" => "OK", "code" => 200])));
-                    }
-                } else {
-                    $this->Error(501);
-                }
-            } else {
-                $this->Error(501);
-            }
-        } else {
-            $this->Error(600);
         }
     }
 

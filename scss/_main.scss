@@ -21,6 +21,21 @@ $divider-color: #BDBDBD;
   -webkit-box-shadow: $x $y $blur $extension $color;
 }
 
+@mixin border-radius($param){
+  border-radius: $param;
+  -moz-border-radius: $param;
+  -webkit-border-radius: $param;
+}
+
 *{
+  @include user-select(none);
   font-family: 'Roboto', sans-serif;
+}
+
+.mdl-layout-title, .mdl-layout-title, .mdl-navigation__link, .mdl-card__title-text{
+  text-transform: capitalize;
+}
+
+.card_field_text{
+  margin-left: 10px;
 }

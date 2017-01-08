@@ -1,28 +1,27 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext");
-
 * {
-    font-family: 'Roboto', sans-serif;
-}
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  font-family: 'Roboto', sans-serif; }
+
+.mdl-layout-title, .mdl-layout-title, .mdl-navigation__link, .mdl-card__title-text {
+  text-transform: capitalize; }
+
+.card_field_text {
+  margin-left: 10px; }
 
 .container {
-    height: 100vh;
-}
-
-.container .login_form {
+  height: 100vh; }
+  .container .login_form {
     border: 2px solid #3F51B5;
-    text-align: center;
-}
-
-.container .login_form .mdl-textfield {
-    width: 80%;
-}
-
-.container .login_form .mdl-textfield:first-child {
-    margin-bottom: -10px;
-}
-
-.container .login_form #submit {
-    width: 80%;
-}
+    text-align: center; }
+    .container .login_form .mdl-textfield {
+      width: 80%; }
+    .container .login_form .mdl-textfield:first-child {
+      margin-bottom: -10px; }
+    .container .login_form #submit {
+      width: 80%; }
 
 /*# sourceMappingURL=authorization.css.map */

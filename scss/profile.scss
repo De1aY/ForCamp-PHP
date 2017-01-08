@@ -1,0 +1,48 @@
+@import "main";
+
+body {
+  .mdl-card{
+    width: 100%;
+  }
+
+  .user_fullname {
+    width: 100%;
+    text-align: center;
+
+    .user_avatar {
+      background: $secondary-text-color;
+
+      img {
+        @include border-radius(100px);
+        margin-top: -95px;
+        border: 2px solid $secondary-text-color;
+      }
+    }
+
+    .user_fullname_background{
+      padding-top: 70.5px;
+      background: $default-primary-color;
+      padding-bottom: 93.5px;
+    }
+
+    .mdl-card__title-text {
+      margin: 0 auto;
+      font-size: 36px;
+    }
+  }
+
+  .mdl-card__title-text{
+    font-size: 27px;
+  }
+
+  .mdl-card__title {
+
+    .card_field {
+      font-size: 25px;
+
+      .card_field_form{
+        float: right;
+      }
+    }
+  }
+}

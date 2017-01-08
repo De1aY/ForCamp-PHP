@@ -1,8 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext");
 * {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
   font-family: 'Roboto', sans-serif; }
 
-.mdl-layout-title, .mdl-layout-title, .mdl-navigation__link {
+.mdl-layout-title, .mdl-layout-title, .mdl-navigation__link, .mdl-card__title-text {
   text-transform: capitalize; }
+
+.card_field_text {
+  margin-left: 10px; }
 
 /*# sourceMappingURL=index.css.map */
