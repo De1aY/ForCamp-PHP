@@ -33,6 +33,25 @@ class UserData extends Authorization
         }
     }
 
+    /**
+     * @param string $Function
+     * @return string
+     */
+    public function GetValueForViewByFunction($Function)
+    {
+        $Value = $this->Connection->query("SELECT `Value` FROM `dictionary` WHERE `Function`='" . $this->Connection->real_escape_string($Function) . "'");
+        if (!is_bool($Value)) {
+            $Value = mysqli_fetch_assoc($Value)["Value"];
+            if (is_string($Value)) {
+                if ($this->Return === TRUE) {
+                    return DecodeAES($Value);
+                } else {
+                    $this->Close();
+                    exit(json_encode(["status" => "OK", "code" => 200, "value" => DecodeAES($Value)]));
+                }
+            }
+        }
+    }
 
     /**
      * @param string $Key
@@ -102,15 +121,48 @@ class UserData extends Authorization
         }
     }
 
-    public function CloseSession(){
+    public function GetCategories()
+    {
+        $Categories = $this->Connection->query("SELECT `Key`,`Value` FROM `dictionary` WHERE `Function`='" . $this->Connection->real_escape_string(FUNCTION_CATEGORY) . "'");
+        if (!is_bool($Categories)) {
+            $Data = array();
+            while ($row = mysqli_fetch_assoc($Categories)) {
+                $Data = array_merge($Data, [array_map("DecodeAES", $row)]);
+            }
+            if ($this->Return === TRUE) {
+                return array_merge(["val" => count($Data)], $Data);
+            } else {
+                exit(json_encode(array_merge(["status" => "OK", "code" => 200, "val" => count($Data)], $Data)));
+            }
+        } else {
+            $this->Error(501);
+        }
+    }
+
+    public function GetUserMarks()
+    {
+        $Data = [];
+        $Categories = $this->ReturnCategories();
+        for ($i = 0; $i < count($Categories); $i++) {
+            $Data= array_merge($Data, [$Categories[$i] => $this->GetUserMark($Categories[$i])]);
+        }
+        if(is_array($Data)){
+            return $Data;
+        }
+        else{
+            $this->Error(501);
+        }
+    }
+
+    public function CloseSession()
+    {
         $this->Select("camp");
-        $Close = $this->Connection->query("DELETE FROM `sessions` WHERE `token`='".$this->Connection->real_escape_string($this->User_Token)."'");
-        if($Close === TRUE){
+        $Close = $this->Connection->query("DELETE FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($this->User_Token) . "'");
+        if ($Close === TRUE) {
             setcookie("sid", "");
             $this->Close();
             header("location: auth.php");
-        }
-        else{
+        } else {
             $this->Error(501);
         }
     }
@@ -146,6 +198,36 @@ class UserData extends Authorization
             }
         } else {
             $this->Error(600);
+        }
+    }
+
+    private function GetUserMark($Category)
+    {
+        $Mark = $this->Connection->query("SELECT `".$Category."` FROM `participants` WHERE `Login`='".$this->Connection->real_escape_string($this->Request_Login)."'");
+        if(!is_bool($Mark)){
+            $Mark = mysqli_fetch_all($Mark);
+            return $Mark[0];
+        }
+        else{
+            $this->Error(501);
+        }
+    }
+
+    /**
+     * @return array|null
+     */
+    private function ReturnCategories()
+    {
+        $Categories = $this->Connection->query("SELECT `Key` FROM `dictionary` WHERE `Function`='" . $this->Connection->real_escape_string(FUNCTION_CATEGORY) . "'");
+        if (!is_bool($Categories)) {
+            $Categories = mysqli_fetch_all($Categories);
+            if (is_array($Categories)) {
+                return $Categories;
+            } else {
+                $this->Error(501);
+            }
+        } else {
+            $this->Error(501);
         }
     }
 
