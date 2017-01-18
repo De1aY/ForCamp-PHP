@@ -149,11 +149,6 @@ class Authorization extends DataBase
         if ($this->Return === TRUE) {
             return TRUE;
         } else {
-            $Dump = $this->Connection->query('show profiles');
-            while($rd = mysqli_fetch_object($Dump))
-            {
-                echo $rd->Query_ID.' - '.round($rd->Duration,4) * 1000 .' ms - '.$rd->Query.'<br />';
-            }
             $this->Close();
             exit(json_encode(["status" => "OK", "code" => 200, "token" => $this->User_Token]));
         }

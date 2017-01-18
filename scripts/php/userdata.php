@@ -99,9 +99,7 @@ class UserData extends Authorization
             $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`post`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
             if (!is_bool($Data)) {
                 $Data = mysqli_fetch_assoc($Data);
-                $Post = $this->ReturnValueForViewByKey($Data["post"]);
                 $Data = array_map("DecodeAES", $Data);
-                $Data["post"] = $Post;
                 $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization)), "owner" => $this->Owner]);
                 if (is_array($Data)) {
                     if ($this->Return === TRUE) {
