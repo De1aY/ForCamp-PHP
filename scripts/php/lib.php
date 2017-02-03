@@ -16,6 +16,9 @@
 603 - Пользователя с таким логином не существует
 */
 
+define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
+
+
 /**
  * @param array $Array
  */

@@ -42,13 +42,13 @@ $UserData = $Data->GetUserData();
         <div class="mdl-layout__header-row">
             <!-- Title -->
             <span class="mdl-layout-title"><?php echo $UserData["organization"]?></span>
-            <!-- Navigation. We hide it in small screens. -->
+            <!-- Navigation. We hide it in small screens.
             <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="">Link</a>
-            </nav>
+            </nav>-->
         </div>
     </header>
     <div class="mdl-layout__drawer">

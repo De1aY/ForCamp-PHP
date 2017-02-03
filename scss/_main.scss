@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&subset=cyrillic-ext');
 
 $default-primary-color: #3F51B5;
 $dark-primary-color: #303F9F;
@@ -29,7 +29,7 @@ $divider-color: #BDBDBD;
 
 *{
   @include user-select(none);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Mono', sans-serif;
 }
 
 .mdl-layout-title, .mdl-layout-title, .mdl-navigation__link, .mdl-card__title-text{
