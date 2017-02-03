@@ -2,5 +2,10 @@
 
 require_once "scripts/php/lib.php";
 
-$Aes = EncodeAES("ученик");
-echo $Aes;
+$JSON = [];
+
+$JSON["FUNCTION_STARTER"] = EncodeAES("starter");
+$JSON["DECODE"] = DecodeAES("vKoiApU10depLCURuv+2tg==");
+
+echo json_encode($JSON);
+

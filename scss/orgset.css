@@ -12,4 +12,8 @@
 .card_field_text {
   margin-left: 10px; }
 
-/*# sourceMappingURL=index.css.map */
+body .mdl-card {
+  width: 100%;
+  min-height: 125px; }
+
+/*# sourceMappingURL=orgset.css.map */

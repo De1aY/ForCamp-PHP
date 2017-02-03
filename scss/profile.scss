@@ -14,6 +14,8 @@ body {
       background: $secondary-text-color;
 
       img {
+        height: 187px;
+        width: 187px;
         @include border-radius(100px);
         margin-top: -95px;
         border: 2px solid $secondary-text-color;

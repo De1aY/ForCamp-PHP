@@ -9,12 +9,6 @@ define("MYSQL_SERVER", "127.0.0.1");  // IP сервера MySQL
 define("MYSQL_LOGIN", "root");  // Логин сервера MySQL
 define("MYSQL_PASSWORD", "");  // Пароль сервера MySQL
 define("MYSQL_DB", "camp");  // Название базы данных на сервере MySQL
-define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
-define("FUNCTION_OTHER", "vd42FKsq9IA=");  // Другие названия
-define("FUNCTION_POST", "vKpdAZUzgIA=");  // Названия должностей
-define("FUNCTION_TEAM", "u6oyE5MjgIA=");  // Название команд/групп/классов и.т.д.
-define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");  // Названия категорий
-define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");  // Названия участников
 
 class DataBase
 {

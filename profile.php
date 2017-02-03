@@ -23,6 +23,7 @@ $RequestUserData = $RequestData->GetUserData();
 $Data->Close();
 $RequestData->Close();
 ?>
+<?php if (isset($sid) && isset($Login)): ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -59,6 +60,9 @@ $RequestData->Close();
         <span class="mdl-layout-title">Профиль</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link wave-effect" href="index.php">главная</a>
+            <?php if ($UserData['accesslevel'] === "admin"): ?>
+                <a class="mdl-navigation__link wave-effect" href="orgset.php">управление</a>
+            <?php endif ?>
             <a class="mdl-navigation__link wave-effect" href="">общая статистика</a>
             <a class="mdl-navigation__link wave-effect" href="">класс</a>
             <a class="mdl-navigation__link wave-effect" href="">достижения</a>
@@ -227,9 +231,8 @@ $RequestData->Close();
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-            <!-- Next level -->
             <?php
-            if ($RequestLogin['accesslevel'] === "view") {
+            if ($RequestUserData['accesslevel'] === "participant") {
                 $Counter = 0;
             }
             ?>
@@ -251,3 +254,4 @@ $RequestData->Close();
 <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
 </body>
 </html>
+<?php endif ?>

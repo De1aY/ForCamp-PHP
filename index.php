@@ -13,6 +13,7 @@ if(!$Login){
 }
 $UserData = $Data->GetUserData();
 ?>
+<?php if (isset($sid) && isset($Login)): ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -55,6 +56,9 @@ $UserData = $Data->GetUserData();
         <span class="mdl-layout-title">главная</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link wave-effect" href="profile.php?login=<?php echo $Login ?>">профиль</a>
+            <?php if ($UserData['accesslevel'] === "admin"): ?>
+                <a class="mdl-navigation__link wave-effect" href="orgset.php">управление</a>
+            <?php endif ?>
             <a class="mdl-navigation__link wave-effect" href="">общая статистика</a>
             <a class="mdl-navigation__link wave-effect" href="">класс</a>
             <a class="mdl-navigation__link wave-effect" href="">достижения</a>
@@ -80,3 +84,4 @@ $UserData = $Data->GetUserData();
 <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
 </body>
 </html>
+<?php endif ?>

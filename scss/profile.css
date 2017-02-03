@@ -1,10 +1,10 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,900&subset=cyrillic-ext");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,900&subset=cyrillic-ext");
 * {
   user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
-  font-family: 'Roboto Mono', sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 .mdl-layout-title, .mdl-layout-title, .mdl-navigation__link, .mdl-card__title-text {
   text-transform: capitalize; }
@@ -21,6 +21,8 @@ body .user_fullname {
   body .user_fullname .user_avatar {
     background: #FFFFFF; }
     body .user_fullname .user_avatar img {
+      height: 187px;
+      width: 187px;
       border-radius: 100px;
       -moz-border-radius: 100px;
       -webkit-border-radius: 100px;
