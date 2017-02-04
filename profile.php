@@ -28,11 +28,7 @@ $RequestData->Close();
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="content-security-policy" content="default-src 'self' https://cdnjs.cloudflare.com https://code.getmdl.io; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://code.getmdl.io https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' https://lh3.googleusercontent.com"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ForCamp | Профиль</title>
     <link rel="stylesheet" href="scss/profile.css">
