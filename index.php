@@ -13,11 +13,16 @@ if(!$Login){
 }
 $UserData = $Data->GetUserData();
 ?>
+<?php if (isset($sid) && isset($Login)): ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="content-security-policy" content="default-src 'self' https://cdnjs.cloudflare.com https://code.getmdl.io; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://code.getmdl.io https://fonts.googleapis.com; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' https://lh3.googleusercontent.com"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ForCamp | Главная</title>
     <link rel="stylesheet" href="scss/index.css">
@@ -55,6 +60,9 @@ $UserData = $Data->GetUserData();
         <span class="mdl-layout-title">главная</span>
         <nav class="mdl-navigation">
             <a class="mdl-navigation__link wave-effect" href="profile.php?login=<?php echo $Login ?>">профиль</a>
+            <?php if ($UserData['accesslevel'] === "admin"): ?>
+                <a class="mdl-navigation__link wave-effect" href="orgset.php">управление</a>
+            <?php endif ?>
             <a class="mdl-navigation__link wave-effect" href="">общая статистика</a>
             <a class="mdl-navigation__link wave-effect" href="">класс</a>
             <a class="mdl-navigation__link wave-effect" href="">достижения</a>
@@ -80,3 +88,4 @@ $UserData = $Data->GetUserData();
 <script type="text/javascript" src="scripts/js/waveeffect.js"></script>
 </body>
 </html>
+<?php endif ?>

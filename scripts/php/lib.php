@@ -17,7 +17,10 @@
 */
 
 define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
-
+define("FUNCTION_OTHER", "vd42FKsq9IA=");  // Другие названия
+define("FUNCTION_TEAM", "u6oyE5MjgIA=");  // Название команд/групп/классов и.т.д.
+define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");  // Названия категорий
+define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");  // Названия участников
 
 /**
  * @param array $Array

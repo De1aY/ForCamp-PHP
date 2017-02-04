@@ -2,5 +2,12 @@
 
 require_once "scripts/php/lib.php";
 
-$Aes = EncodeAES("ученик");
-echo $Aes;
+$Encode = filter_input(INPUT_GET, "encode");
+$Decode = filter_input(INPUT_GET, "decode");
+$JSON = [];
+
+$JSON[$Encode] = EncodeAES($Encode);
+$JSON[$Decode] = DecodeAES($Decode);
+
+echo json_encode($JSON);
+
