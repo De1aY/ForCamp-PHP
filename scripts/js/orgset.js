@@ -16,7 +16,7 @@ var Token = $.cookie("sid");
 function OrganizationNameEdit(OrgName){
     $.post("../../requests/changeorganizationname.php", {token: Token, orgname: OrgName}, function (Resp) {
        if(Resp["code"] === 200){
-           $('#participant_field').text(OrgName);
+           $('#organization_name').text(OrgName);
            notie.alert(1, "Название организации успешно изменено!", 3);
        } else {
            notie.alert(3, "Ошибка!", 3);
