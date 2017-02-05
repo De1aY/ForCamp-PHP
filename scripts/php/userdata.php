@@ -4,9 +4,9 @@ require_once "authorization.php";
 
 class UserData extends Authorization
 {
-    private $User_Organization = NULL;
-    private $Request_Login = NULL;
     private $Owner = FALSE;
+    protected $Request_Login = NULL;
+    protected $User_Organization = NULL;
 
     /**
      * UserData constructor.
@@ -49,7 +49,11 @@ class UserData extends Authorization
                     $this->Close();
                     exit(json_encode(["status" => "OK", "code" => 200, "value" => DecodeAES($Value)]));
                 }
+            } else {
+                $this->Error(501);
             }
+        } else {
+            $this->Error(501);
         }
     }
 
@@ -69,7 +73,11 @@ class UserData extends Authorization
                     $this->Close();
                     exit(json_encode(["status" => "OK", "code" => 200, "value" => DecodeAES($Value)]));
                 }
+            } else {
+                $this->Error(501);
             }
+        } else {
+            $this->Error(501);
         }
     }
 
@@ -142,12 +150,11 @@ class UserData extends Authorization
         $Data = [];
         $Categories = $this->ReturnCategories();
         for ($i = 0; $i < count($Categories); $i++) {
-            $Data= array_merge($Data, [$Categories[$i] => $this->GetUserMark($Categories[$i])]);
+            $Data = array_merge($Data, [$Categories[$i] => $this->GetUserMark($Categories[$i])]);
         }
-        if(is_array($Data)){
+        if (is_array($Data)) {
             return $Data;
-        }
-        else{
+        } else {
             $this->Error(501);
         }
     }
@@ -160,6 +167,30 @@ class UserData extends Authorization
             setcookie("sid", "");
             $this->Close();
             header("location: auth.php");
+        } else {
+            $this->Error(501);
+        }
+    }
+
+    public function GetFunctionsValues()
+    {
+        $Functions = $this->Connection->query("SELECT * FROM `dictionary` WHERE `Function`='" . FUNCTION_ORGANIZATION . "' OR `Function`='" . FUNCTION_PERIOD . "' OR `Function`='" . FUNCTION_TEAM . "' OR `Function`='" . FUNCTION_PARTICIPANT . "'");
+        if (!is_bool($Functions)) {
+            $Data = array();
+            while ($row = mysqli_fetch_assoc($Functions)) {
+                $Arr = array_map("DecodeAES", $row);
+                $Data[$Arr["Function"]] = $Arr;
+            }
+            if (is_array($Data)) {
+                if ($this->Return === TRUE) {
+                    return $Data;
+                } else {
+                    $this->Close();
+                    exit(json_encode(array_merge(["status" => "OK", "code" => 200], $Data)));
+                }
+            } else {
+                $this->Error(501);
+            }
         } else {
             $this->Error(501);
         }
@@ -199,14 +230,13 @@ class UserData extends Authorization
         }
     }
 
-    private function GetUserMark($Category)
+    protected function GetUserMark($Category)
     {
-        $Mark = $this->Connection->query("SELECT `".$Category."` FROM `participants` WHERE `Login`='".$this->Connection->real_escape_string($this->Request_Login)."'");
-        if(!is_bool($Mark)){
+        $Mark = $this->Connection->query("SELECT `" . $Category . "` FROM `participants` WHERE `Login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
+        if (!is_bool($Mark)) {
             $Mark = mysqli_fetch_all($Mark);
             return $Mark[0];
-        }
-        else{
+        } else {
             $this->Error(501);
         }
     }

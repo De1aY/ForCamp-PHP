@@ -14,13 +14,15 @@
 601 - Неверный логин/пароль
 602 - Неверный токен
 603 - Пользователя с таким логином не существует
+604 - Ошибка доступа
 */
 
 define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
-define("FUNCTION_OTHER", "vd42FKsq9IA=");  // Другие названия
+define("FUNCTION_ORGANIZATION", "vd4uFQ==");  // Название организации
 define("FUNCTION_TEAM", "u6oyE5MjgIA=");  // Название команд/групп/классов и.т.д.
-define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");  // Названия категорий
+define("FUNCTION_CATEGORY", "ht8iS6sl2curGgxE");  // Название категории
 define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");  // Названия участников
+define("FUNCTION_PERIOD", "vKoyApAlhNY="); // Название отчётного периода
 
 /**
  * @param array $Array
@@ -29,6 +31,7 @@ function EchoJSON($Array)
 {
     try {
         echo json_encode($Array);
+        return TRUE;
     } catch (Exception $e) {
         exit(json_encode(["status" => "ERROR", "code" => 600]));
     }

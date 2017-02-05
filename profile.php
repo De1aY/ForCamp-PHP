@@ -188,11 +188,7 @@ $RequestData->Close();
                             <i class="fa fa-users"></i>
                             <div class="card_field_text">
                                 <?php
-                                if (strlen($RequestUserData['team']) != 0) {
                                     echo $RequestUserData['team'];
-                                } else {
-                                    echo "не указано";
-                                }
                                 ?>
                             </div>
                         </div>
@@ -241,6 +237,7 @@ $RequestData->Close();
 </div>
 <!-- jQuery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <!-- MDL -->
 <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 <!-- Notie.js -->

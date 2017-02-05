@@ -12,4 +12,38 @@
 .card_field_text {
   margin-left: 10px; }
 
+.mdl-tooltip {
+  text-transform: none; }
+
+body #notie-alert-outer {
+  z-index: 1000; }
+body .on_edit {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.6); }
+  body .on_edit .on_edit-click {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 2; }
+  body .on_edit .on_edit-card {
+    z-index: 999; }
+    body .on_edit .on_edit-card .card_field {
+      width: 100%; }
+      body .on_edit .on_edit-card .card_field .mdl-textfield {
+        width: 100%; }
+    body .on_edit .on_edit-card .on_edit-card-confirm {
+      transition: all 0.5s; }
+    body .on_edit .on_edit-card .on_edit-card-cancel {
+      transition: all 0.5s; }
+    body .on_edit .on_edit-card .on_edit-card-confirm:hover {
+      color: green; }
+    body .on_edit .on_edit-card .on_edit-card-cancel:hover {
+      color: red; }
+
 /*# sourceMappingURL=index.css.map */
