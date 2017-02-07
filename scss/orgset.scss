@@ -29,4 +29,25 @@ body {
     }
   }
 
+  #categories_list{
+
+    .mdl-card__title{
+
+      .card_field{
+
+        i{
+          margin-top: 3px;
+        }
+
+      }
+
+      .category-delete{
+        float: right;
+        margin-left: auto;
+      }
+
+    }
+
+  }
+
 }

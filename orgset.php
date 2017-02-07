@@ -13,6 +13,7 @@ if ($RequestData['accesslevel'] != "admin") {
 }
 $Login = $Request->GetUserLogin();
 $Functions = $Request->GetFunctionsValues();
+$Categories = $Request->GetCategories();
 ?>
 <?php if (isset($sid) && $RequestData['accesslevel'] === "admin"): ?>
     <!DOCTYPE html>
@@ -51,17 +52,21 @@ $Functions = $Request->GetFunctionsValues();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="participant_name_input">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participant_name_input">
                                 <input class="mdl-textfield__input" type="text" id="participant_name">
-                                <label class="mdl-textfield__label" for="participant_name">Участник смены, ученик...</label>
+                                <label class="mdl-textfield__label" for="participant_name">Участник смены,
+                                    ученик...</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-confirm" id="participant_name_edit-confirm">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm"
+                                id="participant_name_edit-confirm">
                             сохранить
                         </button>
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-cancel" id="participant_name_edit-cancel">
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel"
+                                id="participant_name_edit-cancel">
                             отмена
                         </button>
                     </div>
@@ -79,17 +84,20 @@ $Functions = $Request->GetFunctionsValues();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="team_name_input">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="team_name_input">
                                 <input class="mdl-textfield__input" type="text" id="team_name">
                                 <label class="mdl-textfield__label" for="team_name">Группа, команда, класс...</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-confirm" id="team_name_edit-confirm">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm"
+                                id="team_name_edit-confirm">
                             сохранить
                         </button>
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-cancel" id="team_name_edit-cancel">
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel"
+                                id="team_name_edit-cancel">
                             отмена
                         </button>
                     </div>
@@ -107,17 +115,21 @@ $Functions = $Request->GetFunctionsValues();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="organization_name_input">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="organization_name_input">
                                 <input class="mdl-textfield__input" type="text" id="organization_name">
-                                <label class="mdl-textfield__label" for="organization_name">Название вашей организации</label>
+                                <label class="mdl-textfield__label" for="organization_name">Название вашей
+                                    организации</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-confirm" id="organization_name_edit-confirm">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm"
+                                id="organization_name_edit-confirm">
                             сохранить
                         </button>
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-cancel" id="organization_name_edit-cancel">
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel"
+                                id="organization_name_edit-cancel">
                             отмена
                         </button>
                     </div>
@@ -135,17 +147,51 @@ $Functions = $Request->GetFunctionsValues();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="period_name_input">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
                                 <input class="mdl-textfield__input" type="text" id="period_name">
                                 <label class="mdl-textfield__label" for="period_name">1 четверть, 1 смена...</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-confirm" id="period_name_edit-confirm">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm"
+                                id="period_name_edit-confirm">
                             сохранить
                         </button>
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect on_edit-card-cancel" id="period_name_edit-cancel">
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel"
+                                id="period_name_edit-cancel">
+                            отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="categories_adding">
+        <div class="on_edit-click" id="on_edit-categories_adding"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Название категории</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="categories_input">
+                                <input class="mdl-textfield__input" type="text" id="categories">
+                                <label class="mdl-textfield__label" for="categories">Спорт, учёба, дисциплина...</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm--effect"
+                                id="categories_adding-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel--effect"
+                                id="categories_adding-cancel">
                             отмена
                         </button>
                     </div>
@@ -190,7 +236,7 @@ $Functions = $Request->GetFunctionsValues();
                                 <div class="card_field">
                                     <i class="fa fa-user-circle-o"></i>
                                     <div class="card_field_text" id="participant_field">
-                                        <?php echo $Functions["participant"]["Value"]?>
+                                        <?php echo $Functions["participant"]["Value"] ?>
                                     </div>
                                 </div>
                             </div>
@@ -214,7 +260,7 @@ $Functions = $Request->GetFunctionsValues();
                                 <div class="card_field">
                                     <i class="fa fa-users"></i>
                                     <div class="card_field_text" id="team_field">
-                                        <?php echo $Functions["team"]["Value"]?>
+                                        <?php echo $Functions["team"]["Value"] ?>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +286,7 @@ $Functions = $Request->GetFunctionsValues();
                                 <div class="card_field">
                                     <i class="fa fa-university"></i>
                                     <div class="card_field_text" id="organization_field">
-                                        <?php echo $Functions["org"]["Value"]?>
+                                        <?php echo $Functions["org"]["Value"] ?>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +310,7 @@ $Functions = $Request->GetFunctionsValues();
                                 <div class="card_field">
                                     <i class="fa fa-calendar-o"></i>
                                     <div class="card_field_text" id="period_field">
-                                        <?php echo $Functions["period"]["Value"]?>
+                                        <?php echo $Functions["period"]["Value"] ?>
                                     </div>
                                 </div>
                             </div>
@@ -281,24 +327,53 @@ $Functions = $Request->GetFunctionsValues();
                     </div>
                     <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <!-- Next level -->
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
-                        <div class="mdl-card mdl-shadow--6dp">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--2-col-desktop mdl-cell--3-offset-desktop">
+                        <div class="mdl-card mdl-shadow--6dp" id="categories_list">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Категории</div>
                             </div>
-                            <div class="mdl-card__title">
-                            </div>
+                            <?php
+                            for($i=0;$i<$Categories['val'];$i++){
+                                echo " <div class='mdl-card__title mdl-card--border' id='".$Categories[$i]["Value"]."_row'>";
+                                echo "<div class='card_field'>";
+                                echo "<i class='material-icons'>more_vert</i>";
+                                echo "<div class='card_field_text category_name'>".$Categories[$i]["Value"];
+                                echo "</div></div>";
+                                echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='".$Categories[$i]["Value"]."'>";
+                                echo "<i class='material-icons'>clear</i></button>";
+                                echo "</div>";
+                            }
+                            ?>
                             <div class="mdl-card__menu">
-                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect on_edit-activation"
-                                        id="categories_edit_activation">
-                                    <i class="material-icons">create</i>
+                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--primary"
+                                        id="categories-add">
+                                    <i class="material-icons">add</i>
                                 </button>
-                                <div class="mdl-tooltip mdl-tooltip--left" for="categories_edit_activation">
+                                <div class="mdl-tooltip mdl-tooltip--left" for="categories-add">
                                     Категории оценивания,<br>например: учёба, спорт...
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
+                        <div class="mdl-card mdl-shadow--6dp">
+                            <div class="mdl-card__title mdl-card--border">
+                                <div class="mdl-card__title-text" style="text-transform: none">Основные настройки</div>
+                            </div>
+                            <div class="mdl-card__title">
+                            </div>
+                            <div class="mdl-card__menu">
+                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                        id="accesslevel_edit_activation">
+                                    <i class="material-icons">create</i>
+                                </button>
+                                <div class="mdl-tooltip mdl-tooltip--left" for="accesslevel_edit_activation">
+                                    Задание полномочий на редактирование баллов в категориях
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 </div>
             </section>
             <!-- Participants -->

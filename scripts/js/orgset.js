@@ -13,21 +13,48 @@ var re = new RegExp("^[а-яА-ЯёЁa-zA-Z0-9\\s]+$");
 
 var Token = $.cookie("sid");
 
-function OrganizationNameEdit(OrgName){
+/* General */
+function Fade_Out_Edit() {
+    $('.on_edit').fadeOut();
+}
+
+function CheckInputData(Data, ID) {
+    if (Data.length > 0) {
+        if (re.test(Data)) {
+            $('.on_edit').fadeOut();
+            $('#' + ID).val('');
+            return true;
+        } else {
+            notie.alert(3, "Данные не могут содержать спецсимволов!", 3);
+            $('#' + ID + '_input').addClass("is-invalid");
+            preloader.off();
+            return false;
+        }
+    } else {
+        notie.alert(3, "Не все поля заполнены!", 3);
+        $('#' + ID + '_input').addClass("is-invalid");
+        preloader.off();
+        return false;
+    }
+}
+/*----------------*/
+
+/* Main functions */
+function OrganizationNameEdit(OrgName) {
     $.post("../../requests/changeorganizationname.php", {token: Token, orgname: OrgName}, function (Resp) {
-       if(Resp["code"] === 200){
-           $('#organization_name').text(OrgName);
-           notie.alert(1, "Название организации успешно изменено!", 3);
-       } else {
-           notie.alert(3, "Ошибка!", 3);
-       }
-       preloader.off();
+        if (Resp["code"] === 200) {
+            $('#organization_field').text(OrgName);
+            notie.alert(1, "Название организации успешно изменено!", 3);
+        } else {
+            notie.alert(3, "Ошибка!", 3);
+        }
+        preloader.off();
     }, "json");
 }
 
-function PeriodNameEdit(PerName){
+function PeriodNameEdit(PerName) {
     $.post("../../requests/changeperiodname.php", {token: Token, pername: PerName}, function (Resp) {
-        if(Resp["code"] === 200){
+        if (Resp["code"] === 200) {
             $('#period_field').text(PerName);
             notie.alert(1, "Название периода успешно изменено!", 3);
         } else {
@@ -37,9 +64,9 @@ function PeriodNameEdit(PerName){
     }, "json");
 }
 
-function ParticipantNameEdit(ParName){
+function ParticipantNameEdit(ParName) {
     $.post("../../requests/changeparticipantname.php", {token: Token, partname: ParName}, function (Resp) {
-        if(Resp["code"] === 200){
+        if (Resp["code"] === 200) {
             $('#participant_field').text(ParName);
             notie.alert(1, "Название участника успешно изменено!", 3);
         } else {
@@ -49,9 +76,9 @@ function ParticipantNameEdit(ParName){
     }, "json");
 }
 
-function TeamNameEdit(TeamName){
+function TeamNameEdit(TeamName) {
     $.post("../../requests/changeteamname.php", {token: Token, teamname: TeamName}, function (Resp) {
-        if(Resp["code"] === 200){
+        if (Resp["code"] === 200) {
             $('#team_field').text(TeamName)
             notie.alert(1, "Название команд успешно изменено!", 3);
         } else {
@@ -63,44 +90,40 @@ function TeamNameEdit(TeamName){
 
 function ActivateEditMode(Obj) {
     var ID = GetIdFromObject(Obj);
-    $('#'+ID+'_edit').fadeIn().css("display", "flex");
-}
-
-function Fade_Out_Edit() {
-    $('.on_edit').fadeOut();
+    $('#' + ID + '_edit').fadeIn().css("display", "flex");
 }
 
 function Cancel_Edit(Obj) {
     $('.on_edit').fadeOut();
     var ID = GetIdFromObject(Obj);
-    $('#'+ID).val('');
+    $('#' + ID).val('');
 }
 
 function Confirm_Edit(Obj) {
     preloader.on();
     var ID = GetIdFromObject(Obj);
-    switch (ID){
+    switch (ID) {
         case "organization_name":
-            var OrgName = $('#'+ID).val();
-            if(CheckInputData(OrgName, ID)) {
+            var OrgName = $('#' + ID).val();
+            if (CheckInputData(OrgName, ID)) {
                 OrganizationNameEdit(OrgName);
             }
             break;
         case "period_name":
-            var PerName = $('#'+ID).val();
-            if(CheckInputData(PerName, ID)) {
+            var PerName = $('#' + ID).val();
+            if (CheckInputData(PerName, ID)) {
                 PeriodNameEdit(PerName);
             }
             break;
         case "participant_name":
-            var ParName = $('#'+ID).val();
-            if(CheckInputData(ParName, ID)) {
+            var ParName = $('#' + ID).val();
+            if (CheckInputData(ParName, ID)) {
                 ParticipantNameEdit(ParName);
             }
             break;
         case "team_name":
-            var TeamName = $('#'+ID).val();
-            if(CheckInputData(TeamName, ID)) {
+            var TeamName = $('#' + ID).val();
+            if (CheckInputData(TeamName, ID)) {
                 TeamNameEdit(TeamName);
             }
             break;
@@ -109,32 +132,69 @@ function Confirm_Edit(Obj) {
     }
 }
 
-function CheckInputData(Data, ID) {
-    if(Data.length > 0){
-        if(re.test(Data)){
-            $('.on_edit').fadeOut();
-            $('#'+ID).val('');
-            return true;
-        } else {
-            notie.alert(3, "Данные не могут содержать спецсимволов!", 3);
-            $('#'+ID+'_input').addClass("is-invalid");
-            preloader.off();
-            return false;
-        }
-    } else {
-        notie.alert(3, "Не все поля заполнены!", 3);
-        $('#'+ID+'_input').addClass("is-invalid");
-        preloader.off();
-        return false;
+function GetIdFromObject(Obj) {
+    var ID = Obj["delegateTarget"]["id"];
+    ID = ID.split("_");
+    ID = ID[0] + "_" + ID[1];
+    return ID;
+}
+/*----------------*/
+
+/* Categories */
+function AddCategory(Category) {
+    $('#categories_list').append("<div class='mdl-card__title mdl-card--border' id='" + Category + "_row'>" +
+        "<div class='card_field'>" +
+        "<i class='material-icons'>more_vert</i>" +
+        "<div class='card_field_text category_name'>" + Category + "</div>" +
+        "</div>" +
+        "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" + Category + "'>" +
+        "<i class='material-icons'>clear</i></button>" +
+        "</div>");
+    $('.category-delete').click(DeleteCategory);
+    EditCategories();
+}
+
+function CategoryAdding() {
+    $('#categories_adding').fadeIn().css("display", "flex");
+}
+
+function ConfirmCategoryAdding() {
+    preloader.on();
+    var Category = $('#categories').val();
+    if (CheckInputData(Category, "categories")) {
+        AddCategory(Category);
     }
 }
 
-function GetIdFromObject(Obj){
-    var ID = Obj["delegateTarget"]["id"];
-    ID = ID.split("_");
-    ID = ID[0]+"_"+ID[1];
-    return ID;
+function CancelCategoryAdding() {
+    $('#categories_adding').fadeOut();
+    $('#categories').val('');
 }
+
+function DeleteCategory(Obj) {
+    preloader.on();
+    var ID = Obj["delegateTarget"]["id"];
+    $('#' + ID + "_row").remove();
+    EditCategories();
+}
+
+function EditCategories() {
+    var Req = [];
+    var Categories = $('.category_name');
+    for (i = 0; i < Categories.length; i++) {
+        Req[i] = $(Categories[i]).text();
+    }
+    $.post("../../requests/editcategories.php", {token: Token, categories: JSON.stringify(Req)}, function (data) {
+        if (data["code"] === 200) {
+            notie.alert(1, "Категории успешно изменены!", 3);
+            preloader.off();
+        } else {
+            notie.alert(3, "Произошла ошибка!", 3);
+            preloader.off();
+        }
+    }, "json");
+}
+/*----------------*/
 
 jQuery('document').ready(function () {
     $('.on_edit-activation').click(ActivateEditMode);
@@ -142,4 +202,8 @@ jQuery('document').ready(function () {
     $('.on_edit-card-cancel').click(Cancel_Edit);
     $('.on_edit-card-confirm').click(Confirm_Edit);
     $('#on_edit-organization_name_edit').click(ActivateEditMode);
+    $('#categories-add').click(CategoryAdding);
+    $('#categories_adding-confirm').click(ConfirmCategoryAdding);
+    $('#categories_adding-cancel').click(CancelCategoryAdding);
+    $('.category-delete').click(DeleteCategory);
 });

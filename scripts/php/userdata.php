@@ -5,6 +5,7 @@ require_once "authorization.php";
 class UserData extends Authorization
 {
     private $Owner = FALSE;
+    private $VerLogin = FALSE;
     protected $Request_Login = NULL;
     protected $User_Organization = NULL;
 
@@ -27,6 +28,11 @@ class UserData extends Authorization
             $this->Request_Login = isset($Login) ? EncodeAES($Login) : $this->User_Login;
             if ($this->User_Login === $this->Request_Login) {
                 $this->Owner = TRUE;
+                $this->VerLogin = TRUE;
+            } else {
+                if($this->CheckUsersOrganization()){
+                    $this->VerLogin = TRUE;
+                }
             }
         } else {
             $this->Error(600);
@@ -129,7 +135,7 @@ class UserData extends Authorization
 
     public function GetCategories()
     {
-        $Categories = $this->Connection->query("SELECT `Key`,`Value` FROM `dictionary` WHERE `Function`='" . $this->Connection->real_escape_string(FUNCTION_CATEGORY) . "'");
+        $Categories = $this->Connection->query("SELECT `Key`,`Value` FROM `dictionary` WHERE `Function`='" . FUNCTION_CATEGORY . "'");
         if (!is_bool($Categories)) {
             $Data = array();
             while ($row = mysqli_fetch_assoc($Categories)) {
@@ -196,6 +202,10 @@ class UserData extends Authorization
         }
     }
 
+    public function GetVerLogin(){
+        return $this->VerLogin;
+    }
+
     protected function SetUserLogin()
     {
         $Login = $this->Connection->query("SELECT `login` FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($this->User_Token) . "'");
@@ -236,6 +246,20 @@ class UserData extends Authorization
         if (!is_bool($Mark)) {
             $Mark = mysqli_fetch_all($Mark);
             return $Mark[0];
+        } else {
+            $this->Error(501);
+        }
+    }
+
+    private function CheckUsersOrganization(){
+        $Count = $this->Connection->query("SELECT COUNT(`Name`) FROM `users` WHERE `Login`='".$this->Request_Login."'");
+        if(!is_bool($Count)){
+            $Count = mysqli_fetch_assoc($Count)["COUNT(`Name`)"];
+            if($Count > 0){
+                return TRUE;
+            } else {
+                $this->Error(605);
+            }
         } else {
             $this->Error(501);
         }

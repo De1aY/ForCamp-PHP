@@ -17,6 +17,9 @@ if (!$Login) {
         header("Location: profile.php?login=" . $Login);
     }
 }
+if(!$RequestData->GetVerLogin()){
+    header("Location: profile.php?login=" . $Login);
+}
 $UserData = $Data->GetUserData();
 $Team = $Data->GetValueForViewByFunction(FUNCTION_TEAM);
 $RequestUserData = $RequestData->GetUserData();
