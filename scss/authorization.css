@@ -37,6 +37,8 @@ body .on_edit {
       width: 100%; }
       body .on_edit .on_edit-card .card_field .mdl-textfield {
         width: 100%; }
+body .tabletolist {
+  width: 100%; }
 
 .container {
   height: 100vh; }

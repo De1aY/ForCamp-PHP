@@ -35,6 +35,8 @@ $Categories = $Request->GetCategories();
         <link rel="stylesheet" type="text/css" href="css/materialPreloader.min.css">
         <!-- WaveEffect -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.css">
+        <!-- ResponsiveTable -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ReStable/0.1.2/jquery.restable.min.css">
         <!--[if IE]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.2.0/es5-shim.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js"></script>
@@ -194,6 +196,106 @@ $Categories = $Request->GetCategories();
                                 id="categories_adding-cancel">
                             отмена
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="participants_adding">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление участника</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_name">
+                                <label class="mdl-textfield__label" for="participants_adding_name">Имя участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_surname">
+                                <label class="mdl-textfield__label" for="participants_adding_surname">Фамилия участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_middlename">
+                                <label class="mdl-textfield__label" for="participants_adding_middlename">Отчество участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_sex">
+                                <label class="mdl-textfield__label" for="participants_adding_sex">Пол участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="period_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_team">
+                                <label class="mdl-textfield__label" for="participants_adding_teaam">Команда участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm-effect"
+                                id="participants_adding-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="participants_adding-cancel">
+                            отмена
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="participants_adding-file" style="float:right">
+                            загрузить файл
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="participants_adding_file">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление участников</div>
+                    </div>
+                    <div class="mdl-card__actions">
+                        <div class="card_field">
+                            <form method="post" name="participants_upload" enctype="multipart/form-data">
+                                <input type="file" accept=".xlsx">
+                                <input type="submit" value="загрузить">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                id="button_participants_file">
+                            <i class="material-icons">cloud_download</i>
+                        </button>
+                        <div class="mdl-tooltip mdl-tooltip--left" for="button_participants_file">
+                            Скачать шаблон
+                        </div>
                     </div>
                 </div>
             </div>
@@ -362,15 +464,6 @@ $Categories = $Request->GetCategories();
                             </div>
                             <div class="mdl-card__title">
                             </div>
-                            <div class="mdl-card__menu">
-                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
-                                        id="accesslevel_edit_activation">
-                                    <i class="material-icons">create</i>
-                                </button>
-                                <div class="mdl-tooltip mdl-tooltip--left" for="accesslevel_edit_activation">
-                                    Задание полномочий на редактирование баллов в категориях
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
@@ -379,17 +472,60 @@ $Categories = $Request->GetCategories();
             <!-- Participants -->
             <section class="mdl-layout__tab-panel" id="orgset_participants">
                 <div class="page-content mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-card mdl-shadow--6dp">
-                            <div class="mdl-card__title mdl-card--border">
+                            <div class="mdl-card__title">
                                 <div class="mdl-card__title-text" style="text-transform: none">Участники</div>
                             </div>
-                            <div class="mdl-card__title">
+                            <div class="mdl-card__title" id="participants_card">
+                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="participants_card_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">ФИО</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Пол</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Класс</th>
+                                        <?php
+                                        for($i=0;$i<$Categories['val'];$i++){
+                                            echo "<th>".$Categories[$i]["Value"]."</th>";
+                                        }
+                                        ?>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="mdl-data-table__cell--non-numeric">Иванов Никита Сергеевич</td>
+                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
+                                        <td class="mdl-data-table__cell--non-numeric">11А</td>
+                                        <td>25</td>
+                                        <td>25</td>
+                                        <td>25</td>
+                                        <td>25</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
+                                        <td class="mdl-data-table__cell--non-numeric">10Б</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
+                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
+                                        <td class="mdl-data-table__cell--non-numeric">10А</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                        <td>10</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="mdl-card__menu">
-                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored mdl-button--primary"
                                         id="button_participants">
-                                    <i class="material-icons">create</i>
+                                    <i class="material-icons">add</i>
                                 </button>
                             </div>
                         </div>
@@ -469,6 +605,8 @@ $Categories = $Request->GetCategories();
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.5/waves.min.js"></script>
     <!-- MaterialPreloader -->
     <script type="text/javascript" src="scripts/js/materialPreloader.min.js"></script>
+    <!-- ResponsiveTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ReStable/0.1.2/jquery.restable.min.js"></script>
     <!-- Other scripts -->
     <script src="scripts/js/orgset.js"></script>
     <script type="text/javascript" src="scripts/js/waveeffect.js"></script>

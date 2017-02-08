@@ -46,7 +46,7 @@ function OrganizationNameEdit(OrgName) {
             $('#organization_field').text(OrgName);
             notie.alert(1, "Название организации успешно изменено!", 3);
         } else {
-            notie.alert(3, "Ошибка!", 3);
+            notie.alert(3, "Произошла ошибка!", 3);
         }
         preloader.off();
     }, "json");
@@ -58,7 +58,7 @@ function PeriodNameEdit(PerName) {
             $('#period_field').text(PerName);
             notie.alert(1, "Название периода успешно изменено!", 3);
         } else {
-            notie.alert(3, "Ошибка!", 3);
+            notie.alert(3, "Произошла ошибка!", 3);
         }
         preloader.off();
     }, "json");
@@ -70,7 +70,7 @@ function ParticipantNameEdit(ParName) {
             $('#participant_field').text(ParName);
             notie.alert(1, "Название участника успешно изменено!", 3);
         } else {
-            notie.alert(3, "Ошибка!", 3);
+            notie.alert(3, "Произошла ошибка!", 3);
         }
         preloader.off();
     }, "json");
@@ -82,7 +82,7 @@ function TeamNameEdit(TeamName) {
             $('#team_field').text(TeamName)
             notie.alert(1, "Название команд успешно изменено!", 3);
         } else {
-            notie.alert(3, "Ошибка!", 3);
+            notie.alert(3, "Произошла ошибка!", 3);
         }
         preloader.off();
     }, "json");
@@ -196,6 +196,27 @@ function EditCategories() {
 }
 /*----------------*/
 
+/* Participants */
+function ParticipantsAdding() {
+    $('#participants_adding').fadeIn().css("display", "flex");
+}
+
+function PartitcipantsAddingFile() {
+    $('#participants_adding').fadeOut(400, function () {
+        $('#participants_adding_file').fadeIn().css("display", "flex");
+    });
+}
+
+function CancelParticipantsAdding() {
+    $('#participants_adding').fadeOut();
+    $('#participants_adding_name').val('');
+    $('#participants_adding_surname').val('');
+    $('#participants_adding_middlename').val('');
+    $('#participants_adding_sex').val('');
+    $('#participants_adding_team').val('');
+}
+/*----------------*/
+
 jQuery('document').ready(function () {
     $('.on_edit-activation').click(ActivateEditMode);
     $('.on_edit-click').click(Fade_Out_Edit);
@@ -206,4 +227,15 @@ jQuery('document').ready(function () {
     $('#categories_adding-confirm').click(ConfirmCategoryAdding);
     $('#categories_adding-cancel').click(CancelCategoryAdding);
     $('.category-delete').click(DeleteCategory);
+    $('#button_participants').click(ParticipantsAdding);
+    $('#participants_adding-file').click(PartitcipantsAddingFile);
+    $('#button_participants_file').click(function () {
+        window.location.href = "media/examples/example.xlsx";
+    });
+    $('#participants_adding-cancel').click(CancelParticipantsAdding);
+    $('#participants_card_table').ReStable({
+        keepHtml : true,
+        rowHeaders : false,
+        maxWidth: 810
+    });
 });
