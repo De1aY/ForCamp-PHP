@@ -329,7 +329,7 @@ $Categories = $Request->GetCategories();
             <!-- Main settings -->
             <section class="mdl-layout__tab-panel is-active" id="orgset_main">
                 <div class="page-content mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Название участника</div>
@@ -353,7 +353,7 @@ $Categories = $Request->GetCategories();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Название команд</div>
@@ -377,9 +377,9 @@ $Categories = $Request->GetCategories();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <!-- Next level -->
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Организация</div>
@@ -403,7 +403,7 @@ $Categories = $Request->GetCategories();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Название периода</div>
@@ -427,9 +427,9 @@ $Categories = $Request->GetCategories();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                     <!-- Next level -->
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--2-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                         <div class="mdl-card mdl-shadow--6dp" id="categories_list">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">Категории</div>
@@ -466,7 +466,7 @@ $Categories = $Request->GetCategories();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 </div>
             </section>
             <!-- Participants -->
