@@ -124,4 +124,8 @@ class Orgset extends UserData
             $this->Error(600);
         }
     }
+
+    public function AddParticipants(){
+        $uploadfile = PATH_FILES.basename($_FILES['uploadfile']['name']);
+    }
 }

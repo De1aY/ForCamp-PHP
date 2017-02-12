@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0686440-1f51-416c-b97e-ef87a2c26533" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/orgset.php" afterPath="$PROJECT_DIR$/orgset.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/lib.php" afterPath="$PROJECT_DIR$/scripts/php/lib.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/orgset.php" afterPath="$PROJECT_DIR$/scripts/php/orgset.php" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,9 +24,42 @@
       <file leaf-file-name="orgset.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/orgset.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="468" column="52" lean-forward="false" selection-start-line="468" selection-start-column="52" selection-end-line="468" selection-end-column="52" />
-              <folding />
+            <state relative-caret-position="353">
+              <caret line="289" column="26" lean-forward="true" selection-start-line="289" selection-start-column="26" selection-end-line="289" selection-end-column="26" />
+              <folding>
+                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#section#0;n#main#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="128" column="73" lean-forward="false" selection-start-line="128" selection-start-column="73" selection-end-line="128" selection-end-column="73" />
+              <folding>
+                <element signature="n#Orgset#0;n#Orgset#0;n#!!top" expanded="false" />
+                <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
+                <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
+                <element signature="n#ChangeTeamName#0;n#Orgset#0;n#!!top" expanded="false" />
+                <element signature="n#ChangePeriodName#0;n#Orgset#0;n#!!top" expanded="false" />
+                <element signature="n#EditCategories#0;n#Orgset#0;n#!!top" expanded="false" />
+                <marker date="1486891262423" expanded="true" signature="1063:1162" ph="UPDATE `dict... " />
+                <marker date="1486891262423" expanded="true" signature="1719:1818" ph="UPDATE `dict... " />
+                <marker date="1486891262423" expanded="true" signature="2368:2460" ph="UPDATE `dict... " />
+                <marker date="1486891262423" expanded="true" signature="3004:3097" ph="UPDATE `dict... " />
+                <marker date="1486891262423" expanded="true" signature="3480:3549" ph="DELETE FROM " />
+                <marker date="1486891262423" expanded="true" signature="3679:3733" ph="ALTER TABLE `participants`... " />
+                <marker date="1486891262423" expanded="true" signature="3961:4129" ph="INSERT INTO `dictionary`... " />
+                <marker date="1486891262423" expanded="true" signature="4310:4388" ph="ALTER TABLE `participants`... " />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -31,7 +67,7 @@
       <file leaf-file-name="addparticipants.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requests/addparticipants.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
+            <state relative-caret-position="102">
               <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
               <folding />
             </state>
@@ -41,7 +77,7 @@
       <file leaf-file-name="orgset.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scss/orgset.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
+            <state relative-caret-position="1037">
               <caret line="61" column="1" lean-forward="false" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
               <folding />
             </state>
@@ -51,11 +87,9 @@
       <file leaf-file-name="_main.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scss/_main.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
+            <state relative-caret-position="1513">
               <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
-              <folding>
-                <marker date="1486559957654" expanded="true" signature="1585:1587" ph="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,25 +97,9 @@
       <file leaf-file-name="orgset.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="4080">
               <caret line="240" column="3" lean-forward="false" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="99" column="52" lean-forward="false" selection-start-line="99" selection-start-column="52" selection-end-line="99" selection-end-column="52" />
-              <folding>
-                <element signature="n#Orgset#0;n#Orgset#0;n#!!top" expanded="false" />
-                <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
-                <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
-                <element signature="n#ChangeTeamName#0;n#Orgset#0;n#!!top" expanded="false" />
-                <element signature="n#ChangePeriodName#0;n#Orgset#0;n#!!top" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -89,18 +107,8 @@
       <file leaf-file-name="editcategories.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/requests/editcategories.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
+            <state relative-caret-position="221">
               <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="profile.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/profile.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="44" lean-forward="false" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -109,8 +117,8 @@
       <file leaf-file-name="userdata.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/php/userdata.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="139" column="34" lean-forward="false" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
+            <state relative-caret-position="468">
+              <caret line="135" column="35" lean-forward="false" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
               <folding>
                 <element signature="n#GetValueForViewByFunction#0;n#UserData#0;n#!!top" expanded="false" />
                 <element signature="n#GetValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
@@ -125,6 +133,17 @@
                 <element signature="n#GetUserMark#0;n#UserData#0;n#!!top" expanded="false" />
                 <element signature="n#ReturnCategories#0;n#UserData#0;n#!!top" expanded="false" />
                 <element signature="n#ReturnValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
+                <marker date="1486458813089" expanded="true" signature="1351:1459" ph="SELECT `Valu... dictionary" />
+                <marker date="1486458813089" expanded="true" signature="2160:2258" ph="SELECT `Valu... dictionary" />
+                <marker date="1486458813089" expanded="true" signature="3618:3794" ph="SELECT `name... users" />
+                <marker date="1486458813089" expanded="true" signature="4720:4803" ph="SELECT `Key`... dictionary" />
+                <marker date="1486458813089" expanded="true" signature="5856:5959" ph="DELETE FROM " />
+                <marker date="1486458813089" expanded="true" signature="6257:6455" ph="SELECT * FRO... dictionary" />
+                <marker date="1486458813089" expanded="true" signature="7283:7394" ph="SELECT `logi... sessions" />
+                <marker date="1486458813089" expanded="true" signature="7849:7964" ph="SELECT `orga... users" />
+                <marker date="1486458813089" expanded="true" signature="8920:8994" ph="SELECT COUNT... users" />
+                <marker date="1486458813089" expanded="true" signature="9422:9536" ph="SELECT `Key`... dictionary" />
+                <marker date="1486458813089" expanded="true" signature="10010:10108" ph="SELECT `Valu... dictionary" />
               </folding>
             </state>
           </provider>
@@ -133,8 +152,8 @@
       <file leaf-file-name="lib.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/php/lib.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="-175">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -187,9 +206,7 @@
         <option value="$PROJECT_DIR$/requests/getfunctionsvalues.php" />
         <option value="$PROJECT_DIR$/profile.php" />
         <option value="$PROJECT_DIR$/requests/editcategories.php" />
-        <option value="$PROJECT_DIR$/scripts/php/orgset.php" />
         <option value="$PROJECT_DIR$/scripts/php/userdata.php" />
-        <option value="$PROJECT_DIR$/scripts/php/lib.php" />
         <option value="$PROJECT_DIR$/scss/orgset.scss" />
         <option value="$PROJECT_DIR$/scss/tabelsaw.css" />
         <option value="$PROJECT_DIR$/scripts/js/tablesaw.js" />
@@ -198,7 +215,9 @@
         <option value="$PROJECT_DIR$/scripts/js/orgset.js" />
         <option value="$PROJECT_DIR$/scripts/php/database.php" />
         <option value="$PROJECT_DIR$/requests/addparticipants.php" />
+        <option value="$PROJECT_DIR$/scripts/php/orgset.php" />
         <option value="$PROJECT_DIR$/orgset.php" />
+        <option value="$PROJECT_DIR$/scripts/php/lib.php" />
       </list>
     </option>
   </component>
@@ -210,9 +229,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="27" />
-    <option name="width" value="1366" />
-    <option name="height" value="741" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1692" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -229,23 +249,55 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
+              <option name="myItemId" value="ForCamp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="php" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -256,7 +308,7 @@
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files (x86)\nodejs\node.exe" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="C:/Go/src/Golang" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -437,6 +489,26 @@
       </option>
       <option name="moduleName" value="" />
       <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoRunFileConfiguration" factoryName="Go Single File">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="DIRECTORY" />
       <method />
     </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
@@ -814,44 +886,45 @@
       <updated>1486195377673</updated>
       <workItem from="1486195380214" duration="94415000" />
       <workItem from="1486572314715" duration="326000" />
+      <workItem from="1486827344744" duration="6741000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94741000" />
+    <option name="totallyTimeSpent" value="101482000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1366" height="741" extended-state="0" />
+    <frame x="-8" y="-8" width="1692" height="1026" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -871,11 +944,123 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/scss/orgset.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="1" lean-forward="false" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/_main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4080">
+          <caret line="240" column="3" lean-forward="false" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="99" column="52" lean-forward="false" selection-start-line="99" selection-start-column="52" selection-end-line="99" selection-end-column="52" />
+          <folding>
+            <element signature="n#Orgset#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#ChangeTeamName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#ChangePeriodName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#EditCategories#0;n#Orgset#0;n#!!top" expanded="false" />
+            <marker date="1486891262423" expanded="true" signature="1063:1162" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="1719:1818" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="2368:2460" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3004:3097" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3480:3549" ph="DELETE FROM " />
+            <marker date="1486891262423" expanded="true" signature="3679:3733" ph="ALTER TABLE `participants`... " />
+            <marker date="1486891262423" expanded="true" signature="3961:4129" ph="INSERT INTO `dictionary`... " />
+            <marker date="1486891262423" expanded="true" signature="4310:4388" ph="ALTER TABLE `participants`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requests/editcategories.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="44" lean-forward="false" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/php/userdata.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1003">
+          <caret line="135" column="35" lean-forward="false" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
+          <folding>
+            <element signature="n#GetValueForViewByFunction#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserLogin#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserOrganization#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserData#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetCategories#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserMarks#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#CloseSession#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#SetUserLogin#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#SetUserOrganization#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserMark#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#ReturnCategories#0;n#UserData#0;n#!!top" expanded="false" />
+            <element signature="n#ReturnValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
+            <marker date="1486458813089" expanded="true" signature="1351:1459" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="2160:2258" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="3618:3794" ph="SELECT `name... users" />
+            <marker date="1486458813089" expanded="true" signature="4720:4803" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="5856:5959" ph="DELETE FROM " />
+            <marker date="1486458813089" expanded="true" signature="6257:6455" ph="SELECT * FRO... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="7283:7394" ph="SELECT `logi... sessions" />
+            <marker date="1486458813089" expanded="true" signature="7849:7964" ph="SELECT `orga... users" />
+            <marker date="1486458813089" expanded="true" signature="8920:8994" ph="SELECT COUNT... users" />
+            <marker date="1486458813089" expanded="true" signature="9422:9536" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="10010:10108" ph="SELECT `Valu... dictionary" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/php/lib.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="799">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/orgset.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#0;n#main#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -899,9 +1084,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="40" column="1" lean-forward="true" selection-start-line="40" selection-start-column="1" selection-end-line="40" selection-end-column="1" />
-          <folding>
-            <marker date="1486559957654" expanded="true" signature="1585:1587" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -923,6 +1106,15 @@
             <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangeTeamName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangePeriodName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#EditCategories#0;n#Orgset#0;n#!!top" expanded="false" />
+            <marker date="1486891262423" expanded="true" signature="1063:1162" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="1719:1818" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="2368:2460" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3004:3097" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3480:3549" ph="DELETE FROM " />
+            <marker date="1486891262423" expanded="true" signature="3679:3733" ph="ALTER TABLE `participants`... " />
+            <marker date="1486891262423" expanded="true" signature="3961:4129" ph="INSERT INTO `dictionary`... " />
+            <marker date="1486891262423" expanded="true" signature="4310:4388" ph="ALTER TABLE `participants`... " />
           </folding>
         </state>
       </provider>
@@ -961,6 +1153,17 @@
             <element signature="n#GetUserMark#0;n#UserData#0;n#!!top" expanded="false" />
             <element signature="n#ReturnCategories#0;n#UserData#0;n#!!top" expanded="false" />
             <element signature="n#ReturnValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
+            <marker date="1486458813089" expanded="true" signature="1351:1459" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="2160:2258" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="3618:3794" ph="SELECT `name... users" />
+            <marker date="1486458813089" expanded="true" signature="4720:4803" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="5856:5959" ph="DELETE FROM " />
+            <marker date="1486458813089" expanded="true" signature="6257:6455" ph="SELECT * FRO... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="7283:7394" ph="SELECT `logi... sessions" />
+            <marker date="1486458813089" expanded="true" signature="7849:7964" ph="SELECT `orga... users" />
+            <marker date="1486458813089" expanded="true" signature="8920:8994" ph="SELECT COUNT... users" />
+            <marker date="1486458813089" expanded="true" signature="9422:9536" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="10010:10108" ph="SELECT `Valu... dictionary" />
           </folding>
         </state>
       </provider>
@@ -1092,7 +1295,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/profile.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
+        <state relative-caret-position="391">
           <caret line="23" column="44" lean-forward="false" selection-start-line="23" selection-start-column="44" selection-end-line="23" selection-end-column="44" />
           <folding />
         </state>
@@ -1105,10 +1308,75 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/requests/editcategories.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/tabelsaw.css" />
+    <entry file="file://$PROJECT_DIR$/scripts/js/tablesaw.js" />
+    <entry file="file://$PROJECT_DIR$/scripts/js/tablesaw-init.js" />
+    <entry file="file://$PROJECT_DIR$/scripts/js/jquery.responsive-tables.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/_main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4080">
+          <caret line="240" column="3" lean-forward="false" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/php/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scss/orgset.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="61" column="1" lean-forward="false" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Desktop/Development/Golang/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/requests/addparticipants.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/php/userdata.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="139" column="34" lean-forward="false" selection-start-line="139" selection-start-column="34" selection-end-line="139" selection-end-column="34" />
+        <state relative-caret-position="468">
+          <caret line="135" column="35" lean-forward="false" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
           <folding>
             <element signature="n#GetValueForViewByFunction#0;n#UserData#0;n#!!top" expanded="false" />
             <element signature="n#GetValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
@@ -1123,96 +1391,65 @@
             <element signature="n#GetUserMark#0;n#UserData#0;n#!!top" expanded="false" />
             <element signature="n#ReturnCategories#0;n#UserData#0;n#!!top" expanded="false" />
             <element signature="n#ReturnValueForViewByKey#0;n#UserData#0;n#!!top" expanded="false" />
+            <marker date="1486458813089" expanded="true" signature="1351:1459" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="2160:2258" ph="SELECT `Valu... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="3618:3794" ph="SELECT `name... users" />
+            <marker date="1486458813089" expanded="true" signature="4720:4803" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="5856:5959" ph="DELETE FROM " />
+            <marker date="1486458813089" expanded="true" signature="6257:6455" ph="SELECT * FRO... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="7283:7394" ph="SELECT `logi... sessions" />
+            <marker date="1486458813089" expanded="true" signature="7849:7964" ph="SELECT `orga... users" />
+            <marker date="1486458813089" expanded="true" signature="8920:8994" ph="SELECT COUNT... users" />
+            <marker date="1486458813089" expanded="true" signature="9422:9536" ph="SELECT `Key`... dictionary" />
+            <marker date="1486458813089" expanded="true" signature="10010:10108" ph="SELECT `Valu... dictionary" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requests/editcategories.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="14" lean-forward="false" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scss/tabelsaw.css" />
-    <entry file="file://$PROJECT_DIR$/scripts/js/tablesaw.js" />
-    <entry file="file://$PROJECT_DIR$/scripts/js/tablesaw-init.js" />
     <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="99" column="52" lean-forward="false" selection-start-line="99" selection-start-column="52" selection-end-line="99" selection-end-column="52" />
+        <state relative-caret-position="340">
+          <caret line="128" column="73" lean-forward="false" selection-start-line="128" selection-start-column="73" selection-end-line="128" selection-end-column="73" />
           <folding>
             <element signature="n#Orgset#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangeTeamName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangePeriodName#0;n#Orgset#0;n#!!top" expanded="false" />
+            <element signature="n#EditCategories#0;n#Orgset#0;n#!!top" expanded="false" />
+            <marker date="1486891262423" expanded="true" signature="1063:1162" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="1719:1818" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="2368:2460" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3004:3097" ph="UPDATE `dict... " />
+            <marker date="1486891262423" expanded="true" signature="3480:3549" ph="DELETE FROM " />
+            <marker date="1486891262423" expanded="true" signature="3679:3733" ph="ALTER TABLE `participants`... " />
+            <marker date="1486891262423" expanded="true" signature="3961:4129" ph="INSERT INTO `dictionary`... " />
+            <marker date="1486891262423" expanded="true" signature="4310:4388" ph="ALTER TABLE `participants`... " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/js/jquery.responsive-tables.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scss/_main.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="89" column="1" lean-forward="false" selection-start-line="89" selection-start-column="1" selection-end-line="89" selection-end-column="1" />
-          <folding>
-            <marker date="1486559957654" expanded="true" signature="1585:1587" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="240" column="3" lean-forward="false" selection-start-line="240" selection-start-column="3" selection-end-line="240" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/php/lib.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/php/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="14" lean-forward="true" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requests/addparticipants.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scss/orgset.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="61" column="1" lean-forward="false" selection-start-line="61" selection-start-column="1" selection-end-line="61" selection-end-column="1" />
+        <state relative-caret-position="-175">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/orgset.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="468" column="52" lean-forward="false" selection-start-line="468" selection-start-column="52" selection-end-line="468" selection-end-column="52" />
-          <folding />
+        <state relative-caret-position="353">
+          <caret line="289" column="26" lean-forward="true" selection-start-line="289" selection-start-column="26" selection-end-line="289" selection-end-column="26" />
+          <folding>
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#5;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#section#0;n#main#0;n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -283,7 +283,7 @@ $Categories = $Request->GetCategories();
                     <div class="mdl-card__actions">
                         <div class="card_field">
                             <form method="post" name="participants_upload" enctype="multipart/form-data">
-                                <input type="file" accept=".xlsx">
+                                <input type="file" accept=".xlsx" name="uploadfile">
                                 <input type="submit" value="загрузить">
                             </form>
                         </div>
