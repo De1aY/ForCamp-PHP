@@ -110,7 +110,7 @@ class UserData extends Authorization
     public function GetUserData()
     {
         if (isset($this->User_Organization)) {
-            $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`post`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
+            $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
             if (!is_bool($Data)) {
                 $Data = mysqli_fetch_assoc($Data);
                 $Data = array_map("DecodeAES", $Data);

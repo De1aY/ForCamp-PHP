@@ -212,7 +212,7 @@ $Categories = $Request->GetCategories();
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="period_name_input">
+                                 id="participants_adding_name_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_name">
                                 <label class="mdl-textfield__label" for="participants_adding_name">Имя участника</label>
                             </div>
@@ -221,25 +221,27 @@ $Categories = $Request->GetCategories();
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="period_name_input">
+                                 id="participants_adding_surname_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_surname">
-                                <label class="mdl-textfield__label" for="participants_adding_surname">Фамилия участника</label>
+                                <label class="mdl-textfield__label" for="participants_adding_surname">Фамилия
+                                    участника</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="period_name_input">
+                                 id="participants_adding_middlename_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_middlename">
-                                <label class="mdl-textfield__label" for="participants_adding_middlename">Отчество участника</label>
+                                <label class="mdl-textfield__label" for="participants_adding_middlename">Отчество
+                                    участника</label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="period_name_input">
+                                 id="participants_adding_sex_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_sex">
                                 <label class="mdl-textfield__label" for="participants_adding_sex">Пол участника</label>
                             </div>
@@ -248,9 +250,10 @@ $Categories = $Request->GetCategories();
                     <div class="mdl-card__title mdl-card--border">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="period_name_input">
+                                 id="participants_adding_team_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_team">
-                                <label class="mdl-textfield__label" for="participants_adding_teaam">Команда участника</label>
+                                <label class="mdl-textfield__label" for="participants_adding_team">Команда
+                                    участника</label>
                             </div>
                         </div>
                     </div>
@@ -435,13 +438,13 @@ $Categories = $Request->GetCategories();
                                 <div class="mdl-card__title-text" style="text-transform: none">Категории</div>
                             </div>
                             <?php
-                            for($i=0;$i<$Categories['val'];$i++){
-                                echo " <div class='mdl-card__title mdl-card--border' id='".$Categories[$i]["Value"]."_row'>";
+                            for ($i = 0; $i < $Categories['val']; $i++) {
+                                echo " <div class='mdl-card__title mdl-card--border' id='" . str_replace(' ', "_", $Categories[$i]["Value"]) . "_row'>";
                                 echo "<div class='card_field'>";
                                 echo "<i class='material-icons'>more_vert</i>";
-                                echo "<div class='card_field_text category_name'>".$Categories[$i]["Value"];
+                                echo "<div class='card_field_text category_name'>" . $Categories[$i]["Value"];
                                 echo "</div></div>";
-                                echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='".$Categories[$i]["Value"]."'>";
+                                echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" . str_replace(' ', "_", $Categories[$i]["Value"]) . "'>";
                                 echo "<i class='material-icons'>clear</i></button>";
                                 echo "</div>";
                             }
@@ -478,15 +481,16 @@ $Categories = $Request->GetCategories();
                                 <div class="mdl-card__title-text" style="text-transform: none">Участники</div>
                             </div>
                             <div class="mdl-card__title" id="participants_card">
-                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp" id="participants_card_table">
+                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                                       id="participants_card_table">
                                     <thead>
                                     <tr>
                                         <th class="mdl-data-table__cell--non-numeric">ФИО</th>
                                         <th class="mdl-data-table__cell--non-numeric">Пол</th>
                                         <th class="mdl-data-table__cell--non-numeric">Класс</th>
                                         <?php
-                                        for($i=0;$i<$Categories['val'];$i++){
-                                            echo "<th>".$Categories[$i]["Value"]."</th>";
+                                        for ($i = 0; $i < $Categories['val']; $i++) {
+                                            echo "<th>" . $Categories[$i]["Value"] . "</th>";
                                         }
                                         ?>
                                     </tr>

@@ -18,11 +18,13 @@ function Fade_Out_Edit() {
     $('.on_edit').fadeOut();
 }
 
-function CheckInputData(Data, ID) {
+function CheckInputData(Data, ID, AutoFadeOut) {
     if (Data.length > 0) {
         if (re.test(Data)) {
-            $('.on_edit').fadeOut();
-            $('#' + ID).val('');
+            if(AutoFadeOut) {
+                $('.on_edit').fadeOut();
+                $('#' + ID).val('');
+            }
             return true;
         } else {
             notie.alert(3, "Данные не могут содержать спецсимволов!", 3);
@@ -105,25 +107,25 @@ function Confirm_Edit(Obj) {
     switch (ID) {
         case "organization_name":
             var OrgName = $('#' + ID).val();
-            if (CheckInputData(OrgName, ID)) {
+            if (CheckInputData(OrgName, ID, true)) {
                 OrganizationNameEdit(OrgName);
             }
             break;
         case "period_name":
             var PerName = $('#' + ID).val();
-            if (CheckInputData(PerName, ID)) {
+            if (CheckInputData(PerName, ID, true)) {
                 PeriodNameEdit(PerName);
             }
             break;
         case "participant_name":
             var ParName = $('#' + ID).val();
-            if (CheckInputData(ParName, ID)) {
+            if (CheckInputData(ParName, ID, true)) {
                 ParticipantNameEdit(ParName);
             }
             break;
         case "team_name":
             var TeamName = $('#' + ID).val();
-            if (CheckInputData(TeamName, ID)) {
+            if (CheckInputData(TeamName, ID, true)) {
                 TeamNameEdit(TeamName);
             }
             break;
@@ -161,7 +163,7 @@ function CategoryAdding() {
 function ConfirmCategoryAdding() {
     preloader.on();
     var Category = $('#categories').val();
-    if (CheckInputData(Category, "categories")) {
+    if (CheckInputData(Category, "categories", true)) {
         AddCategory(Category);
     }
 }
@@ -201,6 +203,46 @@ function ParticipantsAdding() {
     $('#participants_adding').fadeIn().css("display", "flex");
 }
 
+function ParticipantsAddingConfirm() {
+    preloader.on();
+    ParName = $('#participants_adding_name').val();
+    ParSurname = $('#participants_adding_surname').val();
+    ParMiddlename = $('#participants_adding_middlename').val();
+    ParSex = $('#participants_adding_sex').val();
+    ParTeam = $('#participants_adding_team').val();
+    if(CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParTeam)){
+        $('.on_edit').fadeOut();
+        AddParticipant(ParName, ParSurname, ParMiddlename, ParSex, ParTeam);
+    }
+}
+
+function AddParticipant(ParName, ParSurname, ParMiddlename, ParSex, ParTeam) {
+    $.post("../../requests/addparticipant.php", {token: Token, name: ParName, surname: ParSurname, middlename: ParMiddlename, sex: ParSex, team: ParTeam}, function (data) {
+        notie.alert(data);
+        preloader.off();
+    }, "json");
+}
+
+function CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParTeam) {
+    var Result = true;
+    if(!CheckInputData(ParTeam, "participants_adding_team", false)){
+        Result = false;
+    }
+    if(!CheckInputData(ParName, "participants_adding_name", false)){
+        Result = false;
+    }
+    if(!CheckInputData(ParSurname, "participants_adding_surname", false)){
+        Result=  false;
+    }
+    if(!CheckInputData(ParSex, "participants_adding_sex", false)){
+        Result = false;
+    }
+    if(!CheckInputData(ParMiddlename, "participants_adding_middlename", false)){
+        Result = false;
+    }
+    return Result
+}
+
 function PartitcipantsAddingFile() {
     $('#participants_adding').fadeOut(400, function () {
         $('#participants_adding_file').fadeIn().css("display", "flex");
@@ -233,6 +275,7 @@ jQuery('document').ready(function () {
         window.location.href = "media/examples/example.xlsx";
     });
     $('#participants_adding-cancel').click(CancelParticipantsAdding);
+    $('#participants_adding-confirm').click(ParticipantsAddingConfirm);
     $('#participants_card_table').ReStable({
         keepHtml : true,
         rowHeaders : false,
