@@ -12,6 +12,7 @@ if ($RequestData['accesslevel'] != "admin") {
     header("Location: index.php");
 }
 $Login = $Request->GetUserLogin();
+$Participants = $Request->GetParticipants();
 $Functions = $Request->GetFunctionsValues();
 $Categories = $Request->GetCategories();
 ?>
@@ -487,7 +488,7 @@ $Categories = $Request->GetCategories();
                                     <tr>
                                         <th class="mdl-data-table__cell--non-numeric">ФИО</th>
                                         <th class="mdl-data-table__cell--non-numeric">Пол</th>
-                                        <th class="mdl-data-table__cell--non-numeric">Класс</th>
+                                        <th class="mdl-data-table__cell--non-numeric" style="text-transform: capitalize"><?php echo $Functions["team"]["Value"]?></th>
                                         <?php
                                         for ($i = 0; $i < $Categories['val']; $i++) {
                                             echo "<th>" . $Categories[$i]["Value"] . "</th>";
@@ -496,33 +497,18 @@ $Categories = $Request->GetCategories();
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">Иванов Никита Сергеевич</td>
-                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
-                                        <td class="mdl-data-table__cell--non-numeric">11А</td>
-                                        <td>25</td>
-                                        <td>25</td>
-                                        <td>25</td>
-                                        <td>25</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
-                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
-                                        <td class="mdl-data-table__cell--non-numeric">10Б</td>
-                                        <td>50</td>
-                                        <td>50</td>
-                                        <td>50</td>
-                                        <td>50</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">Иванов Иван Иванович</td>
-                                        <td class="mdl-data-table__cell--non-numeric">Мужской</td>
-                                        <td class="mdl-data-table__cell--non-numeric">10А</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                        <td>10</td>
-                                    </tr>
+                                    <?php
+                                    for ($i = 0; $i< $Participants["val"]; $i++){
+                                        echo "<tr>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'><a href='profile.php?login=".$Participants[$i]["Login"]."'>".$Participants[$i]["surname"]." ".
+                                            $Participants[$i]["name"]." ".$Participants[$i]["middlename"]."</a></td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>".$Participants[$i]["sex"]."</td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>".$Participants[$i]["team"]."</td>";
+                                        for ($cat = 0; $cat < $Categories['val']; $cat++){
+                                            echo "<td>".$Participants[$i][$Categories[$cat]["Key"]]."</td>";
+                                        }
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>

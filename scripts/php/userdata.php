@@ -206,6 +206,36 @@ class UserData extends Authorization
         return $this->VerLogin;
     }
 
+    public function GetParticipants(){
+        $Participants = $this->Connection->query("SELECT * FROM `participants`");
+        if(is_bool($Participants)){
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        }
+        $Data = [];
+        while ($row = mysqli_fetch_assoc($Participants)){
+            $tmp = array_merge($row, $this->GetParticipantData($row["Login"]));
+            $tmp["Login"] = DecodeAES($tmp["Login"]);
+            array_push($Data, $tmp);
+        }
+        if ($this->Return === TRUE){
+            return array_merge($Data, ["val"=> count($Data)]);
+        } else {
+            exit(json_encode(array_merge(["status" => "OK", "code" => 200, "val" => count($Data)], $Data)));
+        }
+    }
+
+    private function GetParticipantData($Login){
+        $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
+        if (!is_bool($Data)) {
+            $Data = mysqli_fetch_assoc($Data);
+            $Data = array_map("DecodeAES", $Data);
+            $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization))]);
+            return $Data;
+        } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        }
+    }
+
     protected function SetUserLogin()
     {
         $Login = $this->Connection->query("SELECT `login` FROM `sessions` WHERE `token`='" . $this->Connection->real_escape_string($this->User_Token) . "'");

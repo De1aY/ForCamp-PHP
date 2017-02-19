@@ -135,25 +135,20 @@ class Orgset extends UserData
     }
 
     public function AddParticipant($Name, $Surname, $MiddleName, $Sex, $Team){
-        $this->CheckParticipantData($Name, $Surname, $MiddleName, $Sex, $Team);
-        $Name = EncodeAES($Name);
-        $Surname = EncodeAES($Surname);
-        $MiddleName = EncodeAES($MiddleName);
-        $Sex = EncodeAES($Sex);
-        $Team = EncodeAES($Team);
+        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team);
+        $Name = EncodeAES(strtolower($Name));
+        $Surname = EncodeAES(strtolower($Surname));
+        $MiddleName = EncodeAES(strtolower($MiddleName));
+        $Sex = EncodeAES(strtolower($Sex));
+        $Team = EncodeAES(strtolower($Team));
         $this->AddParticipant_Main();
         $this->Select($this->User_Organization);
         $this->AddParticipant_Organization($Name, $Surname, $MiddleName, $Sex, $Team);
         exit(json_encode(["status"=>"OK", "code"=>200, "login"=>DecodeAES($this->User_Login), "password"=>$this->User_Password_Decoded]));
     }
 
-    private function CheckParticipantData($Name, $Surname, $Middlename, $Sex, $Team){
-        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $Name.$Surname.$Middlename.$Sex.$Team)) {
-            $Name = strtolower($Name);
-            $Surname = strtolower($Surname);
-            $Middlename = strtolower($Middlename);
-            $Sex = strtolower($Sex);
-            $Team = strtolower($Team);
+    private function CheckInputData($Name, $Surname, $Middlename, $Sex, $Team, $Post="test"){
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $Name.$Surname.$Middlename.$Sex.$Team.$Post)) {
             $this->CheckParticipantData_Sex($Sex);
         } else {
             exit(json_encode(["status"=>"ERROR", "code"=>600]));
@@ -197,6 +192,45 @@ class Orgset extends UserData
                 exit(json_encode(["status"=>"ERROR", "code"=>501]));
             }
         } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        }
+    }
+
+    private function AddEmployee($Name, $Surname, $MiddleName, $Sex, $Team, $Post){
+        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
+        $Name = EncodeAES(strtolower($Name));
+        $Surname = EncodeAES(strtolower($Surname));
+        $MiddleName = EncodeAES(strtolower($MiddleName));
+        $Sex = EncodeAES(strtolower($Sex));
+        $Team = EncodeAES(strtolower($Team));
+        $this->AddEmployee_Main();
+        $this->Select($this->User_Organization);
+        $this->AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team);
+        exit(json_encode(["status"=>"OK", "code"=>200, "login"=>DecodeAES($this->User_Login), "password"=>$this->User_Password_Decoded]));
+    }
+
+    private function AddEmployee_Main(){
+        $this->Select("camp");
+        $this->GeneratePassword();
+        $CurrentID = $this->Connection->query("SELECT MAX(`ID`) FROM `users`");
+        $CurrentID = mysqli_fetch_array($CurrentID)[0]+1;
+        if($CurrentID) {
+            $this->User_Login = EncodeAES("employee_".$CurrentID);
+            $Resp = $this->Connection->query("INSERT INTO `users`(`Login`,`Password`,`Organization`) VALUES('".$this->User_Login."',
+          '" . $this->User_Password . "', '" . EncodeAES($this->User_Organization)."')");
+            if(!$Resp){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            }
+        } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        }
+    }
+
+    private function AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team, $Post){
+        $Resp = $this->Connection->query("INSERT INTO `users`(`Login`, `Name`, `Surname`, `Middlename`, `Sex`, `Team`, `Avatar`, `Accesslevel`)
+          VALUES ('$this->User_Login', '$Name', '$Surname', 
+          '$MiddleName', '$Sex', '$Team', '".EncodeAES("media/images/avatar_default.jpg")."', '".EncodeAES("employee")."')");
+        if(!$Resp){
             exit(json_encode(["status"=>"ERROR", "code"=>501]));
         }
     }

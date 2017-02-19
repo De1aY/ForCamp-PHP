@@ -21,6 +21,7 @@ if(!$RequestData->GetVerLogin()){
     header("Location: profile.php?login=" . $Login);
 }
 $UserData = $Data->GetUserData();
+$Functions = $Data->GetFunctionsValues();
 $Team = $Data->GetValueForViewByFunction(FUNCTION_TEAM);
 $RequestUserData = $RequestData->GetUserData();
 $Data->Close();
@@ -146,14 +147,6 @@ $RequestData->Close();
                             </div>
                         </div>
                     </div>
-                    <?php if ($UserData['accesslevel'] === "admin"): ?>
-                        <div class="mdl-card__menu">
-                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
-                                    id="button_organization">
-                                <i class="material-icons">create</i>
-                            </button>
-                        </div>
-                    <?php endif ?>
                 </div>
             </div>
             <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
@@ -165,7 +158,21 @@ $RequestData->Close();
                         <div class="card_field">
                             <i class="fa fa-id-card-o"></i>
                             <div class="card_field_text">
-                                <?php echo $RequestUserData['post'] ?>
+                                <?php
+                                switch ($RequestData["accesslevel"]){
+                                    case "admin":
+                                        echo "администрация";
+                                        break;
+                                    case "participant":
+                                        echo $Functions["participant"]["Value"];
+                                        break;
+                                    case "employee":
+                                        echo $RequestData["post"];
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

@@ -18,18 +18,19 @@
 body #notie-alert-outer {
   z-index: 1000; }
 body .on_edit {
+  padding: 0;
   display: none;
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.6); }
+  z-index: 999; }
   body .on_edit .on_edit-click {
     position: fixed;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.6);
     z-index: 2; }
   body .on_edit .on_edit-card {
     z-index: 999; }
@@ -39,6 +40,8 @@ body .on_edit {
         width: 100%; }
 body .tabletolist {
   width: 100%; }
+body table tr td.mdl-data-table__cell--non-numeric {
+  text-transform: capitalize; }
 
 body .mdl-card {
   width: 100%;

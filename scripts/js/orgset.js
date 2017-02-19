@@ -192,6 +192,7 @@ function EditCategories() {
             preloader.off();
         } else {
             notie.alert(3, "Произошла ошибка!", 3);
+            setTimeout(window.location.reload, 1000);
             preloader.off();
         }
     }, "json");
@@ -218,7 +219,13 @@ function ParticipantsAddingConfirm() {
 
 function AddParticipant(ParName, ParSurname, ParMiddlename, ParSex, ParTeam) {
     $.post("../../requests/addparticipant.php", {token: Token, name: ParName, surname: ParSurname, middlename: ParMiddlename, sex: ParSex, team: ParTeam}, function (data) {
-        notie.alert(data);
+        if(data["code"] === 200){
+            notie.alert(1, "Участник успешно добавлен!", 3);
+            setTimeout(window.location.reload, 1000);
+        } else {
+            notie.alert(3, "Произошла ошибка!", 3);
+            setTimeout(window.location.reload, 1000);
+        }
         preloader.off();
     }, "json");
 }
