@@ -205,7 +205,7 @@ class Orgset extends UserData
         $Team = EncodeAES(strtolower($Team));
         $this->AddEmployee_Main();
         $this->Select($this->User_Organization);
-        $this->AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team);
+        $this->AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
         exit(json_encode(["status"=>"OK", "code"=>200, "login"=>DecodeAES($this->User_Login), "password"=>$this->User_Password_Decoded]));
     }
 
