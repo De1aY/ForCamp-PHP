@@ -50,11 +50,16 @@ body {
 
   }
 
-  #participants_card{
+  #participants_card, #employees_card{
     padding: 0;
 
     table{
       width: 100%;
+
+      .mdl-switch{
+        width: 0;
+      }
+
     }
 
   }

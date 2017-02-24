@@ -13,8 +13,10 @@ if ($RequestData['accesslevel'] != "admin") {
 }
 $Login = $Request->GetUserLogin();
 $Participants = $Request->GetParticipants();
+$Employees = $Request->GetEmployees();
 $Functions = $Request->GetFunctionsValues();
 $Categories = $Request->GetCategories();
+$Organization = $Request->GetUserOrganization_Eng();
 ?>
 <?php if (isset($sid) && $RequestData['accesslevel'] === "admin"): ?>
     <!DOCTYPE html>
@@ -294,13 +296,281 @@ $Categories = $Request->GetCategories();
                         </div>
                     </div>
                     <div class="mdl-card__menu">
-                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
-                                id="button_participants_file">
-                            <i class="material-icons">cloud_download</i>
-                        </button>
+                        <a href="media/examples/participants_example.xlsx">
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                    id="button_participants_file">
+                                <i class="material-icons">cloud_download</i>
+                            </button>
+                        </a>
                         <div class="mdl-tooltip mdl-tooltip--left" for="button_participants_file">
                             Скачать шаблон
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="employees_adding">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление сотрудника</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_name_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_name">
+                                <label class="mdl-textfield__label" for="employees_adding_name">Имя сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_surname_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_surname">
+                                <label class="mdl-textfield__label" for="employees_adding_surname">Фамилия
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_middlename_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_middlename">
+                                <label class="mdl-textfield__label" for="employees_adding_middlename">Отчество
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_sex_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_sex">
+                                <label class="mdl-textfield__label" for="employees_adding_sex">Пол сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_team_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_team">
+                                <label class="mdl-textfield__label" for="employees_adding_team">Команда
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="employees_adding_post_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_post">
+                                <label class="mdl-textfield__label" for="employees_adding_post">Должность
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm-effect"
+                                id="employees_adding-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="employees_adding-cancel">
+                            отмена
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="employees_adding-file" style="float:right">
+                            загрузить файл
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="employees_adding_file">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление сотрудников</div>
+                    </div>
+                    <div class="mdl-card__actions">
+                        <div class="card_field">
+                            <form method="post" name="employees_upload" enctype="multipart/form-data">
+                                <input type="file" accept=".xlsx" name="uploadfile">
+                                <input type="submit" value="загрузить">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mdl-card__menu">
+                        <a href="media/examples/employees_example.xlsx">
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                    id="button_employees_file">
+                                <i class="material-icons">cloud_download</i>
+                            </button>
+                        </a>
+                        <div class="mdl-tooltip mdl-tooltip--left" for="button_employees_file">
+                            Скачать шаблон
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="participants_editing">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Изменение данных участника</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participants_editing_name_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_name">
+                                <label class="mdl-textfield__label" for="participants_editing_name">Имя
+                                    участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participants_editing_surname_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_surname">
+                                <label class="mdl-textfield__label" for="participants_editing_surname">Фамилия
+                                    участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participants_editing_middlename_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_middlename">
+                                <label class="mdl-textfield__label" for="participants_editing_middlename">Отчество
+                                    участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participants_editing_sex_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_sex">
+                                <label class="mdl-textfield__label" for="participants_editing_sex">Пол участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="participants_editing_team_input">
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_team">
+                                <label class="mdl-textfield__label" for="participants_editing_team">Команда
+                                    участника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm-effect"
+                                id="participants_editing-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="participants_editing-cancel">
+                            отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="on_edit mdl-grid" id="employees_editing">
+        <div class="on_edit-click"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Изменение данных сотрудника</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_name_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_name">
+                                <label class="mdl-textfield__label" for="employees_editing_name">Имя сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_surname_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_surname">
+                                <label class="mdl-textfield__label" for="employees_editing_surname">Фамилия
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_middlename_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_middlename">
+                                <label class="mdl-textfield__label" for="employees_editing_middlename">Отчество
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_sex_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_sex">
+                                <label class="mdl-textfield__label" for="employees_editing_sex">Пол сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_team_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_team">
+                                <label class="mdl-textfield__label" for="employees_editing_team">Команда
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
+                                 id="employees_editing_post_input">
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_post">
+                                <label class="mdl-textfield__label" for="employees_editing_post">Должность
+                                    сотрудника</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm-effect"
+                                id="employees_editing-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel-effect"
+                                id="employees_editing-cancel">
+                            отмена
+                        </button>
                     </div>
                 </div>
             </div>
@@ -447,7 +717,7 @@ $Categories = $Request->GetCategories();
                                 echo "<div class='card_field_text category_name'>" . $Categories[$i]["Value"];
                                 echo "</div></div>";
                                 echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" . str_replace(' ', "_", $Categories[$i]["Value"]) . "'>";
-                                echo "<i class='material-icons'>clear</i></button>";
+                                echo "<i class='material-icons'>delete_forever</i></button>";
                                 echo "</div>";
                             }
                             ?>
@@ -489,25 +759,25 @@ $Categories = $Request->GetCategories();
                                     <tr>
                                         <th class="mdl-data-table__cell--non-numeric">ФИО</th>
                                         <th class="mdl-data-table__cell--non-numeric">Пол</th>
-                                        <th class="mdl-data-table__cell--non-numeric" style="text-transform: capitalize"><?php echo $Functions["team"]["Value"]?></th>
-                                        <?php
-                                        for ($i = 0; $i < $Categories['val']; $i++) {
-                                            echo "<th>" . $Categories[$i]["Value"] . "</th>";
-                                        }
-                                        ?>
+                                        <th class="mdl-data-table__cell--non-numeric"
+                                            style="text-transform: capitalize"><?php echo $Functions["team"]["Value"] ?></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    for ($i = 0; $i< $Participants["val"]; $i++){
+                                    for ($i = 0; $i < $Participants["val"]; $i++) {
                                         echo "<tr>";
-                                        echo "<td class='mdl-data-table__cell--non-numeric'><a href='profile.php?login=".$Participants[$i]["Login"]."'>".$Participants[$i]["surname"]." ".
-                                            $Participants[$i]["name"]." ".$Participants[$i]["middlename"]."</a></td>";
-                                        echo "<td class='mdl-data-table__cell--non-numeric'>".$Participants[$i]["sex"]."</td>";
-                                        echo "<td class='mdl-data-table__cell--non-numeric'>".$Participants[$i]["team"]."</td>";
-                                        for ($cat = 0; $cat < $Categories['val']; $cat++){
-                                            echo "<td>".$Participants[$i][$Categories[$cat]["Key"]]."</td>";
-                                        }
+                                        echo "<td class='mdl-data-table__cell--non-numeric' id='" . $Participants[$i]["Login"] . "'><a href='profile.php?login=" . $Participants[$i]["Login"] . "'>" . $Participants[$i]["surname"] . " " .
+                                            $Participants[$i]["name"] . " " . $Participants[$i]["middlename"] . "</a></td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>" . $Participants[$i]["sex"] . "</td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>" . $Participants[$i]["team"] . "</td>";
+                                        echo "<td><button class='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--primary participants_table_edit'>
+                                                <i class='material-icons'>create</i>
+                                            </button>";
+                                        echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent participants_table_delete' id='employee_delete-" . $Participants[$i]["Login"] . "'>
+                                                <i class='material-icons'>delete_forever</i>
+                                            </button></td>";
                                     }
                                     ?>
                                     </tbody>
@@ -518,6 +788,11 @@ $Categories = $Request->GetCategories();
                                         id="button_participants">
                                     <i class="material-icons">add</i>
                                 </button>
+                                <a href="media/basedata/<?php echo $Organization ?>_participants.xlsx">
+                                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored mdl-button--primary">
+                                        <i class="material-icons">cloud_download</i>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -526,18 +801,73 @@ $Categories = $Request->GetCategories();
             <!-- Employees -->
             <section class="mdl-layout__tab-panel" id="orgset_employees">
                 <div class="page-content mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-card mdl-shadow--6dp">
-                            <div class="mdl-card__title mdl-card--border">
+                            <div class="mdl-card__title">
                                 <div class="mdl-card__title-text" style="text-transform: none">Персонал</div>
                             </div>
-                            <div class="mdl-card__title">
+                            <div class="mdl-card__title" id="employees_card">
+                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                                       id="employees_card_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">ФИО</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Пол</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Должность</th>
+                                        <th class="mdl-data-table__cell--non-numeric"
+                                            style="text-transform: capitalize"><?php echo $Functions["team"]["Value"] ?></th>
+                                        <?php
+                                        for ($i = 0; $i < $Categories['val']; $i++) {
+                                            echo "<th>" . $Categories[$i]["Value"] . "</th>";
+                                        }
+                                        ?>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    for ($i = 0; $i < $Employees["val"]; $i++) {
+                                        echo "<tr>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric' id=" . $Employees[$i]["Login"] .
+                                            "><a href='profile.php?login=" . $Employees[$i]["Login"] . "'>" . $Employees[$i]["surname"] . " " .
+                                            $Employees[$i]["name"] . " " . $Employees[$i]["middlename"] . "</a></td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>" . $Employees[$i]["sex"] . "</td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>" . $Employees[$i]["Post"] . "</td>";
+                                        echo "<td class='mdl-data-table__cell--non-numeric'>" . $Employees[$i]["team"] . "</td>";
+                                        for ($c = 0; $c < $Categories['val']; $c++) {
+                                            if ($Employees[$i][$Categories[$c]["Key"]] == 1) {
+                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' >
+                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' checked >
+                                                    <span class='mdl-switch__label' ></span >
+                                                </label >" . "</td>";
+                                            } else {
+                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' >
+                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' >
+                                                    <span class='mdl-switch__label' ></span >
+                                                </label >" . "</td>";
+                                            }
+                                        }
+                                        echo "<td><button class='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--primary employees_table_edit'>
+                                                <i class='material-icons'>create</i>
+                                            </button>";
+                                        echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent employees_table_delete' id='employee_delete-" . $Employees[$i]["Login"] . "'>
+                                                <i class='material-icons'>delete_forever</i>
+                                            </button></td>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
                             </div>
                             <div class="mdl-card__menu">
-                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
+                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored mdl-button--primary"
                                         id="button_employees">
-                                    <i class="material-icons">create</i>
+                                    <i class="material-icons">add</i>
                                 </button>
+                                <a href="media/basedata/<?php echo $Organization ?>_employees.xlsx">
+                                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored mdl-button--primary">
+                                        <i class="material-icons">cloud_download</i>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

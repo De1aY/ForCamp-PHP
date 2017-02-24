@@ -62,9 +62,11 @@ body #categories_list .mdl-card__title .card_field i {
 body #categories_list .mdl-card__title .category-delete {
   float: right;
   margin-left: auto; }
-body #participants_card {
+body #participants_card, body #employees_card {
   padding: 0; }
-  body #participants_card table {
+  body #participants_card table, body #employees_card table {
     width: 100%; }
+    body #participants_card table .mdl-switch, body #employees_card table .mdl-switch {
+      width: 0; }
 
 /*# sourceMappingURL=orgset.css.map */
