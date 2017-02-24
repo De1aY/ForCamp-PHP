@@ -559,7 +559,7 @@ jQuery('document').ready(function () {
     });
     $('.employee_category_switch').click(ChangeAllowCategory);
     $('.participants_table_delete').click(DeleteParticipant);
-    $('.employee_table_delete').click(DeleteEmployee);
+    $('.employees_table_delete').click(DeleteEmployee);
     $('.participants_table_edit').click(EditParticipantData_Start);
     $('#participants_editing-confirm').click(ConfirmParticipantDataEditing);
     $('#participants_editing-cancel').click(function () {

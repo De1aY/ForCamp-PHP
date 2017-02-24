@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0686440-1f51-416c-b97e-ef87a2c26533" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/examples/example.xlsx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/orgset.php" afterPath="$PROJECT_DIR$/orgset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile.php" afterPath="$PROJECT_DIR$/profile.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/js/orgset.js" afterPath="$PROJECT_DIR$/scripts/js/orgset.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/lib.php" afterPath="$PROJECT_DIR$/scripts/php/lib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/orgset.php" afterPath="$PROJECT_DIR$/scripts/php/orgset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/userdata.php" afterPath="$PROJECT_DIR$/scripts/php/userdata.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.css" afterPath="$PROJECT_DIR$/scss/orgset.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.css.map" afterPath="$PROJECT_DIR$/scss/orgset.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.scss" afterPath="$PROJECT_DIR$/scss/orgset.scss" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -85,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="593">
@@ -228,11 +217,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orgset.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="orgset.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="299" column="63" lean-forward="false" selection-start-line="299" selection-start-column="63" selection-end-line="299" selection-end-column="63" />
+            <state relative-caret-position="548">
+              <caret line="546" column="29" lean-forward="false" selection-start-line="546" selection-start-column="29" selection-end-line="546" selection-end-column="29" />
               <folding>
                 <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
                 <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
@@ -251,8 +240,8 @@
                 <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
                 <element signature="e#19531#19611#0" expanded="false" />
                 <element signature="e#19654#19734#0" expanded="false" />
-                <element signature="e#20118#20158#0" expanded="false" />
-                <element signature="e#20347#20387#0" expanded="false" />
+                <element signature="e#20119#20159#0" expanded="false" />
+                <element signature="e#20348#20388#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -361,8 +350,8 @@
         <option value="$PROJECT_DIR$/requests/editparticipantdata.php" />
         <option value="$PROJECT_DIR$/requests/editemployeedata.php" />
         <option value="$PROJECT_DIR$/orgset.php" />
-        <option value="$PROJECT_DIR$/scripts/js/orgset.js" />
         <option value="$PROJECT_DIR$/scripts/php/orgset.php" />
+        <option value="$PROJECT_DIR$/scripts/js/orgset.js" />
       </list>
     </option>
   </component>
@@ -1009,12 +998,12 @@
       <workItem from="1487437979890" duration="13790000" />
       <workItem from="1487507797057" duration="7084000" />
       <workItem from="1487848080784" duration="1937000" />
-      <workItem from="1487856783622" duration="36696000" />
+      <workItem from="1487856783622" duration="37305000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180323000" />
+    <option name="totallyTimeSpent" value="180932000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -1166,8 +1155,8 @@
             <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
             <element signature="e#19531#19611#0" expanded="false" />
             <element signature="e#19654#19734#0" expanded="false" />
-            <element signature="e#20118#20158#0" expanded="false" />
-            <element signature="e#20347#20387#0" expanded="false" />
+            <element signature="e#20119#20159#0" expanded="false" />
+            <element signature="e#20348#20388#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1679,34 +1668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="299" column="63" lean-forward="false" selection-start-line="299" selection-start-column="63" selection-end-line="299" selection-end-column="63" />
-          <folding>
-            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
-            <element signature="n#!!block;n#OrganizationNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#PeriodNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#ParticipantNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#TeamNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#ActivateEditMode#0" expanded="false" />
-            <element signature="n#!!block;n#Cancel_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#Confirm_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#GetIdFromObject#0" expanded="false" />
-            <element signature="n#!!block;n#AddCategory#0" expanded="false" />
-            <element signature="n#!!block;n#ConfirmCategoryAdding#0" expanded="false" />
-            <element signature="n#!!block;n#CancelCategoryAdding#0" expanded="false" />
-            <element signature="n#!!block;n#DeleteCategory#0" expanded="false" />
-            <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
-            <element signature="e#19531#19611#0" expanded="false" />
-            <element signature="e#19654#19734#0" expanded="false" />
-            <element signature="e#20118#20158#0" expanded="false" />
-            <element signature="e#20347#20387#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="593">
@@ -1770,6 +1731,34 @@
             <marker date="1487959753369" expanded="true" signature="17417:17596" ph="INSERT INTO `users`... " />
             <marker date="1487959753369" expanded="true" signature="17960:18253" ph="INSERT INTO `users`... " />
             <marker date="1487959753369" expanded="true" signature="18400:18477" ph="INSERT INTO `employees`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="546" column="29" lean-forward="false" selection-start-line="546" selection-start-column="29" selection-end-line="546" selection-end-column="29" />
+          <folding>
+            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
+            <element signature="n#!!block;n#OrganizationNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#PeriodNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#ParticipantNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#TeamNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#ActivateEditMode#0" expanded="false" />
+            <element signature="n#!!block;n#Cancel_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#Confirm_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#GetIdFromObject#0" expanded="false" />
+            <element signature="n#!!block;n#AddCategory#0" expanded="false" />
+            <element signature="n#!!block;n#ConfirmCategoryAdding#0" expanded="false" />
+            <element signature="n#!!block;n#CancelCategoryAdding#0" expanded="false" />
+            <element signature="n#!!block;n#DeleteCategory#0" expanded="false" />
+            <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
+            <element signature="e#19531#19611#0" expanded="false" />
+            <element signature="e#19654#19734#0" expanded="false" />
+            <element signature="e#20119#20159#0" expanded="false" />
+            <element signature="e#20348#20388#0" expanded="false" />
           </folding>
         </state>
       </provider>
