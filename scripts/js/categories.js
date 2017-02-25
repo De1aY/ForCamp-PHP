@@ -72,10 +72,14 @@ function ChangeMark() {
     CurrentCategory = Data[1];
     var Title = $('#participants_card_table').children('thead').children("tr").children("th:eq("+Element[0]["cellIndex"]+")");
     $('#participant_mark_edit_title').text("Изменение баллов "+"\'"+Title[0]["innerText"]+"\'");
-    if (Element.attr('disabled') === "disabled") {
-        notie.alert(3, "Вы не можете редактировать данную категорию!", 3);
+    if(Element.attr('team_disabled') != undefined) {
+        notie.alert(3, "Вы не можете редактировать баллы этого участника!", 3);
     } else {
-        $('#participant_mark_edit').fadeIn().css("display", "flex");
+        if (Element.attr('disabled') === "disabled") {
+            notie.alert(3, "Вы не можете редактировать данную категорию!", 3);
+        } else {
+            $('#participant_mark_edit').fadeIn().css("display", "flex");
+        }
     }
 }
 

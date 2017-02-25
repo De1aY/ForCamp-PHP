@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a0686440-1f51-416c-b97e-ef87a2c26533" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/basedata/innopolis_lyceum_employees.xlsx" afterPath="$PROJECT_DIR$/media/basedata/innopolis_lyceum_employees.xlsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/basedata/innopolis_lyceum_participants.xlsx" afterPath="$PROJECT_DIR$/media/basedata/innopolis_lyceum_participants.xlsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/orgset.php" afterPath="$PROJECT_DIR$/orgset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/profile.php" afterPath="$PROJECT_DIR$/profile.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/js/orgset.js" afterPath="$PROJECT_DIR$/scripts/js/orgset.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/lib.php" afterPath="$PROJECT_DIR$/scripts/php/lib.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/orgset.php" afterPath="$PROJECT_DIR$/scripts/php/orgset.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/php/userdata.php" afterPath="$PROJECT_DIR$/scripts/php/userdata.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/_main.scss" afterPath="$PROJECT_DIR$/scss/_main.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/authorization.css" afterPath="$PROJECT_DIR$/scss/authorization.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/authorization.css.map" afterPath="$PROJECT_DIR$/scss/authorization.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/index.css" afterPath="$PROJECT_DIR$/scss/index.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/index.css.map" afterPath="$PROJECT_DIR$/scss/index.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.css" afterPath="$PROJECT_DIR$/scss/orgset.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.css.map" afterPath="$PROJECT_DIR$/scss/orgset.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/orgset.scss" afterPath="$PROJECT_DIR$/scss/orgset.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/profile.css" afterPath="$PROJECT_DIR$/scss/profile.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scss/profile.css.map" afterPath="$PROJECT_DIR$/scss/profile.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories.php" afterPath="$PROJECT_DIR$/categories.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/scripts/js/categories.js" afterPath="$PROJECT_DIR$/scripts/js/categories.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +22,7 @@
       <file leaf-file-name="orgset.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/orgset.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="407">
+            <state relative-caret-position="-256">
               <caret line="765" column="107" lean-forward="false" selection-start-line="765" selection-start-column="107" selection-end-line="765" selection-end-column="107" />
               <folding>
                 <element signature="n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -60,11 +42,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="categories.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/categories.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="344">
+              <caret line="127" column="40" lean-forward="true" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
+              <folding>
+                <marker date="1488040107301" expanded="true" signature="714:737" ph="..." />
+                <marker date="1488040107301" expanded="true" signature="9105:9153" ph="..." />
+                <marker date="1488040107301" expanded="true" signature="9105:9159" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="orgset.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
+            <state relative-caret-position="505">
+              <caret line="318" column="0" lean-forward="true" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
               <folding>
                 <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
                 <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
@@ -229,8 +225,8 @@
       <file leaf-file-name="orgset.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="534" column="110" lean-forward="false" selection-start-line="534" selection-start-column="110" selection-end-line="534" selection-end-column="110" />
+            <state relative-caret-position="255">
+              <caret line="535" column="38" lean-forward="true" selection-start-line="535" selection-start-column="38" selection-end-line="535" selection-end-column="38" />
               <folding>
                 <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
                 <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
@@ -274,6 +270,24 @@
                 <element signature="e#20823#20903#0" expanded="false" />
                 <element signature="e#21288#21328#0" expanded="false" />
                 <element signature="e#21517#21557#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="categories.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/js/categories.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+              <folding>
+                <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
+                <element signature="n#!!block;n#CheckInputDataNum#0" expanded="false" />
+                <element signature="n#!!block;n#CheckInputDataGeneral#0" expanded="false" />
+                <element signature="n#!!block;n#CheckData#0" expanded="false" />
+                <element signature="n#!!block;n#ChangeMarkConfirm#0" expanded="false" />
+                <element signature="e#3632#4098#0" expanded="false" />
+                <element signature="e#3723#3803#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -367,18 +381,18 @@
         <option value="$PROJECT_DIR$/requests/deleteemployee.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/profile.php" />
-        <option value="$PROJECT_DIR$/categories.php" />
         <option value="$PROJECT_DIR$/scss/categories.scss" />
         <option value="$PROJECT_DIR$/scss/_main.scss" />
         <option value="$PROJECT_DIR$/scripts/php/lib.php" />
         <option value="$PROJECT_DIR$/requests/editmark.php" />
         <option value="$PROJECT_DIR$/scripts/php/userdata.php" />
-        <option value="$PROJECT_DIR$/scripts/js/categories.js" />
         <option value="$PROJECT_DIR$/requests/changeadditionalsettings.php" />
         <option value="$PROJECT_DIR$/orgset.php" />
         <option value="$PROJECT_DIR$/scss/orgset.scss" />
         <option value="$PROJECT_DIR$/scripts/js/orgset.js" />
         <option value="$PROJECT_DIR$/scripts/php/orgset.php" />
+        <option value="$PROJECT_DIR$/categories.php" />
+        <option value="$PROJECT_DIR$/scripts/js/categories.js" />
       </list>
     </option>
   </component>
@@ -421,6 +435,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ForCamp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1025,12 +1071,12 @@
       <workItem from="1487437979890" duration="13790000" />
       <workItem from="1487507797057" duration="7084000" />
       <workItem from="1487848080784" duration="1937000" />
-      <workItem from="1487856783622" duration="56923000" />
+      <workItem from="1487856783622" duration="59592000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="200550000" />
+    <option name="totallyTimeSpent" value="203219000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
@@ -1489,23 +1535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/js/categories.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="108" column="1" lean-forward="true" selection-start-line="108" selection-start-column="1" selection-end-line="108" selection-end-column="1" />
-          <folding>
-            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#CheckInputDataNum#0" expanded="false" />
-            <element signature="n#!!block;n#CheckInputDataGeneral#0" expanded="false" />
-            <element signature="n#!!block;n#ChangeMark#0" expanded="false" />
-            <element signature="n#!!block;n#CheckData#0" expanded="false" />
-            <element signature="n#!!block;n#ChangeMarkConfirm#0" expanded="false" />
-            <element signature="e#3460#3926#0" expanded="false" />
-            <element signature="e#3551#3631#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scss/categories.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="403">
@@ -1522,101 +1551,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/categories.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2074">
-          <caret line="139" column="166" lean-forward="false" selection-start-line="139" selection-start-column="166" selection-end-line="139" selection-end-column="166" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#main#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#div#1;n#div#0;n#div#0;n#div#0;n#main#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1487971836712" expanded="true" signature="714:737" ph="..." />
-            <marker date="1487971836712" expanded="true" signature="8622:8670" ph="..." />
-            <marker date="1487971836712" expanded="true" signature="8622:8676" ph="..." />
-            <marker date="1487971836712" expanded="true" signature="8989:9336" ph="..." />
-            <marker date="1487971836712" expanded="true" signature="9137:9305" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/orgset.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="407">
-          <caret line="765" column="107" lean-forward="false" selection-start-line="765" selection-start-column="107" selection-end-line="765" selection-end-column="107" />
-          <folding>
-            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#7;n#div#0;n#section#0;n#main#0;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#7;n#div#0;n#section#0;n#main#0;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1488028554574" expanded="true" signature="51420:51682" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="51543:51682" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="56214:56752" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="56365:56742" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="56866:57396" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="57017:57386" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="57537:57796" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="57657:57796" ph="..." />
-            <marker date="1488028554574" expanded="true" signature="58109:58166" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/scss/orgset.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
           <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="534" column="110" lean-forward="false" selection-start-line="534" selection-start-column="110" selection-end-line="534" selection-end-column="110" />
-          <folding>
-            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
-            <element signature="n#!!block;n#OrganizationNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#PeriodNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#ParticipantNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#TeamNameEdit#0" expanded="false" />
-            <element signature="n#!!block;n#ActivateEditMode#0" expanded="false" />
-            <element signature="n#!!block;n#Cancel_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#Confirm_Edit#0" expanded="false" />
-            <element signature="n#!!block;n#GetIdFromObject#0" expanded="false" />
-            <element signature="n#!!block;n#AddCategory#0" expanded="false" />
-            <element signature="n#!!block;n#CategoryAdding#0" expanded="false" />
-            <element signature="n#!!block;n#ConfirmCategoryAdding#0" expanded="false" />
-            <element signature="n#!!block;n#CancelCategoryAdding#0" expanded="false" />
-            <element signature="n#!!block;n#DeleteCategory#0" expanded="false" />
-            <element signature="n#!!block;n#EditCategories#0" expanded="false" />
-            <element signature="n#!!block;n#ParticipantsAdding#0" expanded="false" />
-            <element signature="n#!!block;n#ParticipantsAddingConfirm#0" expanded="false" />
-            <element signature="n#!!block;n#AddParticipant#0" expanded="false" />
-            <element signature="n#!!block;n#CheckParticipantFields#0" expanded="false" />
-            <element signature="n#!!block;n#DeleteParticipant#0" expanded="false" />
-            <element signature="n#!!block;n#ParticipantsAddingFile#0" expanded="false" />
-            <element signature="n#!!block;n#EditParticipantData_Start#0" expanded="false" />
-            <element signature="n#!!block;n#ConfirmParticipantDataEditing#0" expanded="false" />
-            <element signature="n#!!block;n#EditParticipantData_Request#0" expanded="false" />
-            <element signature="n#!!block;n#CancelParticipantsAdding#0" expanded="false" />
-            <element signature="n#!!block;n#EmployeesAdding#0" expanded="false" />
-            <element signature="n#!!block;n#EmployeesAddingConfirm#0" expanded="false" />
-            <element signature="n#!!block;n#AddEmployees#0" expanded="false" />
-            <element signature="n#!!block;n#CheckEmployeesFields#0" expanded="false" />
-            <element signature="n#!!block;n#EmployeesAddingFile#0" expanded="false" />
-            <element signature="n#!!block;n#DeleteEmployee#0" expanded="false" />
-            <element signature="n#!!block;n#CancelEmployeesAdding#0" expanded="false" />
-            <element signature="n#!!block;n#ChangeAllowCategory#0" expanded="false" />
-            <element signature="n#!!block;n#EditEmployeeData_Start#0" expanded="false" />
-            <element signature="n#!!block;n#ConfirmEmployeeDataEditing#0" expanded="false" />
-            <element signature="n#!!block;n#EditEmployeeData_Request#0" expanded="false" />
-            <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
-            <element signature="e#20700#20780#0" expanded="false" />
-            <element signature="e#20823#20903#0" expanded="false" />
-            <element signature="e#21288#21328#0" expanded="false" />
-            <element signature="e#21517#21557#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1697,8 +1636,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/php/orgset.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="328" column="0" lean-forward="false" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
+        <state relative-caret-position="505">
+          <caret line="318" column="0" lean-forward="true" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
           <folding>
             <element signature="n#ChangeOrganizationName#0;n#Orgset#0;n#!!top" expanded="false" />
             <element signature="n#ChangeParticipantName#0;n#Orgset#0;n#!!top" expanded="false" />
@@ -1774,6 +1713,106 @@
             <marker date="1488028993538" expanded="true" signature="20605:20784" ph="INSERT INTO `users`... " />
             <marker date="1488028993538" expanded="true" signature="21148:21441" ph="INSERT INTO `users`... " />
             <marker date="1488028993538" expanded="true" signature="21588:21665" ph="INSERT INTO `employees`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/orgset.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-256">
+          <caret line="765" column="107" lean-forward="false" selection-start-line="765" selection-start-column="107" selection-end-line="765" selection-end-column="107" />
+          <folding>
+            <element signature="n#div#10;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#7;n#div#0;n#section#0;n#main#0;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#7;n#div#0;n#section#0;n#main#0;n#div#11;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1488028554574" expanded="true" signature="51420:51682" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="51543:51682" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="56214:56752" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="56365:56742" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="56866:57396" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="57017:57386" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="57537:57796" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="57657:57796" ph="..." />
+            <marker date="1488028554574" expanded="true" signature="58109:58166" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/categories.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="127" column="40" lean-forward="true" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
+          <folding>
+            <marker date="1488040107301" expanded="true" signature="714:737" ph="..." />
+            <marker date="1488040107301" expanded="true" signature="9105:9153" ph="..." />
+            <marker date="1488040107301" expanded="true" signature="9105:9159" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/js/orgset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="535" column="38" lean-forward="true" selection-start-line="535" selection-start-column="38" selection-end-line="535" selection-end-column="38" />
+          <folding>
+            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#CheckInputData#0" expanded="false" />
+            <element signature="n#!!block;n#OrganizationNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#PeriodNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#ParticipantNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#TeamNameEdit#0" expanded="false" />
+            <element signature="n#!!block;n#ActivateEditMode#0" expanded="false" />
+            <element signature="n#!!block;n#Cancel_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#Confirm_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#GetIdFromObject#0" expanded="false" />
+            <element signature="n#!!block;n#AddCategory#0" expanded="false" />
+            <element signature="n#!!block;n#CategoryAdding#0" expanded="false" />
+            <element signature="n#!!block;n#ConfirmCategoryAdding#0" expanded="false" />
+            <element signature="n#!!block;n#CancelCategoryAdding#0" expanded="false" />
+            <element signature="n#!!block;n#DeleteCategory#0" expanded="false" />
+            <element signature="n#!!block;n#EditCategories#0" expanded="false" />
+            <element signature="n#!!block;n#ParticipantsAdding#0" expanded="false" />
+            <element signature="n#!!block;n#ParticipantsAddingConfirm#0" expanded="false" />
+            <element signature="n#!!block;n#AddParticipant#0" expanded="false" />
+            <element signature="n#!!block;n#CheckParticipantFields#0" expanded="false" />
+            <element signature="n#!!block;n#DeleteParticipant#0" expanded="false" />
+            <element signature="n#!!block;n#ParticipantsAddingFile#0" expanded="false" />
+            <element signature="n#!!block;n#EditParticipantData_Start#0" expanded="false" />
+            <element signature="n#!!block;n#ConfirmParticipantDataEditing#0" expanded="false" />
+            <element signature="n#!!block;n#EditParticipantData_Request#0" expanded="false" />
+            <element signature="n#!!block;n#CancelParticipantsAdding#0" expanded="false" />
+            <element signature="n#!!block;n#EmployeesAdding#0" expanded="false" />
+            <element signature="n#!!block;n#EmployeesAddingConfirm#0" expanded="false" />
+            <element signature="n#!!block;n#AddEmployees#0" expanded="false" />
+            <element signature="n#!!block;n#CheckEmployeesFields#0" expanded="false" />
+            <element signature="n#!!block;n#EmployeesAddingFile#0" expanded="false" />
+            <element signature="n#!!block;n#DeleteEmployee#0" expanded="false" />
+            <element signature="n#!!block;n#CancelEmployeesAdding#0" expanded="false" />
+            <element signature="n#!!block;n#ChangeAllowCategory#0" expanded="false" />
+            <element signature="n#!!block;n#EditEmployeeData_Start#0" expanded="false" />
+            <element signature="n#!!block;n#ConfirmEmployeeDataEditing#0" expanded="false" />
+            <element signature="n#!!block;n#EditEmployeeData_Request#0" expanded="false" />
+            <element signature="n#!!block;n#ChangeCategoryState#0" expanded="false" />
+            <element signature="e#20700#20780#0" expanded="false" />
+            <element signature="e#20823#20903#0" expanded="false" />
+            <element signature="e#21288#21328#0" expanded="false" />
+            <element signature="e#21517#21557#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/js/categories.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+          <folding>
+            <element signature="n#!!block;n#Fade_Out_Edit#0" expanded="false" />
+            <element signature="n#!!block;n#CheckInputDataNum#0" expanded="false" />
+            <element signature="n#!!block;n#CheckInputDataGeneral#0" expanded="false" />
+            <element signature="n#!!block;n#CheckData#0" expanded="false" />
+            <element signature="n#!!block;n#ChangeMarkConfirm#0" expanded="false" />
+            <element signature="e#3632#4098#0" expanded="false" />
+            <element signature="e#3723#3803#0" expanded="false" />
           </folding>
         </state>
       </provider>

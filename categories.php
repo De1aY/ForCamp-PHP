@@ -135,7 +135,11 @@ $Organization = $Request->GetUserOrganization_Eng();
                                     echo "<td class='mdl-data-table__cell--non-numeric'>" . $Participants[$i]["team"] . "</td>";
                                     for ($c = 0; $c < $Categories['val']; $c++) {
                                         if($UserData[$Categories[$c]["Key"]] == 1 || $UserData["accesslevel"] === "admin"){
-                                            echo "<td class='participant_mark' id='participant-mark-".$Participants[$i]["Login"]."-".$Categories[$c]["Key"]."'>" . $Participants[$i][$Categories[$c]["Key"]] . "</td>";
+                                            if($UserData["team"] == $Participants[$i]["team"] && $Functions["team_leader"]["Value"] == 0){
+                                                echo "<td class='participant_mark' id='participant-mark-".$Participants[$i]["Login"]."-".$Categories[$c]["Key"]."'team_disabled>" . $Participants[$i][$Categories[$c]["Key"]] . "</td>";
+                                            } else {
+                                                echo "<td class='participant_mark' id='participant-mark-" . $Participants[$i]["Login"] . "-" . $Categories[$c]["Key"] . "'>" . $Participants[$i][$Categories[$c]["Key"]] . "</td>";
+                                            }
                                         } else {
                                             echo "<td class='participant_mark' id='participant-mark-".$Participants[$i]["Login"]."-".$Categories[$c]["Key"]."'disabled>" . $Participants[$i][$Categories[$c]["Key"]] . "</td>";
                                         }
