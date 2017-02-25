@@ -528,6 +528,32 @@ function ChangeCategoryState(state, categoryID, userID) {
 }
 /*----------------*/
 
+/* Additional Settings */
+function ChangeAdditionalSetting(obj) {
+   var SettingID = obj["currentTarget"]["id"].substr(7);
+   if($(this).prop("checked")){
+       $.post('../../requests/changeadditionalsettings.php', {token: Token, settingName: SettingID, value: "1"}, function (data) {
+           if (data["code"] === 200) {
+               notie.alert(1, "Данные успешно изменены!", 3);
+               setTimeout('window.location.reload(true)', 1000);
+           } else {
+               notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+               setTimeout('window.location.reload(true)', 1000);
+           }
+       }, "json");
+   } else {
+       $.post('../../requests/changeadditionalsettings.php', {token: Token, settingName: SettingID, value: "0"}, function (data) {
+           if (data["code"] === 200) {
+               notie.alert(1, "Данные успешно изменены!", 3);
+               setTimeout('window.location.reload(true)', 1000);
+           } else {
+               notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+               setTimeout('window.location.reload(true)', 1000);
+           }
+       }, "json");
+   }
+}
+/*----------------*/
 
 jQuery('document').ready(function () {
     $('.on_edit-activation').click(ActivateEditMode);
@@ -570,4 +596,5 @@ jQuery('document').ready(function () {
     $('#employees_editing-cancel').click(function () {
         $('.on_edit').fadeOut();
     });
+    $('.additional_settings_switch').click(ChangeAdditionalSetting);
 });

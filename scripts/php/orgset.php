@@ -10,7 +10,7 @@ class Orgset extends UserData
 {
     private $User_Password_Decoded = "";
 
-    function Orgset($Token, $Return = FALSE)
+    function Orgset($Token, $Return = FALSE, $Mark = FALSE)
     {
         $this->Return = $Return;
         $this->Connect();
@@ -23,8 +23,12 @@ class Orgset extends UserData
             $this->Return = TRUE;
             $UserData = $this->GetUserData();
             $this->Return = $Return;
-            if ($UserData["accesslevel"] !== "admin") {
+            if ($UserData["accesslevel"] !== "admin" && $Mark === FALSE) {
                 $this->Error(604);
+            } else {
+                if ($UserData["accesslevel"] == "participant") {
+                    $this->Error(604);
+                }
             }
         } else {
             $this->Error(600);
@@ -202,61 +206,137 @@ class Orgset extends UserData
         exit(json_encode(["status" => "OK", "code" => 200, "login" => DecodeAES($this->User_Login), "password" => $this->User_Password_Decoded]));
     }
 
-    public function ChangeAllowCategory($UserID, $State, $CategoryID){
-        $Result = $this->Connection->query("UPDATE `employees` SET `".$this->Connection->real_escape_string($CategoryID)."`='".
-            $this->Connection->real_escape_string($State)."' WHERE `Login`='".EncodeAES($UserID)."'");
+    public function ChangeAllowCategory($UserID, $State, $CategoryID)
+    {
+        $Result = $this->Connection->query("UPDATE `employees` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='" .
+            $this->Connection->real_escape_string($State) . "' WHERE `Login`='" . EncodeAES($UserID) . "'");
+        if ($Result === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        } else {
+            exit(json_encode(["status" => "OK", "code" => 200]));
+        }
+    }
+
+    public function DeleteParticipant($UserID)
+    {
+        $UserID = EncodeAES($UserID);
+        $Resp = $this->Connection->query("DELETE FROM `participants` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $this->Select("camp");
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    public function DeleteEmployee($UserID)
+    {
+        $UserID = EncodeAES($UserID);
+        $Resp = $this->Connection->query("DELETE FROM `employees` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $this->Select("camp");
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    public function EditMark($UserID, $CategoryID, $Reason, $Change)
+    {
+        $this->CheckReason($Reason);
+        $this->CheckMarkChange($Reason);
+        $this->Request_Login = EncodeAES($UserID);
+        $this->CheckUsersOrganization();
+        $TmpReturn = $this->Return;
+        $this->Return = TRUE;
+        $Functions = $this->GetFunctionsValues();
+        $Abs = $Functions["abs"]["Value"];
+        $TeamLeader = $Functions["team_leader"]["Value"];
+        $RequestUserData = $this->GetUserData();
+        $CurrentMark = $this->GetUserMark($CategoryID);
+        $this->Request_Login = $this->User_Login;
+        $UserData = $this->GetUserData();
+        if ($TeamLeader == 0 and $RequestUserData["team"] == $UserData["team"]) {
+            exit(json_encode(["status" => "ERROR", "code" => 606]));
+        }
+        $this->SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs);
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    private function SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs)
+    {
+        if ($Abs == 1) {
+            $CurrentMark = $CurrentMark + $Change;
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . EncodeAES($UserID) . "'");
+        } else {
+            $CurrentMark = $CurrentMark + $Change;
+            if ($CurrentMark < 0) {
+                $CurrentMark = 0;
+            }
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . EncodeAES($UserID) . "'");
+        }
+        if ($Result === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+    }
+
+    public function ChangeAdditionalSettings($SettingName, $Value)
+    {
+        if($Value != '0' && $Value != '1'){
+            exit(json_encode(["status"=>"ERROR", "code"=>600]));
+        }
+        $SettingName = EncodeAES($SettingName);
+        $Value = EncodeAES($Value);
+        $Result = $this->Connection->query("UPDATE `dictionary` SET `Value`='$Value' WHERE `Function`='$SettingName'");
         if($Result === FALSE){
             exit(json_encode(["status"=>"ERROR", "code"=>501]));
         } else {
-            exit(json_encode(["status"=>"OK", "code"=>200]));
+            exit(json_encode(["status"=>"ERROR", "code"=>200]));
         }
     }
 
-    public function DeleteParticipant($UserID){
-        $UserID = EncodeAES($UserID);
-        $Resp = $this->Connection->query("DELETE FROM `participants` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+    private function CheckMarkChange($Change)
+    {
+        if (!preg_match("/[^(\d)|(\-)|(\+)]/", $Change)) {
+            return TRUE;
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
         }
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        $this->Select("camp");
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        exit(json_encode(["status"=>"OK", "code"=>200]));
     }
 
-    public function DeleteEmployee($UserID){
-        $UserID = EncodeAES($UserID);
-        $Resp = $this->Connection->query("DELETE FROM `employees` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+    private function CheckReason($Reason)
+    {
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)|(\-)|(\+)]/", $Reason)) {
+            return TRUE;
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
         }
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        $this->Select("camp");
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
-        if($Resp === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        }
-        exit(json_encode(["status"=>"OK", "code"=>200]));
     }
 
-    private function AddParticipant_Excel($Name, $Surname, $Middlename, $Team){
+    private function AddParticipant_Excel($Name, $Surname, $Middlename, $Team)
+    {
         $Name = DecodeAES($Name);
         $Surname = DecodeAES($Surname);
         $Middlename = DecodeAES($Middlename);
@@ -275,12 +355,13 @@ class Orgset extends UserData
             $Sheet->setCellValueByColumnAndRow(5, $Index, $this->User_Password_Decoded);
             $ExcelWriter = PHPExcel_IOFactory::createWriter($File, 'Excel2007');
             $ExcelWriter->save("../media/basedata/" . $this->User_Organization . "_participants.xlsx");
-        } catch (Exception $e){
-            exit(json_encode(["status"=>"ERROR", "code"=>506]));
+        } catch (Exception $e) {
+            exit(json_encode(["status" => "ERROR", "code" => 506]));
         }
     }
 
-    private function AddEmployee_Excel($Name, $Surname, $Middlename, $Team){
+    private function AddEmployee_Excel($Name, $Surname, $Middlename, $Team)
+    {
         $Name = DecodeAES($Name);
         $Surname = DecodeAES($Surname);
         $Middlename = DecodeAES($Middlename);
@@ -299,8 +380,8 @@ class Orgset extends UserData
             $Sheet->setCellValueByColumnAndRow(5, $Index, $this->User_Password_Decoded);
             $ExcelWriter = PHPExcel_IOFactory::createWriter($File, 'Excel2007');
             $ExcelWriter->save("../media/basedata/" . $this->User_Organization . "_employees.xlsx");
-        } catch (Exception $e){
-            exit(json_encode(["status"=>"ERROR", "code"=>506]));
+        } catch (Exception $e) {
+            exit(json_encode(["status" => "ERROR", "code" => 506]));
         }
     }
 

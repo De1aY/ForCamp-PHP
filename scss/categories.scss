@@ -29,33 +29,15 @@ body {
     }
   }
 
-  #categories_list, #additional_settings{
-
-    .mdl-card__title{
-
-      .card_field{
-
-        i{
-          margin-top: 3px;
-        }
-
-      }
-
-      .category-delete, .settings_switch{
-        float: right;
-        margin-left: auto;
-
-      }
-
-    }
-
-  }
-
-  #participants_card, #employees_card{
+  #participants_card{
     padding: 0;
 
     table{
       width: 100%;
+
+      .mdl-switch{
+        width: 0;
+      }
 
     }
 

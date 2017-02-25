@@ -68,6 +68,9 @@ $RequestData->Close();
                 <?php if ($UserData['accesslevel'] === "admin"): ?>
                     <a class="mdl-navigation__link wave-effect" href="orgset.php">управление</a>
                 <?php endif ?>
+                <?php if ($UserData["accesslevel"] === "admin" || "employee"): ?>
+                    <a class="mdl-navigation__link wave-effect" href="categories.php">баллы</a>
+                <?php endif ?>
                 <a class="mdl-navigation__link wave-effect" href="">общая статистика</a>
                 <a class="mdl-navigation__link wave-effect" href="">класс</a>
                 <a class="mdl-navigation__link wave-effect" href="">достижения</a>
@@ -168,7 +171,7 @@ $RequestData->Close();
                                             echo $Functions["participant"]["Value"];
                                             break;
                                         case "employee":
-                                            echo $RequestUserData["post"];
+                                            echo $RequestUserData["Post"];
                                             break;
                                         default:
                                             break;

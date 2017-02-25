@@ -48,26 +48,6 @@ body .mdl-switch {
 body .mdl-card {
   width: 100%;
   min-height: 125px; }
-body .user_fullname {
-  width: 100%;
-  text-align: center; }
-  body .user_fullname .user_avatar {
-    background: #FFFFFF; }
-    body .user_fullname .user_avatar img {
-      height: 187px;
-      width: 187px;
-      border-radius: 100px;
-      -moz-border-radius: 100px;
-      -webkit-border-radius: 100px;
-      margin-top: -95px;
-      border: 2px solid #FFFFFF; }
-  body .user_fullname .user_fullname_background {
-    padding-top: 70.5px;
-    background: #3F51B5;
-    padding-bottom: 93.5px; }
-  body .user_fullname .mdl-card__title-text {
-    margin: 0 auto;
-    font-size: 36px; }
 body .mdl-card__title-text {
   font-size: 27px; }
 body .mdl-card__title .card_field {
@@ -79,5 +59,11 @@ body .mdl-card__title .card_field {
     float: right;
     margin: 0 0 0 10px;
     text-transform: capitalize; }
+body #participants_card {
+  padding: 0; }
+  body #participants_card table {
+    width: 100%; }
+    body #participants_card table .mdl-switch {
+      width: 0; }
 
-/*# sourceMappingURL=profile.css.map */
+/*# sourceMappingURL=categories.css.map */

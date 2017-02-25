@@ -42,6 +42,8 @@ body .tabletolist {
   width: 100%; }
 body table tr td.mdl-data-table__cell--non-numeric {
   text-transform: capitalize; }
+body .mdl-switch {
+  width: 0; }
 
 body .mdl-card {
   width: 100%;
@@ -57,16 +59,14 @@ body .mdl-card__title .card_field {
     float: right;
     margin: 0 0 0 10px;
     text-transform: capitalize; }
-body #categories_list .mdl-card__title .card_field i {
+body #categories_list .mdl-card__title .card_field i, body #additional_settings .mdl-card__title .card_field i {
   margin-top: 3px; }
-body #categories_list .mdl-card__title .category-delete {
+body #categories_list .mdl-card__title .category-delete, body #categories_list .mdl-card__title .settings_switch, body #additional_settings .mdl-card__title .category-delete, body #additional_settings .mdl-card__title .settings_switch {
   float: right;
   margin-left: auto; }
 body #participants_card, body #employees_card {
   padding: 0; }
   body #participants_card table, body #employees_card table {
     width: 100%; }
-    body #participants_card table .mdl-switch, body #employees_card table .mdl-switch {
-      width: 0; }
 
 /*# sourceMappingURL=orgset.css.map */

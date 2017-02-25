@@ -594,6 +594,9 @@ $Organization = $Request->GetUserOrganization_Eng();
             <nav class="mdl-navigation">
                 <a class="mdl-navigation__link wave-effect" href="index.php">главная</a>
                 <a class="mdl-navigation__link wave-effect" href="profile.php?login=<?php echo $Login ?>">профиль</a>
+                <?php if ($RequestData["accesslevel"] === "admin" || "employee"): ?>
+                    <a class="mdl-navigation__link wave-effect" href="categories.php">баллы</a>
+                <?php endif ?>
                 <a class="mdl-navigation__link wave-effect" href="">общая статистика</a>
                 <a class="mdl-navigation__link wave-effect" href="">класс</a>
                 <a class="mdl-navigation__link wave-effect" href="">достижения</a>
@@ -733,11 +736,43 @@ $Organization = $Request->GetUserOrganization_Eng();
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
-                        <div class="mdl-card mdl-shadow--6dp">
+                        <div class="mdl-card mdl-shadow--6dp" id="additional_settings">
                             <div class="mdl-card__title mdl-card--border">
-                                <div class="mdl-card__title-text" style="text-transform: none">Основные настройки</div>
+                                <div class="mdl-card__title-text" style="text-transform: none">Доп. настройки</div>
                             </div>
-                            <div class="mdl-card__title">
+                            <!-- Отрицательные оценки -->
+                            <div class="mdl-card__title mdl-card--border">
+                                <div class='card_field'>
+                                    <i class='material-icons'>more_vert</i>
+                                    <div class='card_field_text additional_settings_field' style="text-transform: none">Отрицательные оценки</div>
+                                </div>
+                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch' for='switch-abs'>
+                                <input type = 'checkbox' id = 'switch-abs' class='mdl-switch__input additional_settings_switch'
+                                    <?php
+                                    if($Functions["abs"]["Value"] == 1){
+                                        echo "checked";
+                                    }
+                                    ?>
+                                >
+                                <span class='mdl-switch__label' ></span >
+                                </label>
+                            </div>
+                            <!-- Могут ли сотрудники выставлять баллы своей команде -->
+                            <div class="mdl-card__title mdl-card--border">
+                                <div class='card_field'>
+                                    <i class='material-icons'>more_vert</i>
+                                    <div class='card_field_text additional_settings_field' style="text-transform: none">Оценки своей команде</div>
+                                </div>
+                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch' for='switch-team_leader'>
+                                    <input type = 'checkbox' id = 'switch-team_leader' class='mdl-switch__input additional_settings_switch'
+                                        <?php
+                                        if($Functions["team_leader"]["Value"] == 1){
+                                            echo "checked";
+                                        }
+                                        ?>
+                                    >
+                                    <span class='mdl-switch__label' ></span >
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -804,7 +839,7 @@ $Organization = $Request->GetUserOrganization_Eng();
                     <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title">
-                                <div class="mdl-card__title-text" style="text-transform: none">Персонал</div>
+                                <div class="mdl-card__title-text" style="text-transform: none">Сотрудники</div>
                             </div>
                             <div class="mdl-card__title" id="employees_card">
                                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
@@ -836,13 +871,13 @@ $Organization = $Request->GetUserOrganization_Eng();
                                         echo "<td class='mdl-data-table__cell--non-numeric'>" . $Employees[$i]["team"] . "</td>";
                                         for ($c = 0; $c < $Categories['val']; $c++) {
                                             if ($Employees[$i][$Categories[$c]["Key"]] == 1) {
-                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' >
-                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' checked >
+                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"] . "-" . $Categories[$c]['Key'] . "' >
+                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"] . "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' checked >
                                                     <span class='mdl-switch__label' ></span >
                                                 </label >" . "</td>";
                                             } else {
-                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' >
-                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"]. "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' >
+                                                echo "<td>" . "<label class='mdl-switch mdl-js-switch mdl-js-ripple-effect' for='switch-employee-" . $Employees[$i]["Login"] . "-" . $Categories[$c]['Key'] . "' >
+                                                    <input type = 'checkbox' id = 'switch-employee-" . $Employees[$i]["Login"] . "-" . $Categories[$c]['Key'] . "' class='mdl-switch__input employee_category_switch' >
                                                     <span class='mdl-switch__label' ></span >
                                                 </label >" . "</td>";
                                             }

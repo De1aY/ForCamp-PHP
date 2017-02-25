@@ -42,6 +42,8 @@ body .tabletolist {
   width: 100%; }
 body table tr td.mdl-data-table__cell--non-numeric {
   text-transform: capitalize; }
+body .mdl-switch {
+  width: 0; }
 
 .container {
   height: 100vh; }

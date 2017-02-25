@@ -115,6 +115,16 @@ class UserData extends Authorization
                 $Data = mysqli_fetch_assoc($Data);
                 $Data = array_map("DecodeAES", $Data);
                 $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization)), "owner" => $this->Owner]);
+                switch ($Data["accesslevel"]){
+                    case "participant":
+                        $Data = array_merge($Data, $this->GetParticipant());
+                        break;
+                    case "employee":
+                        $Data = array_merge($Data, $this->GetEmployee());
+                        break;
+                    default:
+                        break;
+                }
                 if (is_array($Data)) {
                     if ($this->Return === TRUE) {
                         return $Data;
@@ -180,7 +190,7 @@ class UserData extends Authorization
 
     public function GetFunctionsValues()
     {
-        $Functions = $this->Connection->query("SELECT * FROM `dictionary` WHERE `Function`='" . FUNCTION_ORGANIZATION . "' OR `Function`='" . FUNCTION_PERIOD . "' OR `Function`='" . FUNCTION_TEAM . "' OR `Function`='" . FUNCTION_PARTICIPANT . "'");
+        $Functions = $this->Connection->query("SELECT * FROM `dictionary` WHERE `Function`!='" . FUNCTION_CATEGORY . "'");
         if (!is_bool($Functions)) {
             $Data = array();
             while ($row = mysqli_fetch_assoc($Functions)) {
@@ -253,6 +263,27 @@ class UserData extends Authorization
         }
     }
 
+    public function GetEmployee(){
+        $Employee = $this->Connection->query("SELECT * FROM `employees` WHERE `Login`='".$this->Connection->real_escape_string($this->Request_Login)."'");
+        if (is_bool($Employee)) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Data = mysqli_fetch_assoc($Employee);
+        $Data["Login"] = DecodeAES($Data["Login"]);
+        $Data["Post"] = DecodeAES($Data["Post"]);
+        return array_merge($Data);
+    }
+
+    public function GetParticipant(){
+        $Participant = $this->Connection->query("SELECT * FROM `participants` WHERE `Login`='".$this->Connection->real_escape_string($this->Request_Login)."'");
+        if (is_bool($Participant)) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Data = mysqli_fetch_assoc($Participant);
+        $Data["Login"] = DecodeAES($Data["Login"]);
+        return $Data;
+    }
+
     private function GetParticipantData($Login){
         $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
         if (!is_bool($Data)) {
@@ -304,22 +335,9 @@ class UserData extends Authorization
         $Mark = $this->Connection->query("SELECT `" . $Category . "` FROM `participants` WHERE `Login`='" . $this->Connection->real_escape_string($this->Request_Login) . "'");
         if (!is_bool($Mark)) {
             $Mark = mysqli_fetch_all($Mark);
-            return $Mark[0];
+            return $Mark[0][0];
         } else {
             $this->Error(501);
-        }
-    }
-
-    private function GetEmployeesData($Login)
-    {
-        $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
-        if (!is_bool($Data)) {
-            $Data = mysqli_fetch_assoc($Data);
-            $Data = array_map("DecodeAES", $Data);
-            $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization))]);
-            return $Data;
-        } else {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
     }
 
@@ -338,7 +356,7 @@ class UserData extends Authorization
         }
     }
 
-    private function CheckUsersOrganization(){
+    protected function CheckUsersOrganization(){
         $Count = $this->Connection->query("SELECT COUNT(`Name`) FROM `users` WHERE `Login`='".$this->Request_Login."'");
         if(!is_bool($Count)){
             $Count = mysqli_fetch_assoc($Count)["COUNT(`Name`)"];
@@ -367,6 +385,19 @@ class UserData extends Authorization
             }
         } else {
             $this->Error(501);
+        }
+    }
+
+    private function GetEmployeesData($Login)
+    {
+        $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
+        if (!is_bool($Data)) {
+            $Data = mysqli_fetch_assoc($Data);
+            $Data = array_map("DecodeAES", $Data);
+            $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization))]);
+            return $Data;
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
     }
 
