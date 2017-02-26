@@ -1,10 +1,6 @@
 <?php
 
 require_once "userdata.php";
-require_once "phpexcel/PHPExcel.php";
-require_once "phpexcel/PHPExcel/Writer/Excel2007.php";
-require_once "phpexcel/PHPExcel/IOFactory.php";
-
 
 class Orgset extends UserData
 {
@@ -228,6 +224,10 @@ class Orgset extends UserData
         if ($Resp === FALSE) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
+        $Resp = $this->Connection->query("DELETE FROM `actions` WHERE `Subject`='$UserID' OR `Object`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
         $this->Select("camp");
         $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
         if ($Resp === FALSE) {
@@ -251,6 +251,10 @@ class Orgset extends UserData
         if ($Resp === FALSE) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
+        $Resp = $this->Connection->query("DELETE FROM `actions` WHERE `Subject`='$UserID' OR `Object`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
         $this->Select("camp");
         $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
         if ($Resp === FALSE) {
@@ -263,13 +267,28 @@ class Orgset extends UserData
         exit(json_encode(["status" => "OK", "code" => 200]));
     }
 
+    public function ChangeAdditionalSettings($SettingName, $Value)
+    {
+        if($Value != '0' && $Value != '1'){
+            exit(json_encode(["status"=>"ERROR", "code"=>600]));
+        }
+        $SettingName = EncodeAES($SettingName);
+        $Value = EncodeAES($Value);
+        $Result = $this->Connection->query("UPDATE `dictionary` SET `Value`='$Value' WHERE `Function`='$SettingName'");
+        if($Result === FALSE){
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>200]));
+        }
+    }
+
     public function EditMark($UserID, $CategoryID, $Reason, $Change)
     {
+        $UserID = EncodeAES($UserID);
         $this->CheckReason($Reason);
-        $this->CheckMarkChange($Reason);
-        $this->Request_Login = EncodeAES($UserID);
+        $this->CheckMarkChange($Change);
+        $this->Request_Login = $UserID;
         $this->CheckUsersOrganization();
-        $TmpReturn = $this->Return;
         $this->Return = TRUE;
         $Functions = $this->GetFunctionsValues();
         $Abs = $Functions["abs"]["Value"];
@@ -289,31 +308,25 @@ class Orgset extends UserData
     {
         if ($Abs == 1) {
             $CurrentMark = $CurrentMark + $Change;
-            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . EncodeAES($UserID) . "'");
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
         } else {
             $CurrentMark = $CurrentMark + $Change;
             if ($CurrentMark < 0) {
                 $CurrentMark = 0;
             }
-            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . EncodeAES($UserID) . "'");
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
         }
         if ($Result === FALSE) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
+        $this->Log($this->User_Login, $UserID, ["change"=>$Change, "categoryID"=>$CategoryID, "reason"=>$Reason], ACTION_MARK);
     }
 
-    public function ChangeAdditionalSettings($SettingName, $Value)
-    {
-        if($Value != '0' && $Value != '1'){
-            exit(json_encode(["status"=>"ERROR", "code"=>600]));
-        }
-        $SettingName = EncodeAES($SettingName);
-        $Value = EncodeAES($Value);
-        $Result = $this->Connection->query("UPDATE `dictionary` SET `Value`='$Value' WHERE `Function`='$SettingName'");
-        if($Result === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        } else {
-            exit(json_encode(["status"=>"ERROR", "code"=>200]));
+    private function Log($Subject, $Object, $Options, $Type){
+        $Options = EncodeAES(serialize($Options));
+        $Resp = $this->Connection->query("INSERT INTO `actions` (`Subject`, `Object`, `Options`, `Type`) VALUES ('$Subject', '$Object', '$Options', '$Type')");
+        if($Resp === FALSE){
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
     }
 

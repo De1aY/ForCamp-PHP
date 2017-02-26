@@ -284,15 +284,35 @@ class UserData extends Authorization
         return $Data;
     }
 
-    private function GetParticipantData($Login){
-        $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
-        if (!is_bool($Data)) {
-            $Data = mysqli_fetch_assoc($Data);
-            $Data = array_map("DecodeAES", $Data);
-            $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization))]);
+    public function GetActions($ReqLogin = NULL){
+        if(isset($ReqLogin)){
+            $Response = $this->Connection->query("SELECT * FROM `actions` WHERE `Object`='$ReqLogin' OR `Subject` = '$ReqLogin'");
+            if($Response === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            }
+            $Data = [];
+            while($row = mysqli_fetch_assoc($Response)){
+                $row["Subject"] = DecodeAES($row["Subject"]);
+                $row["Object"] = DecodeAES($row["Object"]);
+                $row["Type"] = DecodeAES($row["Type"]);
+                $row["Options"] = unserialize(DecodeAES($row["Options"]));
+                array_push($Data, $row);
+            }
             return $Data;
         } else {
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            $Response = $this->Connection->query("SELECT * FROM `actions`");
+            if($Response === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            }
+            $Data = [];
+            while($row = mysqli_fetch_assoc($Response)){
+                $row["Subject"] = DecodeAES($row["Subject"]);
+                $row["Object"] = DecodeAES($row["Object"]);
+                $row["Type"] = DecodeAES($row["Type"]);
+                $row["Options"] = unserialize(DecodeAES($row["Options"]));
+                array_push($Data, $row);
+            }
+            return $Data;
         }
     }
 
@@ -367,6 +387,18 @@ class UserData extends Authorization
             }
         } else {
             $this->Error(501);
+        }
+    }
+
+    private function GetParticipantData($Login){
+        $Data = $this->Connection->query("SELECT `name`,`surname`,`middlename`,`avatar`,`sex`,`accesslevel`,`team` FROM `users` WHERE `login`='" . $Login . "'");
+        if (!is_bool($Data)) {
+            $Data = mysqli_fetch_assoc($Data);
+            $Data = array_map("DecodeAES", $Data);
+            $Data = array_merge($Data, ["organization" => $this->ReturnValueForViewByKey(EncodeAES($this->User_Organization))]);
+            return $Data;
+        } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
         }
     }
 

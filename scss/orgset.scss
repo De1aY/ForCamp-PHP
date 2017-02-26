@@ -51,12 +51,20 @@ body {
 
   }
 
-  #participants_card, #employees_card{
+  #participants_card, #employees_card, #actions_card{
     padding: 0;
 
     table{
       width: 100%;
 
+    }
+
+  }
+
+  #actions_card_table{
+
+    td{
+      text-transform: none;
     }
 
   }

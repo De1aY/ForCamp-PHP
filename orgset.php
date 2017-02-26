@@ -1,6 +1,12 @@
 <?php
 
 require_once "scripts/php/userdata.php";
+require_once "scripts/php/phpmorphy/src/common.php";
+
+$MorphyDir = "scripts/php/phpmorphy/dicts";
+$Lang = "ru_RU";
+
+$Morphy = new phpMorphy($MorphyDir, $Lang);
 
 $sid = filter_input(INPUT_COOKIE, 'sid');
 if (!isset($sid)) {
@@ -17,6 +23,7 @@ $Employees = $Request->GetEmployees();
 $Functions = $Request->GetFunctionsValues();
 $Categories = $Request->GetCategories();
 $Organization = $Request->GetUserOrganization_Eng();
+$Actions = $Request->GetActions();
 ?>
 <?php if (isset($sid) && $RequestData['accesslevel'] === "admin"): ?>
     <!DOCTYPE html>
@@ -579,14 +586,14 @@ $Organization = $Request->GetUserOrganization_Eng();
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title"><?php echo $RequestData['organization'] ?></span>
-            </div>
+                <span class="mdl-layout-title"><?php echo $RequestData['organization'] ?></span></div>
             <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
                 <a href="#orgset_main" class="mdl-layout__tab is-active">Основные настройки</a>
                 <a href="#orgset_participants" class="mdl-layout__tab">Участники</a>
                 <a href="#orgset_employees" class="mdl-layout__tab">Сотрудники</a>
                 <a href="#orgset_achievements" class="mdl-layout__tab">Достижения</a>
                 <a href="#orgset_actions" class="mdl-layout__tab">События</a>
+                <a href="#orgset_help" class="mdl-layout__tab">Помощь</a>
             </div>
         </header>
         <div class="mdl-layout__drawer">
@@ -744,34 +751,42 @@ $Organization = $Request->GetUserOrganization_Eng();
                             <div class="mdl-card__title mdl-card--border">
                                 <div class='card_field'>
                                     <i class='material-icons'>more_vert</i>
-                                    <div class='card_field_text additional_settings_field' style="text-transform: none">Отрицательные оценки</div>
+                                    <div class='card_field_text additional_settings_field' style="text-transform: none">
+                                        Отрицательные оценки
+                                    </div>
                                 </div>
-                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch' for='switch-abs'>
-                                <input type = 'checkbox' id = 'switch-abs' class='mdl-switch__input additional_settings_switch'
-                                    <?php
-                                    if($Functions["abs"]["Value"] == 1){
-                                        echo "checked";
-                                    }
-                                    ?>
-                                >
-                                <span class='mdl-switch__label' ></span >
+                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch'
+                                       for='switch-abs'>
+                                    <input type='checkbox' id='switch-abs'
+                                           class='mdl-switch__input additional_settings_switch'
+                                        <?php
+                                        if ($Functions["abs"]["Value"] == 1) {
+                                            echo "checked";
+                                        }
+                                        ?>
+                                    >
+                                    <span class='mdl-switch__label'></span>
                                 </label>
                             </div>
                             <!-- Могут ли сотрудники выставлять баллы своей команде -->
                             <div class="mdl-card__title mdl-card--border">
                                 <div class='card_field'>
                                     <i class='material-icons'>more_vert</i>
-                                    <div class='card_field_text additional_settings_field' style="text-transform: none">Оценки своей команде</div>
+                                    <div class='card_field_text additional_settings_field' style="text-transform: none">
+                                        Оценки своей команде
+                                    </div>
                                 </div>
-                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch' for='switch-team_leader'>
-                                    <input type = 'checkbox' id = 'switch-team_leader' class='mdl-switch__input additional_settings_switch'
+                                <label class='mdl-switch mdl-js-switch mdl-js-ripple-effect settings_switch'
+                                       for='switch-team_leader'>
+                                    <input type='checkbox' id='switch-team_leader'
+                                           class='mdl-switch__input additional_settings_switch'
                                         <?php
-                                        if($Functions["team_leader"]["Value"] == 1){
+                                        if ($Functions["team_leader"]["Value"] == 1) {
                                             echo "checked";
                                         }
                                         ?>
                                     >
-                                    <span class='mdl-switch__label' ></span >
+                                    <span class='mdl-switch__label'></span>
                                 </label>
                             </div>
                         </div>
@@ -931,22 +946,52 @@ $Organization = $Request->GetUserOrganization_Eng();
             <!-- Actions -->
             <section class="mdl-layout__tab-panel" id="orgset_actions">
                 <div class="page-content mdl-grid">
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--12-col">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text" style="text-transform: none">События</div>
                             </div>
-                            <div class="mdl-card__title">
-                            </div>
-                            <div class="mdl-card__menu">
-                                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect"
-                                        id="button_employees">
-                                    <i class="material-icons">create</i>
-                                </button>
+                            <div class="mdl-card__title" id="actions_card">
+                                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                                       id="actions_card_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">Событие</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Дата</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    for($i = 0; $i<count($Actions);$i++){
+                                        echo "<tr>";
+                                        switch ($Actions[$i]["Type"]){
+                                            case "mark":
+                                                echo "<td class='mdl-data-table__cell--non-numeric'><a href='".$Actions[$i]["Subject"]."'>".$Actions[$i]["Subject"]."</a> ";
+                                                echo "изменил балл в категории '".$Categories[explode("Cat",$Actions[$i]["Options"]["categoryID"])[1]]["Value"]."' ";
+                                                echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['ЕД', 'МР', 'ДТ'], TRUE)[0]);
+                                                echo " <a href='".$Actions[$i]["Object"]."'>".$Actions[$i]["Object"]."</a> ";
+                                                echo "на '".$Actions[$i]["Options"]["change"]."' ";
+                                                echo "по причине '".$Actions[$i]["Options"]["reason"]."'";
+                                                echo "</td>";
+                                                echo "<td class='mdl-data-table__cell--non-numeric'>";
+                                                echo substr($Actions[$i]["Time"], 0, 10);
+                                                echo "</td>";
+                                                break;
+                                            default:
+                                                break;
+                                        }
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </section>
+            <!-- Help -->
+            <section class="mdl-layout__tab-panel" id="orgset_help">
             </section>
         </main>
     </div>

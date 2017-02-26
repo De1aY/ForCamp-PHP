@@ -95,6 +95,7 @@ function CheckData(Mark, Reason) {
 }
 
 function ChangeMarkConfirm() {
+    $('.on_edit').fadeOut();
     preloader.on();
     var Mark = $('#participant_mark').val();
     var Reason = $('#participant_reason').val();

@@ -64,9 +64,11 @@ body #categories_list .mdl-card__title .card_field i, body #additional_settings 
 body #categories_list .mdl-card__title .category-delete, body #categories_list .mdl-card__title .settings_switch, body #additional_settings .mdl-card__title .category-delete, body #additional_settings .mdl-card__title .settings_switch {
   float: right;
   margin-left: auto; }
-body #participants_card, body #employees_card {
+body #participants_card, body #employees_card, body #actions_card {
   padding: 0; }
-  body #participants_card table, body #employees_card table {
+  body #participants_card table, body #employees_card table, body #actions_card table {
     width: 100%; }
+body #actions_card_table td {
+  text-transform: none; }
 
 /*# sourceMappingURL=orgset.css.map */
