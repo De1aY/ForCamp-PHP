@@ -1,6 +1,9 @@
 <?php
 
 require_once "userdata.php";
+require_once "phpexcel/PHPExcel.php";
+require_once "phpexcel/PHPExcel/Writer/Excel2007.php";
+require_once "phpexcel/PHPExcel/IOFactory.php";
 
 class Orgset extends UserData
 {
@@ -136,6 +139,21 @@ class Orgset extends UserData
             }
         } else {
             $this->Error(600);
+        }
+    }
+
+    public function EditCategory($categoryID, $categoryName){
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $categoryName)) {
+            $categoryName = EncodeAES(mb_strtolower($categoryName));
+            $categoryID = EncodeAES($categoryID);
+            $Resp = $this->Connection->query("UPDATE `dictionary` SET `Value`='$categoryName' WHERE `Key`='$categoryID'");
+            if($Resp === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            } else {
+                exit(json_encode(["status"=>"OK", "code"=>200]));
+            }
+        } else {
+            exit(json_encode(["status"=>"ERROR", "code"=>600]));
         }
     }
 
@@ -341,7 +359,7 @@ class Orgset extends UserData
 
     private function CheckReason($Reason)
     {
-        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)|(\-)|(\+)]/", $Reason)) {
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)|(\-)|(\+)|(\")]/", $Reason)) {
             return TRUE;
         } else {
             exit(json_encode(["status" => "ERROR", "code" => 600]));

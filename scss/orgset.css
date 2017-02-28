@@ -40,6 +40,8 @@ body .on_edit {
         width: 100%; }
 body .tabletolist {
   width: 100%; }
+body table th {
+  text-transform: capitalize; }
 body table tr td.mdl-data-table__cell--non-numeric {
   text-transform: capitalize; }
 body .mdl-switch {
@@ -61,7 +63,7 @@ body .mdl-card__title .card_field {
     text-transform: capitalize; }
 body #categories_list .mdl-card__title .card_field i, body #additional_settings .mdl-card__title .card_field i {
   margin-top: 3px; }
-body #categories_list .mdl-card__title .category-delete, body #categories_list .mdl-card__title .settings_switch, body #additional_settings .mdl-card__title .category-delete, body #additional_settings .mdl-card__title .settings_switch {
+body #categories_list .mdl-card__title .category-buttons, body #categories_list .mdl-card__title .settings_switch, body #additional_settings .mdl-card__title .category-buttons, body #additional_settings .mdl-card__title .settings_switch {
   float: right;
   margin-left: auto; }
 body #participants_card, body #employees_card, body #actions_card {

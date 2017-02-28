@@ -286,7 +286,7 @@ class UserData extends Authorization
 
     public function GetActions($ReqLogin = NULL){
         if(isset($ReqLogin)){
-            $Response = $this->Connection->query("SELECT * FROM `actions` WHERE `Object`='$ReqLogin' OR `Subject` = '$ReqLogin'");
+            $Response = $this->Connection->query("SELECT * FROM `actions` WHERE `Object`='$ReqLogin' OR `Subject` = '$ReqLogin' ORDER BY `Time` DESC");
             if($Response === FALSE){
                 exit(json_encode(["status"=>"ERROR", "code"=>501]));
             }
@@ -300,7 +300,7 @@ class UserData extends Authorization
             }
             return $Data;
         } else {
-            $Response = $this->Connection->query("SELECT * FROM `actions`");
+            $Response = $this->Connection->query("SELECT * FROM `actions` ORDER BY `Time` DESC");
             if($Response === FALSE){
                 exit(json_encode(["status"=>"ERROR", "code"=>501]));
             }

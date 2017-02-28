@@ -212,20 +212,51 @@ $Actions = $Request->GetActions();
             </div>
         </div>
     </div>
+    <div class="on_edit mdl-grid" id="categories_editing">
+        <div class="on_edit-click" id="on_edit-categories_editing"></div>
+        <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
+                <div class="mdl-card mdl-shadow--6dp on_edit-card">
+                    <div class="mdl-card__title mdl-card--border">
+                        <div class="mdl-card__title-text" style="text-transform: none">Название категории</div>
+                    </div>
+                    <div class="mdl-card__title">
+                        <div class="card_field">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
+                                 id="categories_editing_input">
+                                <input class="mdl-textfield__input" type="text" id="categories-editing">
+                                <label class="mdl-textfield__label" for="categories-editing">Введите новое название категории</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-button--primary mdl-js-button mdl-js-ripple-effect on_edit-card-confirm--effect"
+                                id="categories_editing-confirm">
+                            сохранить
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-button--accent mdl-js-button mdl-js-ripple-effect on_edit-card-cancel--effect"
+                                id="categories_editing-cancel">
+                            отмена
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="on_edit mdl-grid" id="participants_adding">
         <div class="on_edit-click"></div>
         <div class="mdl-grid mdl-cell mdl-cell-middle mdl-cell--12-col">
             <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
                 <div class="mdl-card mdl-shadow--6dp on_edit-card">
                     <div class="mdl-card__title mdl-card--border">
-                        <div class="mdl-card__title-text" style="text-transform: none">Добавление участника</div>
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="participants_adding_name_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_adding_name">
-                                <label class="mdl-textfield__label" for="participants_adding_name">Имя участника</label>
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_surname">
+                                <label class="mdl-textfield__label" for="participants_adding_surname">Фамилия <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -233,9 +264,9 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="participants_adding_surname_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_adding_surname">
-                                <label class="mdl-textfield__label" for="participants_adding_surname">Фамилия
-                                    участника</label>
+                                <input class="mdl-textfield__input" type="text" id="participants_adding_name">
+                                <label class="mdl-textfield__label" for="participants_adding_name">Имя
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -245,17 +276,20 @@ $Actions = $Request->GetActions();
                                  id="participants_adding_middlename_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_middlename">
                                 <label class="mdl-textfield__label" for="participants_adding_middlename">Отчество
-                                    участника</label>
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="participants_adding_sex_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_adding_sex">
-                                <label class="mdl-textfield__label" for="participants_adding_sex">Пол участника</label>
-                            </div>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="participants_adding_sex-male">
+                                <input type="radio" id="participants_adding_sex-male" class="mdl-radio__button" name="participants_adding_sex" value="мужской" checked>
+                                <span class="mdl-radio__label">Мужской</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="participants_adding_sex-female">
+                                <input type="radio" id="participants_adding_sex-female" class="mdl-radio__button" name="participants_adding_sex" value="женский">
+                                <span class="mdl-radio__label">Женский</span>
+                            </label>
                         </div>
                     </div>
                     <div class="mdl-card__title mdl-card--border">
@@ -264,7 +298,7 @@ $Actions = $Request->GetActions();
                                  id="participants_adding_team_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_adding_team">
                                 <label class="mdl-textfield__label" for="participants_adding_team">Команда
-                                    участника</label>
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -292,7 +326,7 @@ $Actions = $Request->GetActions();
             <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
                 <div class="mdl-card mdl-shadow--6dp on_edit-card">
                     <div class="mdl-card__title mdl-card--border">
-                        <div class="mdl-card__title-text" style="text-transform: none">Добавление участников</div>
+                        <div class="mdl-card__title-text" style="text-transform: none">Добавление <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РТ', 'МН']))?></div>
                     </div>
                     <div class="mdl-card__actions">
                         <div class="card_field">
@@ -329,8 +363,8 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="employees_adding_name_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_adding_name">
-                                <label class="mdl-textfield__label" for="employees_adding_name">Имя сотрудника</label>
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_surname">
+                                <label class="mdl-textfield__label" for="employees_adding_surname">Фамилия сотрудника</label>
                             </div>
                         </div>
                     </div>
@@ -338,8 +372,8 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="employees_adding_surname_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_adding_surname">
-                                <label class="mdl-textfield__label" for="employees_adding_surname">Фамилия
+                                <input class="mdl-textfield__input" type="text" id="employees_adding_name">
+                                <label class="mdl-textfield__label" for="employees_adding_name">Имя
                                     сотрудника</label>
                             </div>
                         </div>
@@ -356,11 +390,14 @@ $Actions = $Request->GetActions();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="employees_adding_sex_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_adding_sex">
-                                <label class="mdl-textfield__label" for="employees_adding_sex">Пол сотрудника</label>
-                            </div>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="employee_adding_sex-male">
+                                <input type="radio" id="employee_adding_sex-male" class="mdl-radio__button" name="employee_adding_sex" value="мужской" checked>
+                                <span class="mdl-radio__label">Мужской</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="employee_adding_sex-female">
+                                <input type="radio" id="employee_adding_sex-female" class="mdl-radio__button" name="employee_adding_sex" value="женский">
+                                <span class="mdl-radio__label">Женский</span>
+                            </label>
                         </div>
                     </div>
                     <div class="mdl-card__title">
@@ -438,15 +475,15 @@ $Actions = $Request->GetActions();
             <div class="mdl-cell mdl-cell--middle mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--4-offset-desktop">
                 <div class="mdl-card mdl-shadow--6dp on_edit-card">
                     <div class="mdl-card__title mdl-card--border">
-                        <div class="mdl-card__title-text" style="text-transform: none">Изменение данных участника</div>
+                        <div class="mdl-card__title-text" style="text-transform: none">Изменение данных <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="participants_editing_name_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_editing_name">
-                                <label class="mdl-textfield__label" for="participants_editing_name">Имя
-                                    участника</label>
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_surname">
+                                <label class="mdl-textfield__label" for="participants_editing_surname">Фамилия
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -454,9 +491,9 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
                                  id="participants_editing_surname_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_editing_surname">
-                                <label class="mdl-textfield__label" for="participants_editing_surname">Фамилия
-                                    участника</label>
+                                <input class="mdl-textfield__input" type="text" id="participants_editing_name">
+                                <label class="mdl-textfield__label" for="participants_editing_name">Имя
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -466,17 +503,20 @@ $Actions = $Request->GetActions();
                                  id="participants_editing_middlename_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_editing_middlename">
                                 <label class="mdl-textfield__label" for="participants_editing_middlename">Отчество
-                                    участника</label>
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label"
-                                 id="participants_editing_sex_input">
-                                <input class="mdl-textfield__input" type="text" id="participants_editing_sex">
-                                <label class="mdl-textfield__label" for="participants_editing_sex">Пол участника</label>
-                            </div>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="participants_editing_sex-male">
+                                <input type="radio" id="participants_editing_sex-male" class="mdl-radio__button" name="participants_editing_sex" value="мужской" checked>
+                                <span class="mdl-radio__label">Мужской</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="erticipants_editing_sex-female">
+                                <input type="radio" id="participants_editing_sex-female" class="mdl-radio__button" name="participants_editing_sex" value="женский">
+                                <span class="mdl-radio__label">Женский</span>
+                            </label>
                         </div>
                     </div>
                     <div class="mdl-card__title mdl-card--border">
@@ -485,7 +525,7 @@ $Actions = $Request->GetActions();
                                  id="participants_editing_team_input">
                                 <input class="mdl-textfield__input" type="text" id="participants_editing_team">
                                 <label class="mdl-textfield__label" for="participants_editing_team">Команда
-                                    участника</label>
+                                    <?php echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['РД', 'ЕД'], TRUE)[0])?></label>
                             </div>
                         </div>
                     </div>
@@ -515,8 +555,8 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
                                  id="employees_editing_name_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_editing_name">
-                                <label class="mdl-textfield__label" for="employees_editing_name">Имя сотрудника</label>
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_surname">
+                                <label class="mdl-textfield__label" for="employees_editing_surname">Фамилия сотрудника</label>
                             </div>
                         </div>
                     </div>
@@ -524,8 +564,8 @@ $Actions = $Request->GetActions();
                         <div class="card_field">
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
                                  id="employees_editing_surname_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_editing_surname">
-                                <label class="mdl-textfield__label" for="employees_editing_surname">Фамилия
+                                <input class="mdl-textfield__input" type="text" id="employees_editing_name">
+                                <label class="mdl-textfield__label" for="employees_editing_name">Имя
                                     сотрудника</label>
                             </div>
                         </div>
@@ -542,11 +582,14 @@ $Actions = $Request->GetActions();
                     </div>
                     <div class="mdl-card__title">
                         <div class="card_field">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-upgraded"
-                                 id="employees_editing_sex_input">
-                                <input class="mdl-textfield__input" type="text" id="employees_editing_sex">
-                                <label class="mdl-textfield__label" for="employees_editing_sex">Пол сотрудника</label>
-                            </div>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="employee_editing_sex-male">
+                                <input type="radio" id="employee_editing_sex-male" class="mdl-radio__button" name="employee_editing_sex" value="мужской" checked>
+                                <span class="mdl-radio__label">Мужской</span>
+                            </label>
+                            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="employee_editing_sex-female">
+                                <input type="radio" id="employee_editing_sex-female" class="mdl-radio__button" name="employee_editing_sex" value="женский">
+                                <span class="mdl-radio__label">Женский</span>
+                            </label>
                         </div>
                     </div>
                     <div class="mdl-card__title">
@@ -726,9 +769,12 @@ $Actions = $Request->GetActions();
                                 echo "<i class='material-icons'>more_vert</i>";
                                 echo "<div class='card_field_text category_name'>" . $Categories[$i]["Value"];
                                 echo "</div></div>";
+                                echo "<div class='category-buttons'>";
+                                echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--primary category-edit' id='category_edit-" . str_replace(' ', "_", $Categories[$i]["Key"]) . "'>";
+                                echo "<i class='material-icons'>create</i></button>";
                                 echo "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" . str_replace(' ', "_", $Categories[$i]["Value"]) . "'>";
                                 echo "<i class='material-icons'>delete_forever</i></button>";
-                                echo "</div>";
+                                echo "</div></div>";
                             }
                             ?>
                             <div class="mdl-card__menu">
@@ -966,10 +1012,10 @@ $Actions = $Request->GetActions();
                                         echo "<tr>";
                                         switch ($Actions[$i]["Type"]){
                                             case "mark":
-                                                echo "<td class='mdl-data-table__cell--non-numeric'><a href='".$Actions[$i]["Subject"]."'>".$Actions[$i]["Subject"]."</a> ";
+                                                echo "<td class='mdl-data-table__cell--non-numeric'><a href='profile.php?login=".$Actions[$i]["Subject"]."'>".$Actions[$i]["Subject"]."</a> ";
                                                 echo "изменил балл в категории '".$Categories[explode("Cat",$Actions[$i]["Options"]["categoryID"])[1]]["Value"]."' ";
                                                 echo mb_strtolower($Morphy->castFormByGramInfo(mb_strtoupper($Functions["participant"]["Value"]), null, ['ЕД', 'МР', 'ДТ'], TRUE)[0]);
-                                                echo " <a href='".$Actions[$i]["Object"]."'>".$Actions[$i]["Object"]."</a> ";
+                                                echo " <a href='profile.php?login=".$Actions[$i]["Object"]."'>".$Actions[$i]["Object"]."</a> ";
                                                 echo "на '".$Actions[$i]["Options"]["change"]."' ";
                                                 echo "по причине '".$Actions[$i]["Options"]["reason"]."'";
                                                 echo "</td>";

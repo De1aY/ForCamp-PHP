@@ -51,7 +51,7 @@ function CheckInputDataGeneral(Data, ID, AutoFadeOut) {
             }
             return true;
         } else {
-            notie.alert(3, "Данные не могут содержать спецсимволов(кроме \" и - )!", 3);
+            notie.alert(3, "Данные не могут содержать спецсимволов(кроме \" , - , +)!", 3);
             $('#' + ID + '_input').addClass("is-invalid");
             preloader.off();
             return false;
@@ -99,6 +99,8 @@ function ChangeMarkConfirm() {
     preloader.on();
     var Mark = $('#participant_mark').val();
     var Reason = $('#participant_reason').val();
+    $('#participant_mark').val("");
+    $('#participant_reason').val("");
     if(CheckData(Mark, Reason)){
         $.post('../../requests/editmark.php', {token: Token, userID: CurrentUserID, categoryID: CurrentCategory, reason: Reason, change: Mark}, function (data) {
             if (data["code"] === 200) {

@@ -40,6 +40,8 @@ body .on_edit {
         width: 100%; }
 body .tabletolist {
   width: 100%; }
+body table th {
+  text-transform: capitalize; }
 body table tr td.mdl-data-table__cell--non-numeric {
   text-transform: capitalize; }
 body .mdl-switch {

@@ -90,6 +90,12 @@ body {
 
   table{
 
+    th{
+
+      text-transform: capitalize;
+
+    }
+
     tr{
 
       td.mdl-data-table__cell--non-numeric{

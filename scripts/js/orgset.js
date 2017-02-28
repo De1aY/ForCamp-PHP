@@ -13,6 +13,7 @@ var re = new RegExp("^[а-яА-ЯёЁa-zA-Z0-9\\s]+$");
 
 var Token = $.cookie("sid");
 var CurrentUserID = null;
+var CurrentCategory = null
 
 /* General */
 function Fade_Out_Edit() {
@@ -48,8 +49,10 @@ function OrganizationNameEdit(OrgName) {
         if (Resp["code"] === 200) {
             $('#organization_field').text(OrgName);
             notie.alert(1, "Название организации успешно изменено!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         } else {
             notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         }
         preloader.off();
     }, "json");
@@ -60,8 +63,10 @@ function PeriodNameEdit(PerName) {
         if (Resp["code"] === 200) {
             $('#period_field').text(PerName);
             notie.alert(1, "Название периода успешно изменено!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         } else {
             notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         }
         preloader.off();
     }, "json");
@@ -72,8 +77,10 @@ function ParticipantNameEdit(ParName) {
         if (Resp["code"] === 200) {
             $('#participant_field').text(ParName);
             notie.alert(1, "Название участника успешно изменено!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         } else {
             notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         }
         preloader.off();
     }, "json");
@@ -84,8 +91,10 @@ function TeamNameEdit(TeamName) {
         if (Resp["code"] === 200) {
             $('#team_field').text(TeamName)
             notie.alert(1, "Название команд успешно изменено!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         } else {
             notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
         }
         preloader.off();
     }, "json");
@@ -144,19 +153,6 @@ function GetIdFromObject(Obj) {
 /*----------------*/
 
 /* Categories */
-function AddCategory(Category) {
-    $('#categories_list').append("<div class='mdl-card__title mdl-card--border' id='" + Category + "_row'>" +
-        "<div class='card_field'>" +
-        "<i class='material-icons'>more_vert</i>" +
-        "<div class='card_field_text category_name'>" + Category + "</div>" +
-        "</div>" +
-        "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" + Category + "'>" +
-        "<i class='material-icons'>clear</i></button>" +
-        "</div>");
-    $('.category-delete').click(DeleteCategory);
-    EditCategories();
-}
-
 function CategoryAdding() {
     $('#categories_adding').fadeIn().css("display", "flex");
 }
@@ -165,7 +161,7 @@ function ConfirmCategoryAdding() {
     preloader.on();
     var Category = $('#categories').val();
     if (CheckInputData(Category, "categories", true)) {
-        AddCategory(Category);
+        EditCategories();
     }
 }
 
@@ -190,6 +186,7 @@ function EditCategories() {
     $.post("../../requests/editcategories.php", {token: Token, categories: JSON.stringify(Req)}, function (data) {
         if (data["code"] === 200) {
             notie.alert(1, "Категории успешно изменены!", 3);
+            setTimeout('window.location.reload(true)', 1000);
             preloader.off();
         } else {
             notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
@@ -197,6 +194,43 @@ function EditCategories() {
             preloader.off();
         }
     }, "json");
+}
+
+function EditCategoryName_Start(obj) {
+    $('#categories_editing').fadeIn().css("display", "flex");
+    CurrentCategory = obj["currentTarget"]["id"].substr(14);
+}
+
+function EditCategoryName_Confirm() {
+    $('.on_edit').fadeOut();
+    preloader.on();
+    var Category = $('#categories-editing').val();
+    if(CheckInputData(Category, "category_editing", false)){
+        EditCategoryName_Request(Category);
+        $('#categories-editing').val("");
+    }
+}
+
+function EditCategoryName_Request(catName) {
+    $.post("../../requests/editcategoryname.php", {
+        token: Token,
+        categoryName: catName,
+        categoryID: CurrentCategory
+    }, function (data) {
+        if (data["code"] === 200) {
+            notie.alert(1, "Данные успешно изменены!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        } else {
+            notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        }
+        preloader.off();
+    }, "json");
+}
+
+function EditCategoryName_Cancel() {
+    $('#categories-editing').val("");
+    $('.on_edit').fadeOut();
 }
 /*----------------*/
 
@@ -210,9 +244,9 @@ function ParticipantsAddingConfirm() {
     ParName = $('#participants_adding_name').val();
     ParSurname = $('#participants_adding_surname').val();
     ParMiddlename = $('#participants_adding_middlename').val();
-    ParSex = $('#participants_adding_sex').val();
+    ParSex = $("input[name='participants_adding_sex']:checked").val();
     ParTeam = $('#participants_adding_team').val();
-    if (CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParTeam)) {
+    if (CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParTeam)) {
         $('.on_edit').fadeOut();
         AddParticipant(ParName, ParSurname, ParMiddlename, ParSex, ParTeam);
     }
@@ -238,7 +272,7 @@ function AddParticipant(ParName, ParSurname, ParMiddlename, ParSex, ParTeam) {
     }, "json");
 }
 
-function CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParTeam) {
+function CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParTeam) {
     var Result = true;
     if (!CheckInputData(ParTeam, "participants_adding_team", false)) {
         Result = false;
@@ -247,9 +281,6 @@ function CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParT
         Result = false;
     }
     if (!CheckInputData(ParSurname, "participants_adding_surname", false)) {
-        Result = false;
-    }
-    if (!CheckInputData(ParSex, "participants_adding_sex", false)) {
         Result = false;
     }
     if (!CheckInputData(ParMiddlename, "participants_adding_middlename", false)) {
@@ -280,20 +311,16 @@ function ParticipantsAddingFile() {
 }
 
 function EditParticipantData_Start() {
-    var Index = $(this).index();
+    var Index = $(this).parent('td').parent('tr').index();
     var Fullname = $('#participants_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(0)');
-    var Sex = $('#participants_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(1)');
     var Team = $('#participants_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(2)');
     CurrentUserID = Fullname[0]["id"];
     Fullname = Fullname[0]["innerText"].split(" ");
-    Sex = Sex[0]["innerText"];
     Team = Team[0]["innerText"];
     $('#participants_editing_name').val(Fullname[1]);
     $('#participants_editing_surname').val(Fullname[0]);
     $('#participants_editing_middlename').val(Fullname[2]);
-    $('#participants_editing_sex').val(Sex);
     $('#participants_editing_team').val(Team);
-    $('#participants_editing_sex_input').addClass("is-dirty");
     $('#participants_editing_name_input').addClass("is-dirty");
     $('#participants_editing_surname_input').addClass("is-dirty");
     $('#participants_editing_middlename_input').addClass("is-dirty");
@@ -306,7 +333,7 @@ function ConfirmParticipantDataEditing() {
     ParName = $('#participants_editing_name').val();
     ParSurname = $('#participants_editing_surname').val();
     ParMiddlename = $('#participants_editing_middlename').val();
-    ParSex = $('#participants_editing_sex').val();
+    ParSex = $("input[name='participants_editing_sex']:checked").val();
     ParTeam = $('#participants_editing_team').val();
     if (CheckParticipantFields(ParName, ParSurname, ParMiddlename, ParSex, ParTeam)) {
         $('.on_edit').fadeOut();
@@ -340,7 +367,6 @@ function CancelParticipantsAdding() {
     $('#participants_adding_name').val('');
     $('#participants_adding_surname').val('');
     $('#participants_adding_middlename').val('');
-    $('#participants_adding_sex').val('');
     $('#participants_adding_team').val('');
 }
 /*----------------*/
@@ -355,10 +381,10 @@ function EmployeesAddingConfirm() {
     EmpName = $('#employees_adding_name').val();
     EmpSurname = $('#employees_adding_surname').val();
     EmpMiddlename = $('#employees_adding_middlename').val();
-    EmpSex = $('#employees_adding_sex').val();
+    EmpSex = $("input[name='employee_adding_sex']:checked").val();
     EmpTeam = $('#employees_adding_team').val();
     EmpPost = $('#employees_adding_post').val();
-    if (CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost)) {
+    if (CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpTeam, EmpPost)) {
         $('.on_edit').fadeOut();
         AddEmployees(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost);
     }
@@ -385,7 +411,7 @@ function AddEmployees(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPo
     }, "json");
 }
 
-function CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost) {
+function CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpTeam, EmpPost) {
     var Result = true;
     if(EmpTeam.length > 0) {
         if (!CheckInputData(EmpTeam, "employees_adding_team", false)) {
@@ -396,9 +422,6 @@ function CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTea
         Result = false;
     }
     if (!CheckInputData(EmpSurname, "employees_adding_surname", false)) {
-        Result = false;
-    }
-    if (!CheckInputData(EmpSex, "employees_adding_sex", false)) {
         Result = false;
     }
     if (!CheckInputData(EmpMiddlename, "employees_adding_middlename", false)) {
@@ -455,26 +478,22 @@ function ChangeAllowCategory(data) {
 }
 
 function EditEmployeeData_Start() {
-    var Index = $(this).index();
+    var Index = $(this).parent('td').parent('tr').index();
     var Fullname = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(0)');
-    var Sex = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(1)');
     var Post = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(2)');
     var Team = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(3)');
     CurrentUserID = Fullname[0]["id"];
     Fullname = Fullname[0]["innerText"].split(" ");
-    Sex = Sex[0]["innerText"];
     Team = Team[0]["innerText"];
     Post = Post[0]["innerText"];
     $('#employees_editing_name').val(Fullname[1]);
     $('#employees_editing_surname').val(Fullname[0]);
     $('#employees_editing_middlename').val(Fullname[2]);
-    $('#employees_editing_sex').val(Sex);
     $('#employees_editing_team').val(Team);
     $('#employees_editing_post').val(Post);
     $('#employees_editing_name_input').addClass("is-dirty");
     $('#employees_editing_surname_input').addClass("is-dirty");
     $('#employees_editing_middlename_input').addClass("is-dirty");
-    $('#employees_editing_sex_input').addClass("is-dirty");
     $('#employees_editing_team_input').addClass("is-dirty");
     $('#employees_editing_post_input').addClass("is-dirty");
     $('#employees_editing').fadeIn().css("display", "flex");
@@ -485,7 +504,7 @@ function ConfirmEmployeeDataEditing() {
     EmpName = $('#employees_editing_name').val();
     EmpSurname = $('#employees_editing_surname').val();
     EmpMiddlename = $('#employees_editing_middlename').val();
-    EmpSex = $('#employees_editing_sex').val();
+    EmpSex = $("input[name='employees_editing_sex']:checked").val();
     EmpTeam = $('#employees_editing_team').val();
     EmpPost = $('#employees_editing_post').val();
     if (CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost)) {
@@ -597,4 +616,12 @@ jQuery('document').ready(function () {
         $('.on_edit').fadeOut();
     });
     $('.additional_settings_switch').click(ChangeAdditionalSetting);
+    $('#actions_card_table').ReStable({
+        keepHtml: true,
+        rowHeaders: false,
+        maxWidth: 810
+    });
+    $('.category-edit').click(EditCategoryName_Start);
+    $('#categories_editing-confirm').click(EditCategoryName_Confirm);
+    $('#categories_editing-cancel').click(EditCategoryName_Cancel);
 });

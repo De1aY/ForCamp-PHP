@@ -22,7 +22,7 @@ if (!$RequestData->GetVerLogin()) {
 }
 $UserData = $Data->GetUserData();
 $Functions = $Data->GetFunctionsValues();
-$Team = $Data->GetValueForViewByFunction(FUNCTION_TEAM);
+$Categories = $Data->GetCategories();
 $RequestUserData = $RequestData->GetUserData();
 $Data->Close();
 $RequestData->Close();
@@ -79,7 +79,7 @@ $RequestData->Close();
         </div>
         <main class="mdl-layout__content">
             <div class="page-content mdl-grid">
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--6-col-desktop mdl-cell--3-offset-desktop">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
                     <div class="mdl-card mdl-shadow--6dp user_fullname">
                         <div class="mdl-card__media user_fullname_background"></div>
                         <div class="mdl-card__media user_avatar">
@@ -90,10 +90,10 @@ $RequestData->Close();
                         </div>
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <!-- Next level -->
                 <?php if ($RequestUserData["owner"] === TRUE || $UserData["accesslevel"] === "admin"): ?>
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop mdl-cell--3-offset-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text">логин</div>
@@ -114,7 +114,7 @@ $RequestData->Close();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
+                    <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
                         <div class="mdl-card mdl-shadow--6dp">
                             <div class="mdl-card__title mdl-card--border">
                                 <div class="mdl-card__title-text">пароль</div>
@@ -135,10 +135,10 @@ $RequestData->Close();
                             </div>
                         </div>
                     </div>
-                    <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                    <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <?php endif ?>
                 <!-- Next level -->
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop mdl-cell--3-offset-desktop">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                     <div class="mdl-card mdl-shadow--6dp">
                         <div class="mdl-card__title mdl-card--border">
                             <div class="mdl-card__title-text">организация</div>
@@ -153,7 +153,7 @@ $RequestData->Close();
                         </div>
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
                     <div class="mdl-card mdl-shadow--6dp">
                         <div class="mdl-card__title mdl-card--border">
                             <div class="mdl-card__title-text">должность</div>
@@ -182,12 +182,12 @@ $RequestData->Close();
                         </div>
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <!-- Next level -->
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop mdl-cell--3-offset-desktop">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop mdl-cell--2-offset-desktop">
                     <div class="mdl-card mdl-shadow--6dp">
                         <div class="mdl-card__title mdl-card--border">
-                            <div class="mdl-card__title-text"><?php echo $Team ?></div>
+                            <div class="mdl-card__title-text"><?php echo $Functions["team"]["Value"] ?></div>
                         </div>
                         <div class="mdl-card__title">
                             <div class="card_field">
@@ -209,7 +209,7 @@ $RequestData->Close();
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--3-col-desktop">
+                <div class="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--4-col-desktop">
                     <div class="mdl-card mdl-shadow--6dp">
                         <div class="mdl-card__title mdl-card--border">
                             <div class="mdl-card__title-text">пол</div>
@@ -232,12 +232,35 @@ $RequestData->Close();
                         <?php endif ?>
                     </div>
                 </div>
-                <div class="mdl-cell mdl-cell--3-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                <?php
-                if ($RequestUserData['accesslevel'] === "participant") {
-                    $Counter = 0;
-                }
-                ?>
+                <div class="mdl-cell mdl-cell--2-col-desktop mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <!-- Categories -->
+                <div class="mdl-cell mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+                    <div class="mdl-card mdl-shadow--6dp">
+                        <div class="mdl-card__title mdl-card--border">
+                            <div class="mdl-card__title-text">баллы</div>
+                        </div>
+                        <div class="mdl-card__title" id="employees_card">
+                            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
+                                   id="employees_card_table">
+                                <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Категория</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Балл</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Место</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                for ($i = 0; $i < $Categories["val"]; $i++) {
+
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actions -->
             </div>
         </main>
     </div>
