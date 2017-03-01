@@ -18,9 +18,8 @@
 605 - Ошибка доступа (Запрашиваемый пользователь состоит в другой организации)
 606 - Ошибка доступа (Запрещено изменять баллы своей команде)
 607 - Ошибка доступа (Измение баллов запрещено)
+608 - Команда с таким именем уже существует
 */
-
-require_once "phpmorphy/src/common.php";
 
 define("ENCRYPT_METHOD", "AES-256-CTR");  // Метод шифрования для openssl
 define("FUNCTION_ORGANIZATION", "vd4uFQ==");  // Название организации
@@ -30,6 +29,7 @@ define("FUNCTION_PARTICIPANT", "vKoiApU10depLCURuv+2tg==");  // Названия
 define("FUNCTION_PERIOD", "vKoyApAlhNY="); // Название отчётного периода
 define("FUNCTION_ACHIEVEMENT", "hroqFJAl64+SI1YVuv+2tg==");  // Достижение(в `Options`) - категория и баллы
 define("FUNCTION_NEWS", "vYAySJIFgIA=");  // Сообщение для главной страницы
+define("FUNCTION_TEAM_NAME", "u6oyE5MkhMiRI1YV");  // Команды организации
 define("SETTING_ABS", "hrouAQ==");  // Могут ли баллы быть отрицательными
 define("SETTING_TEAM_LEADER", "u6oyE5MkhM6SIyESgsmutg==");  // Может ли сотрудник выставлять баллы своей команде
 define("PATH_FILES", "../media/temp");  // Путь к каталогу для временных файлов

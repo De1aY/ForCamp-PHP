@@ -26,6 +26,15 @@ body {
         margin: 0 0 0 10px;
         text-transform: capitalize;
       }
+
+      .mdl-selectfield {
+
+        .mdl-selectfield__box > i {
+          margin-top: -14px;
+          float: none;
+        }
+
+      }
     }
   }
 
@@ -51,7 +60,7 @@ body {
 
   }
 
-  #participants_card, #employees_card, #actions_card{
+  #participants_card, #employees_card, #teams_card, #actions_card{
     padding: 0;
 
     table{

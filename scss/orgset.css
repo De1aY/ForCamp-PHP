@@ -61,14 +61,17 @@ body .mdl-card__title .card_field {
     float: right;
     margin: 0 0 0 10px;
     text-transform: capitalize; }
+  body .mdl-card__title .card_field .mdl-selectfield .mdl-selectfield__box > i {
+    margin-top: -14px;
+    float: none; }
 body #categories_list .mdl-card__title .card_field i, body #additional_settings .mdl-card__title .card_field i {
   margin-top: 3px; }
 body #categories_list .mdl-card__title .category-buttons, body #categories_list .mdl-card__title .settings_switch, body #additional_settings .mdl-card__title .category-buttons, body #additional_settings .mdl-card__title .settings_switch {
   float: right;
   margin-left: auto; }
-body #participants_card, body #employees_card, body #actions_card {
+body #participants_card, body #employees_card, body #teams_card, body #actions_card {
   padding: 0; }
-  body #participants_card table, body #employees_card table, body #actions_card table {
+  body #participants_card table, body #employees_card table, body #teams_card table, body #actions_card table {
     width: 100%; }
 body #actions_card_table td {
   text-transform: none; }

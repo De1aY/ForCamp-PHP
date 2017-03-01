@@ -9,7 +9,7 @@ class Orgset extends UserData
 {
     private $User_Password_Decoded = "";
 
-    function Orgset($Token, $Return = FALSE, $Mark = FALSE)
+    function Orgset($Token, $Return = FALSE, $Employee = FALSE)
     {
         $this->Return = $Return;
         $this->Connect();
@@ -22,7 +22,7 @@ class Orgset extends UserData
             $this->Return = TRUE;
             $UserData = $this->GetUserData();
             $this->Return = $Return;
-            if ($UserData["accesslevel"] !== "admin" && $Mark === FALSE) {
+            if ($UserData["accesslevel"] !== "admin" && $Employee === FALSE) {
                 $this->Error(604);
             } else {
                 if ($UserData["accesslevel"] == "participant") {
@@ -34,6 +34,7 @@ class Orgset extends UserData
         }
     }
 
+    // Main Settings
     public function ChangeOrganizationName($OrgName)
     {
         if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $OrgName)) {
@@ -106,9 +107,11 @@ class Orgset extends UserData
         }
     }
 
+    // Categories
     public function EditCategories($Categories)
     {
         if (count($Categories) <= 10) {
+            $this->Connection->query("DELETE FROM `actions`");
             $Resp = $this->Connection->query("DELETE FROM `dictionary` WHERE `Function`='" . FUNCTION_CATEGORY . "'");
             if ($Resp === TRUE) {
                 for ($i = 0; $i < 10; $i++) {
@@ -142,26 +145,23 @@ class Orgset extends UserData
         }
     }
 
-    public function EditCategory($categoryID, $categoryName){
+    public function EditCategory($categoryID, $categoryName)
+    {
         if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $categoryName)) {
             $categoryName = EncodeAES(mb_strtolower($categoryName));
             $categoryID = EncodeAES($categoryID);
             $Resp = $this->Connection->query("UPDATE `dictionary` SET `Value`='$categoryName' WHERE `Key`='$categoryID'");
-            if($Resp === FALSE){
-                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            if ($Resp === FALSE) {
+                exit(json_encode(["status" => "ERROR", "code" => 501]));
             } else {
-                exit(json_encode(["status"=>"OK", "code"=>200]));
+                exit(json_encode(["status" => "OK", "code" => 200]));
             }
         } else {
-            exit(json_encode(["status"=>"ERROR", "code"=>600]));
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
         }
     }
 
-    public function AddParticipants()
-    {
-        $uploadfile = PATH_FILES . basename($_FILES['uploadfile']['name']);
-    }
-
+    // Participants
     public function AddParticipant($Name, $Surname, $MiddleName, $Sex, $Team)
     {
         $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team);
@@ -175,60 +175,6 @@ class Orgset extends UserData
         $this->AddParticipant_Organization($Name, $Surname, $MiddleName, $Sex, $Team);
         $this->AddParticipant_Excel($Name, $Surname, $MiddleName, $Team);
         exit(json_encode(["status" => "OK", "code" => 200, "login" => DecodeAES($this->User_Login), "password" => $this->User_Password_Decoded]));
-    }
-
-    public function EditParticipantData($Login, $Name, $Surname, $MiddleName, $Sex, $Team)
-    {
-        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team);
-        $Login = EncodeAES($Login);
-        $Name = EncodeAES(mb_strtolower($Name));
-        $Surname = EncodeAES(mb_strtolower($Surname));
-        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
-        $Sex = EncodeAES(mb_strtolower($Sex));
-        $Team = EncodeAES(mb_strtolower($Team));
-        $this->EditParticipantData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team);
-        exit(json_encode(["status" => "OK", "code" => 200]));
-    }
-
-    public function EditEmployeeData($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post)
-    {
-        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
-        $Login = EncodeAES($Login);
-        $Name = EncodeAES(mb_strtolower($Name));
-        $Surname = EncodeAES(mb_strtolower($Surname));
-        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
-        $Sex = EncodeAES(mb_strtolower($Sex));
-        $Team = EncodeAES(mb_strtolower($Team));
-        $Post = EncodeAES(mb_strtolower($Post));
-        $this->EditEmployeeData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post);
-        exit(json_encode(["status" => "OK", "code" => 200]));
-    }
-
-    public function AddEmployee($Name, $Surname, $MiddleName, $Sex, $Team, $Post)
-    {
-        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
-        $Name = EncodeAES(mb_strtolower($Name));
-        $Surname = EncodeAES(mb_strtolower($Surname));
-        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
-        $Sex = EncodeAES(mb_strtolower($Sex));
-        $Team = EncodeAES(mb_strtolower($Team));
-        $Post = EncodeAES(mb_strtolower($Post));
-        $this->AddEmployee_Main();
-        $this->Select($this->User_Organization);
-        $this->AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
-        $this->AddEmployee_Excel($Name, $Surname, $MiddleName, $Team);
-        exit(json_encode(["status" => "OK", "code" => 200, "login" => DecodeAES($this->User_Login), "password" => $this->User_Password_Decoded]));
-    }
-
-    public function ChangeAllowCategory($UserID, $State, $CategoryID)
-    {
-        $Result = $this->Connection->query("UPDATE `employees` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='" .
-            $this->Connection->real_escape_string($State) . "' WHERE `Login`='" . EncodeAES($UserID) . "'");
-        if ($Result === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        } else {
-            exit(json_encode(["status" => "OK", "code" => 200]));
-        }
     }
 
     public function DeleteParticipant($UserID)
@@ -258,111 +204,25 @@ class Orgset extends UserData
         exit(json_encode(["status" => "OK", "code" => 200]));
     }
 
-    public function DeleteEmployee($UserID)
+    public function EditParticipantData($Login, $Name, $Surname, $MiddleName, $Sex, $Team)
     {
-        $UserID = EncodeAES($UserID);
-        $Resp = $this->Connection->query("DELETE FROM `employees` WHERE `Login`='$UserID'");
-        if ($Resp === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if ($Resp === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $Resp = $this->Connection->query("DELETE FROM `actions` WHERE `Subject`='$UserID' OR `Object`='$UserID'");
-        if ($Resp === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $this->Select("camp");
-        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
-        if ($Resp === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
-        if ($Resp === FALSE) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
+        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team);
+        $Login = EncodeAES($Login);
+        $Name = EncodeAES(mb_strtolower($Name));
+        $Surname = EncodeAES(mb_strtolower($Surname));
+        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
+        $Sex = EncodeAES(mb_strtolower($Sex));
+        $Team = EncodeAES(mb_strtolower($Team));
+        $this->EditParticipantData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team);
         exit(json_encode(["status" => "OK", "code" => 200]));
     }
 
-    public function ChangeAdditionalSettings($SettingName, $Value)
+    private function EditParticipantData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team)
     {
-        if($Value != '0' && $Value != '1'){
-            exit(json_encode(["status"=>"ERROR", "code"=>600]));
-        }
-        $SettingName = EncodeAES($SettingName);
-        $Value = EncodeAES($Value);
-        $Result = $this->Connection->query("UPDATE `dictionary` SET `Value`='$Value' WHERE `Function`='$SettingName'");
-        if($Result === FALSE){
-            exit(json_encode(["status"=>"ERROR", "code"=>501]));
-        } else {
-            exit(json_encode(["status"=>"ERROR", "code"=>200]));
-        }
-    }
-
-    public function EditMark($UserID, $CategoryID, $Reason, $Change)
-    {
-        $UserID = EncodeAES($UserID);
-        $this->CheckReason($Reason);
-        $this->CheckMarkChange($Change);
-        $this->Request_Login = $UserID;
-        $this->CheckUsersOrganization();
-        $this->Return = TRUE;
-        $Functions = $this->GetFunctionsValues();
-        $Abs = $Functions["abs"]["Value"];
-        $TeamLeader = $Functions["team_leader"]["Value"];
-        $RequestUserData = $this->GetUserData();
-        $CurrentMark = $this->GetUserMark($CategoryID);
-        $this->Request_Login = $this->User_Login;
-        $UserData = $this->GetUserData();
-        if ($TeamLeader == 0 and $RequestUserData["team"] == $UserData["team"]) {
-            exit(json_encode(["status" => "ERROR", "code" => 606]));
-        }
-        $this->SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs);
-        exit(json_encode(["status" => "OK", "code" => 200]));
-    }
-
-    private function SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs)
-    {
-        if ($Abs == 1) {
-            $CurrentMark = $CurrentMark + $Change;
-            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
-        } else {
-            $CurrentMark = $CurrentMark + $Change;
-            if ($CurrentMark < 0) {
-                $CurrentMark = 0;
-            }
-            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
-        }
-        if ($Result === FALSE) {
+        $Resp = $this->Connection->query("UPDATE `users` SET `Name`='$Name', `Surname`='$Surname', `Middlename`='$MiddleName', `Sex`='$Sex'
+          , `Team` = '$Team' WHERE `Login`='$Login'");
+        if (!$Resp) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $this->Log($this->User_Login, $UserID, ["change"=>$Change, "categoryID"=>$CategoryID, "reason"=>$Reason], ACTION_MARK);
-    }
-
-    private function Log($Subject, $Object, $Options, $Type){
-        $Options = EncodeAES(serialize($Options));
-        $Resp = $this->Connection->query("INSERT INTO `actions` (`Subject`, `Object`, `Options`, `Type`) VALUES ('$Subject', '$Object', '$Options', '$Type')");
-        if($Resp === FALSE){
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-    }
-
-    private function CheckMarkChange($Change)
-    {
-        if (!preg_match("/[^(\d)|(\-)|(\+)]/", $Change)) {
-            return TRUE;
-        } else {
-            exit(json_encode(["status" => "ERROR", "code" => 600]));
-        }
-    }
-
-    private function CheckReason($Reason)
-    {
-        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)|(\-)|(\+)|(\")]/", $Reason)) {
-            return TRUE;
-        } else {
-            exit(json_encode(["status" => "ERROR", "code" => 600]));
         }
     }
 
@@ -391,52 +251,6 @@ class Orgset extends UserData
         }
     }
 
-    private function AddEmployee_Excel($Name, $Surname, $Middlename, $Team)
-    {
-        $Name = DecodeAES($Name);
-        $Surname = DecodeAES($Surname);
-        $Middlename = DecodeAES($Middlename);
-        $Team = DecodeAES($Team);
-        try {
-            $File = PHPExcel_IOFactory::createReader('Excel2007');
-            $File = $File->load("../media/basedata/" . $this->User_Organization . "_employees.xlsx");
-            $File->setActiveSheetIndex(0);
-            $Sheet = $File->getActiveSheet();
-            $Index = $Sheet->getHighestRow() + 1;
-            $Sheet->setCellValueByColumnAndRow(0, $Index, $Name);
-            $Sheet->setCellValueByColumnAndRow(1, $Index, $Surname);
-            $Sheet->setCellValueByColumnAndRow(2, $Index, $Middlename);
-            $Sheet->setCellValueByColumnAndRow(3, $Index, $Team);
-            $Sheet->setCellValueByColumnAndRow(4, $Index, DecodeAES($this->User_Login));
-            $Sheet->setCellValueByColumnAndRow(5, $Index, $this->User_Password_Decoded);
-            $ExcelWriter = PHPExcel_IOFactory::createWriter($File, 'Excel2007');
-            $ExcelWriter->save("../media/basedata/" . $this->User_Organization . "_employees.xlsx");
-        } catch (Exception $e) {
-            exit(json_encode(["status" => "ERROR", "code" => 506]));
-        }
-    }
-
-    private function CheckInputData($Name, $Surname, $Middlename, $Sex, $Team, $Post = "Test")
-    {
-        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $Name . $Surname . $Middlename . $Sex . $Team . $Post)) {
-            $this->CheckParticipantData_Sex($Sex);
-        } else {
-            exit(json_encode(["status" => "ERROR", "code" => 600]));
-        }
-    }
-
-    private function CheckParticipantData_Sex($Sex)
-    {
-        switch (mb_strtolower($Sex)) {
-            case "мужской":
-                return TRUE;
-            case "женский":
-                return TRUE;
-            default:
-                exit(json_encode(["status" => "ERROR", "code" => 600]));
-        }
-    }
-
     private function AddParticipant_Organization($Name, $Surname, $MiddleName, $Sex, $Team)
     {
         $Resp = $this->Connection->query("INSERT INTO `users`(`Login`, `Name`, `Surname`, `Middlename`, `Sex`, `Team`, `Avatar`, `Accesslevel`)
@@ -446,28 +260,6 @@ class Orgset extends UserData
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
         $Resp = $this->Connection->query("INSERT INTO `participants`(`Login`) VALUES ('$this->User_Login')");
-        if (!$Resp) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-    }
-
-    private function EditParticipantData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team)
-    {
-        $Resp = $this->Connection->query("UPDATE `users` SET `Name`='$Name', `Surname`='$Surname', `Middlename`='$MiddleName', `Sex`='$Sex'
-          , `Team` = '$Team' WHERE `Login`='$Login'");
-        if (!$Resp) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-    }
-
-    private function EditEmployeeData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post)
-    {
-        $Resp = $this->Connection->query("UPDATE `users` SET `Name`='$Name', `Surname`='$Surname', `Middlename`='$MiddleName', `Sex`='$Sex'
-          , `Team` = '$Team' WHERE `Login`='$Login'");
-        if (!$Resp) {
-            exit(json_encode(["status" => "ERROR", "code" => 501]));
-        }
-        $Resp = $this->Connection->query("UPDATE `employees` SET `Post`='$Post' WHERE `Login`='$Login'");
         if (!$Resp) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
@@ -489,6 +281,108 @@ class Orgset extends UserData
         } else {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
         }
+    }
+
+    private function CheckParticipantData_Sex($Sex)
+    {
+        switch (mb_strtolower($Sex)) {
+            case "мужской":
+                return TRUE;
+            case "женский":
+                return TRUE;
+            default:
+                exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+    }
+
+    // Participant's Mark
+    public function EditMark($UserID, $CategoryID, $Reason, $Change)
+    {
+        $UserID = EncodeAES($UserID);
+        $this->CheckReason($Reason);
+        $this->CheckMarkChange($Change);
+        $this->Request_Login = $UserID;
+        $this->CheckUsersOrganization();
+        $this->Return = TRUE;
+        $Functions = $this->GetFunctionsValues();
+        $Abs = $Functions["abs"]["Value"];
+        $TeamLeader = $Functions["team_leader"]["Value"];
+        $RequestUserData = $this->GetUserData();
+        $CurrentMark = $this->GetUserMark($CategoryID);
+        $this->Request_Login = $this->User_Login;
+        $UserData = $this->GetUserData();
+        if ($TeamLeader == 0 and $RequestUserData["team"] == $UserData["team"]) {
+            exit(json_encode(["status" => "ERROR", "code" => 606]));
+        }
+        $this->SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs);
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    private function CheckMarkChange($Change)
+    {
+        if (!preg_match("/[^(\d)|(\-)|(\+)]/", $Change)) {
+            return TRUE;
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+    }
+
+    private function CheckReason($Reason)
+    {
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)|(\-)|(\+)|(\")]/", $Reason)) {
+            return TRUE;
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+    }
+
+    private function SetMark($UserID, $CategoryID, $Reason, $Change, $CurrentMark, $Abs)
+    {
+        if ($Abs == 1) {
+            $CurrentMark = $CurrentMark + $Change;
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
+        } else {
+            $CurrentMark = $CurrentMark + $Change;
+            if ($CurrentMark < 0) {
+                $CurrentMark = 0;
+            }
+            $Result = $this->Connection->query("UPDATE `participants` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='$CurrentMark' WHERE `Login`='" . $UserID . "'");
+        }
+        if ($Result === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $this->Log($this->User_Login, $UserID, ["change" => $Change, "categoryID" => $CategoryID, "reason" => $Reason], ACTION_MARK);
+    }
+
+    // Employees
+    public function EditEmployeeData($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post)
+    {
+        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
+        $Login = EncodeAES($Login);
+        $Name = EncodeAES(mb_strtolower($Name));
+        $Surname = EncodeAES(mb_strtolower($Surname));
+        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
+        $Sex = EncodeAES(mb_strtolower($Sex));
+        $Team = EncodeAES(mb_strtolower($Team));
+        $Post = EncodeAES(mb_strtolower($Post));
+        $this->EditEmployeeData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post);
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    public function AddEmployee($Name, $Surname, $MiddleName, $Sex, $Team, $Post)
+    {
+        $this->CheckInputData($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
+        $Name = EncodeAES(mb_strtolower($Name));
+        $Surname = EncodeAES(mb_strtolower($Surname));
+        $MiddleName = EncodeAES(mb_strtolower($MiddleName));
+        $Sex = EncodeAES(mb_strtolower($Sex));
+        $Team = EncodeAES(mb_strtolower($Team));
+        $Post = EncodeAES(mb_strtolower($Post));
+        $this->AddEmployee_Main();
+        $this->Select($this->User_Organization);
+        $this->AddEmployee_Organization($Name, $Surname, $MiddleName, $Sex, $Team, $Post);
+        $this->AddEmployee_Excel($Name, $Surname, $MiddleName, $Team);
+        exit(json_encode(["status" => "OK", "code" => 200, "login" => DecodeAES($this->User_Login), "password" => $this->User_Password_Decoded]));
     }
 
     private function AddEmployee_Main()
@@ -520,6 +414,167 @@ class Orgset extends UserData
         $Resp = $this->Connection->query("INSERT INTO `employees`(`Login`,`Post`) VALUES ('$this->User_Login', '$Post')");
         if (!$Resp) {
             exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+    }
+
+    private function AddEmployee_Excel($Name, $Surname, $Middlename, $Team)
+    {
+        $Name = DecodeAES($Name);
+        $Surname = DecodeAES($Surname);
+        $Middlename = DecodeAES($Middlename);
+        $Team = DecodeAES($Team);
+        try {
+            $File = PHPExcel_IOFactory::createReader('Excel2007');
+            $File = $File->load("../media/basedata/" . $this->User_Organization . "_employees.xlsx");
+            $File->setActiveSheetIndex(0);
+            $Sheet = $File->getActiveSheet();
+            $Index = $Sheet->getHighestRow() + 1;
+            $Sheet->setCellValueByColumnAndRow(0, $Index, $Name);
+            $Sheet->setCellValueByColumnAndRow(1, $Index, $Surname);
+            $Sheet->setCellValueByColumnAndRow(2, $Index, $Middlename);
+            $Sheet->setCellValueByColumnAndRow(3, $Index, $Team);
+            $Sheet->setCellValueByColumnAndRow(4, $Index, DecodeAES($this->User_Login));
+            $Sheet->setCellValueByColumnAndRow(5, $Index, $this->User_Password_Decoded);
+            $ExcelWriter = PHPExcel_IOFactory::createWriter($File, 'Excel2007');
+            $ExcelWriter->save("../media/basedata/" . $this->User_Organization . "_employees.xlsx");
+        } catch (Exception $e) {
+            exit(json_encode(["status" => "ERROR", "code" => 506]));
+        }
+    }
+
+    private function EditEmployeeData_Organization($Login, $Name, $Surname, $MiddleName, $Sex, $Team, $Post)
+    {
+        $Resp = $this->Connection->query("UPDATE `users` SET `Name`='$Name', `Surname`='$Surname', `Middlename`='$MiddleName', `Sex`='$Sex'
+          , `Team` = '$Team' WHERE `Login`='$Login'");
+        if (!$Resp) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("UPDATE `employees` SET `Post`='$Post' WHERE `Login`='$Login'");
+        if (!$Resp) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+    }
+
+    public function ChangeAllowCategory($UserID, $State, $CategoryID)
+    {
+        $Result = $this->Connection->query("UPDATE `employees` SET `" . $this->Connection->real_escape_string($CategoryID) . "`='" .
+            $this->Connection->real_escape_string($State) . "' WHERE `Login`='" . EncodeAES($UserID) . "'");
+        if ($Result === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        } else {
+            exit(json_encode(["status" => "OK", "code" => 200]));
+        }
+    }
+
+    public function DeleteEmployee($UserID)
+    {
+        $UserID = EncodeAES($UserID);
+        $Resp = $this->Connection->query("DELETE FROM `employees` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `actions` WHERE `Subject`='$UserID' OR `Object`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $this->Select("camp");
+        $Resp = $this->Connection->query("DELETE FROM `users` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        $Resp = $this->Connection->query("DELETE FROM `sessions` WHERE `Login`='$UserID'");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+        exit(json_encode(["status" => "OK", "code" => 200]));
+    }
+
+    // Teams
+    public function AddTeam($TeamName)
+    {
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $TeamName)) {
+            $TeamName = EncodeAES(mb_strtolower($TeamName));
+            $this->CheckTeamName($TeamName);
+            $Response = $this->Connection->query("INSERT INTO `dictionary` (`Key`, `Value`, `Function`) VALUES ('$TeamName', '$TeamName', '" . FUNCTION_TEAM_NAME . "')");
+            if ($Response === FALSE) {
+                exit(json_encode(["status" => "ERROR", "code" => 501]));
+            } else {
+                exit(json_encode(["status" => "OK", "code" => 200]));
+            }
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+    }
+
+    public function EditTeam($TeamName_Old, $TeamName_New){
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $TeamName_New.$TeamName_Old)) {
+            $TeamName_New = EncodeAES(mb_strtolower($TeamName_New));
+            $TeamName_Old = EncodeAES(mb_strtolower($TeamName_Old));
+            $this->CheckTeamName($TeamName_New);
+            $Resp = $this->Connection->query("UPDATE `dictionary` SET `Value`='$TeamName_New', `Key`='$TeamName_New' WHERE `Key`='$TeamName_Old' AND 
+              `Function`='".FUNCTION_TEAM_NAME."'");
+            if($Resp === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            }
+            $Resp = $this->Connection->query("UPDATE `users` SET `Team`='$TeamName_New' WHERE `Team`='$TeamName_Old'");
+            if($Resp === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            } else {
+                exit(json_encode(["status" => "OK", "code" => 200]));
+            }
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+    }
+
+    private function CheckTeamName($TeamName){
+        $Resp = $this->Connection->query("SELECT COUNT('Key') FROM `dictionary` WHERE `Key`='$TeamName' AND 
+          `Function`='".FUNCTION_TEAM_NAME."'");
+        if($Resp === FALSE){
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        }
+        $Resp = mysqli_fetch_assoc($Resp);
+        if($Resp["COUNT('Key')"] > 0){
+            exit(json_encode(["status"=>"ERROR", "code"=>608]));
+        }
+    }
+
+    // Additional Settings
+    public function ChangeAdditionalSettings($SettingName, $Value)
+    {
+        if ($Value != '0' && $Value != '1') {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
+        }
+        $SettingName = EncodeAES($SettingName);
+        $Value = EncodeAES($Value);
+        $Result = $this->Connection->query("UPDATE `dictionary` SET `Value`='$Value' WHERE `Function`='$SettingName'");
+        if ($Result === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 200]));
+        }
+    }
+
+    // General Functions
+    private function Log($Subject, $Object, $Options, $Type)
+    {
+        $Options = EncodeAES(serialize($Options));
+        $Resp = $this->Connection->query("INSERT INTO `actions` (`Subject`, `Object`, `Options`, `Type`) VALUES ('$Subject', '$Object', '$Options', '$Type')");
+        if ($Resp === FALSE) {
+            exit(json_encode(["status" => "ERROR", "code" => 501]));
+        }
+    }
+
+    private function CheckInputData($Name, $Surname, $Middlename, $Sex, $Team, $Post = "Test")
+    {
+        if (!preg_match("/[^(\w)|(\x7F-\xFF)|(\s)]/", $Name . $Surname . $Middlename . $Sex . $Team . $Post)) {
+            $this->CheckParticipantData_Sex($Sex);
+        } else {
+            exit(json_encode(["status" => "ERROR", "code" => 600]));
         }
     }
 

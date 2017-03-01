@@ -13,7 +13,8 @@ var re = new RegExp("^[а-яА-ЯёЁa-zA-Z0-9\\s]+$");
 
 var Token = $.cookie("sid");
 var CurrentUserID = null;
-var CurrentCategory = null
+var CurrentCategory = null;
+var CurrentTeamName = null;
 
 /* General */
 function Fade_Out_Edit() {
@@ -157,11 +158,26 @@ function CategoryAdding() {
     $('#categories_adding').fadeIn().css("display", "flex");
 }
 
+function AddCategory(Category) {
+    $('#categories_list').append("<div class='mdl-card__title mdl-card--border' id='" + Category + "_row'>" +
+        "<div class='card_field'>" +
+        "<i class='material-icons'>more_vert</i>" +
+        "<div class='card_field_text category_name'>" + Category + "</div>" +
+        "</div><div class='category-buttons'>" +
+        "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--primary category-delete' id='" + Category + "'>" +
+        "<i class='material-icons'>create</i></button>" +
+        "<button class='mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-button--accent category-delete' id='" + Category + "'>" +
+        "<i class='material-icons'>delete_forever</i></button>" +
+        "</div></div>");
+    $('.category-delete').click(DeleteCategory);
+    EditCategories();
+}
+
 function ConfirmCategoryAdding() {
     preloader.on();
     var Category = $('#categories').val();
     if (CheckInputData(Category, "categories", true)) {
-        EditCategories();
+        AddCategory(Category)
     }
 }
 
@@ -304,27 +320,18 @@ function DeleteParticipant(obj) {
     }, "json");
 }
 
-function ParticipantsAddingFile() {
-    $('#participants_adding').fadeOut(400, function () {
-        $('#participants_adding_file').fadeIn().css("display", "flex");
-    });
-}
-
 function EditParticipantData_Start() {
     var Index = $(this).parent('td').parent('tr').index();
     var Fullname = $('#participants_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(0)');
     var Team = $('#participants_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(2)');
     CurrentUserID = Fullname[0]["id"];
     Fullname = Fullname[0]["innerText"].split(" ");
-    Team = Team[0]["innerText"];
     $('#participants_editing_name').val(Fullname[1]);
     $('#participants_editing_surname').val(Fullname[0]);
     $('#participants_editing_middlename').val(Fullname[2]);
-    $('#participants_editing_team').val(Team);
     $('#participants_editing_name_input').addClass("is-dirty");
     $('#participants_editing_surname_input').addClass("is-dirty");
     $('#participants_editing_middlename_input').addClass("is-dirty");
-    $('#participants_editing_team_input').addClass("is-dirty");
     $('#participants_editing').fadeIn().css("display", "flex");
 }
 
@@ -433,12 +440,6 @@ function CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpTeam, EmpPo
     return Result;
 }
 
-function EmployeesAddingFile() {
-    $('#employees_adding').fadeOut(400, function () {
-        $('#employees_adding_file').fadeIn().css("display", "flex");
-    });
-}
-
 function DeleteEmployee(obj) {
     preloader.on();
     var ID = obj["currentTarget"]["id"].substr(16);
@@ -481,20 +482,16 @@ function EditEmployeeData_Start() {
     var Index = $(this).parent('td').parent('tr').index();
     var Fullname = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(0)');
     var Post = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(2)');
-    var Team = $('#employees_card_table').children('tbody').children('tr:eq('+Index+')').children('td:eq(3)');
     CurrentUserID = Fullname[0]["id"];
     Fullname = Fullname[0]["innerText"].split(" ");
-    Team = Team[0]["innerText"];
     Post = Post[0]["innerText"];
     $('#employees_editing_name').val(Fullname[1]);
     $('#employees_editing_surname').val(Fullname[0]);
     $('#employees_editing_middlename').val(Fullname[2]);
-    $('#employees_editing_team').val(Team);
     $('#employees_editing_post').val(Post);
     $('#employees_editing_name_input').addClass("is-dirty");
     $('#employees_editing_surname_input').addClass("is-dirty");
     $('#employees_editing_middlename_input').addClass("is-dirty");
-    $('#employees_editing_team_input').addClass("is-dirty");
     $('#employees_editing_post_input').addClass("is-dirty");
     $('#employees_editing').fadeIn().css("display", "flex");
 }
@@ -507,7 +504,7 @@ function ConfirmEmployeeDataEditing() {
     EmpSex = $("input[name='employees_editing_sex']:checked").val();
     EmpTeam = $('#employees_editing_team').val();
     EmpPost = $('#employees_editing_post').val();
-    if (CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost)) {
+    if (CheckEmployeesFields(EmpName, EmpSurname, EmpMiddlename, EmpTeam, EmpPost)) {
         $('.on_edit').fadeOut();
         EditEmployeeData_Request(EmpName, EmpSurname, EmpMiddlename, EmpSex, EmpTeam, EmpPost);
     }
@@ -574,6 +571,71 @@ function ChangeAdditionalSetting(obj) {
 }
 /*----------------*/
 
+/* Teams */
+function AddTeam_Start() {
+    $('#team_adding').fadeIn().css("display", "flex");
+}
+
+function AddTeam_Confirm() {
+    $('.on_edit').fadeOut();
+    preloader.on();
+    var TeamName = $('#team_adding_name').val();
+    if(CheckInputData(TeamName, "team_adding", false)){
+        AddTeam_Request(TeamName);
+    }
+}
+
+function AddTeam_Request(TeamName) {
+    $.post("../../requests/addteam.php", {token: Token, teamName: TeamName}, function (data){
+        if(data["code"] == 200){
+            notie.alert(1, "Данные успешно добавлены", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        } else {
+            notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        }
+        preloader.off();
+    }, "json");
+}
+
+function AddTeam_Cancel() {
+    $("#team_adding_name").val("");
+    $('.on_edit').fadeOut();
+}
+
+function EditTeam_Start(obj) {
+    CurrentTeamName = obj["currentTarget"]["id"].substr(10);
+    $('#team_editing').fadeIn().css("display", "flex");
+}
+
+function EditTeam_Confirm() {
+    $('.on_edit').fadeOut();
+    preloader.on();
+    var TeamName = $('#team_editing_name').val();
+    if(CheckInputData(TeamName, "team_editing", false)){
+        EditTeam_Request(TeamName);
+    }
+}
+
+function EditTeam_Cancel() {
+    $("#team_editing_name").val("");
+    $('.on_edit').fadeOut();
+}
+
+function EditTeam_Request(TeamName) {
+    $.post("../../requests/editteam.php", {token: Token, teamNameNew: TeamName, teamNameOld: CurrentTeamName}, function (data){
+        if(data["code"] == 200){
+            notie.alert(1, "Данные успешно изменены!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        } else {
+            notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        }
+        preloader.off();
+    }, "json");
+}
+/*----------------*/
+
 jQuery('document').ready(function () {
     $('.on_edit-activation').click(ActivateEditMode);
     $('.on_edit-click').click(Fade_Out_Edit);
@@ -585,11 +647,9 @@ jQuery('document').ready(function () {
     $('#categories_adding-cancel').click(CancelCategoryAdding);
     $('.category-delete').click(DeleteCategory);
     $('#button_participants').click(ParticipantsAdding);
-    $('#participants_adding-file').click(ParticipantsAddingFile);
     $('#participants_adding-cancel').click(CancelParticipantsAdding);
     $('#participants_adding-confirm').click(ParticipantsAddingConfirm);
     $('#button_employees').click(EmployeesAdding);
-    $('#employees_adding-file').click(EmployeesAddingFile);
     $('#employees_adding-cancel').click(CancelEmployeesAdding);
     $('#employees_adding-confirm').click(EmployeesAddingConfirm);
     $('#participants_card_table').ReStable({
@@ -624,4 +684,10 @@ jQuery('document').ready(function () {
     $('.category-edit').click(EditCategoryName_Start);
     $('#categories_editing-confirm').click(EditCategoryName_Confirm);
     $('#categories_editing-cancel').click(EditCategoryName_Cancel);
+    $('#button_teams').click(AddTeam_Start);
+    $('#team_adding-confirm').click(AddTeam_Confirm);
+    $('#team_adding-cancel').click(AddTeam_Cancel);
+    $('#team_editing-confirm').click(EditTeam_Confirm);
+    $('#team_editing-cancel').click(EditTeam_Cancel);
+    $('.team_table_edit').click(EditTeam_Start);
 });

@@ -188,6 +188,37 @@ class UserData extends Authorization
         }
     }
 
+    public function GetTeams(){
+        $Teams = $this->Connection->query("SELECT `Value` FROM `dictionary` WHERE `Function`='".FUNCTION_TEAM_NAME."'");
+        $Data = [];
+        while($TeamName = mysqli_fetch_assoc($Teams)){
+            $TeamName["Name"] = DecodeAES($TeamName["Value"]);
+            $TeamInformation = $this->GetTeamInformation($TeamName["Value"]);
+            array_push($Data, array_merge(["Name"=>$TeamName["Name"]], $TeamInformation));
+        }
+        return $Data;
+    }
+
+    private function GetTeamInformation($TeamName){
+        $Resp = $this->Connection->query("SELECT `Login`,`Name`,`Surname`,`Middlename` FROM `users` WHERE `Team`='$TeamName' AND 
+          `accesslevel`='".EncodeAES("employee")."'");
+        if($Resp === FALSE){
+            exit(json_encode(["status" => "ERROR", "code"=>501]));
+        } else {
+            $Data = [];
+            $Resp = mysqli_fetch_assoc($Resp);
+            $Data["Head"] = array_map(DecodeAES, $Resp);
+            $Resp = $this->Connection->query("SELECT COUNT('Name') FROM `users` WHERE `Team`='$TeamName' AND 
+              `accesslevel`='".EncodeAES("participant")."'");
+            if($Resp === FALSE){
+                exit(json_encode(["code" => 501, "status"=>"ERROR"]));
+            }
+            $Resp = mysqli_fetch_assoc($Resp);
+            $Data["Value"] = $Resp["COUNT('Name')"];
+            return $Data;
+        }
+    }
+
     public function GetFunctionsValues()
     {
         $Functions = $this->Connection->query("SELECT * FROM `dictionary` WHERE `Function`!='" . FUNCTION_CATEGORY . "'");
