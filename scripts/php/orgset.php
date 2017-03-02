@@ -543,6 +543,20 @@ class Orgset extends UserData
         }
     }
 
+    public function DeleteTeam($TeamName){
+        $TeamName = EncodeAES(mb_strtolower($TeamName));
+        $Resp = $this->Connection->query("DELETE FROM `dictionary` WHERE `Key`='$TeamName' AND `Function`='".FUNCTION_TEAM_NAME."'");
+        if($Resp === FALSE){
+            exit(json_encode(["status"=>"ERROR", "code"=>501]));
+        } else {
+            $Resp = $this->Connection->query("UPDATE `users` SET `Team`='".EncodeAES("не указан")."' WHERE `Team`='$TeamName'");
+            if($Resp === FALSE){
+                exit(json_encode(["status"=>"ERROR", "code"=>501]));
+            }
+            exit(json_encode(["status"=>"OK", "code"=>200]));
+        }
+    }
+
     // Additional Settings
     public function ChangeAdditionalSettings($SettingName, $Value)
     {

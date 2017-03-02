@@ -634,6 +634,21 @@ function EditTeam_Request(TeamName) {
         preloader.off();
     }, "json");
 }
+
+function DeleteTeam(obj) {
+    preloader.on();
+    var ID = obj["currentTarget"]["id"].substr(12)
+    $.post("../../requests/deleteteam.php", {token: Token, teamName: ID}, function (data) {
+        if(data["code"] == 200){
+            notie.alert(1, "Данные успешно изменены!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        } else {
+            notie.alert(3, "Произошла ошибка("+data["code"]+")!", 3);
+            setTimeout('window.location.reload(true)', 1000);
+        }
+        preloader.off();
+    }, "json");
+}
 /*----------------*/
 
 jQuery('document').ready(function () {
@@ -690,4 +705,10 @@ jQuery('document').ready(function () {
     $('#team_editing-confirm').click(EditTeam_Confirm);
     $('#team_editing-cancel').click(EditTeam_Cancel);
     $('.team_table_edit').click(EditTeam_Start);
+    $('#teams_card_table').ReStable({
+        keepHtml: true,
+        rowHeaders: false,
+        maxWidth: 810
+    });
+    $('.team_table_delete').click(DeleteTeam);
 });
